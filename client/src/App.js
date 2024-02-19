@@ -1,5 +1,5 @@
 import { ChatApp } from "./ChatApp/chatApp"
-export function App() {
+ export function App() {
   return (
     <ChatApp />
   )

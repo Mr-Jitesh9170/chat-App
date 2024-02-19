@@ -19,6 +19,10 @@
     }
     .login-part2 {
       width: 100%;
+      .login-part21 {
+        display: flex;
+        gap: 5px;
+      }
       input,
       button {
         margin: 5px 0;

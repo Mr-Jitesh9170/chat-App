@@ -1,5 +1,5 @@
 import "./login.scss"
-import { Register } from "./register"
+import { Link } from "react-router-dom"
 
 export const LoginPage = () => {
   return (
@@ -7,7 +7,7 @@ export const LoginPage = () => {
       <div className="login">
         <div className="login-part1">
           <h1>Login</h1>
-          <p>No Account ? <a href="/">Sign up</a></p>
+          <p>No Account ? <Link to="/register">Sign up</Link></p>
         </div>
         <div className="login-part2">
           <input type="text" placeholder="Email..." />
@@ -19,7 +19,6 @@ export const LoginPage = () => {
           Continue with Google
         </button>
       </div>
-      <Register />
     </div>
   )
 }

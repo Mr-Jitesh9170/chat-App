@@ -1,12 +1,12 @@
 import "./login.scss"
-
+import { Link } from "react-router-dom"
 export const Register = () => {
   return (
     <div className="login-conainer">
       <div className="login">
         <div className="login-part1">
           <h1>Register</h1>
-          <p>Have Account ? <a href="/">Sign in</a></p>
+          <p>Have Account ? <Link to="/">Sign in</Link></p>
         </div>
         <div className="login-part2">
           <div className="login-part21">
@@ -15,7 +15,7 @@ export const Register = () => {
           </div>
           <input type="text" placeholder="Email..." />
           <input type="password" placeholder="Password..." />
-          <button>Login</button>
+          <button>Register</button>
         </div>
         <button className="login-part3">
           <img src="" alt="" />

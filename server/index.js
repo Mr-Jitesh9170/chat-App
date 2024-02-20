@@ -2,9 +2,16 @@ const express = require("express");
 const dotenv = require("dotenv");
 const { main } = require("./config/db.js")
 const registerUser = require("./routes/chatApp.js")
+const cors = require("cors")
 dotenv.config();
 
 const app = express();
+
+// middleware =>
+app.use(cors())
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
+
 
 // database =>
 main();

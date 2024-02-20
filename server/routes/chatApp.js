@@ -1,9 +1,11 @@
 const express = require("express")
-const { registerUser } = require("../controllers/chatApp.js")
+const { registerUser, loginUser } = require("../controllers/chatApp.js")
 const router = express.Router();
 
 
-router.post("/", registerUser)
+router.post("/user/register", registerUser);
+router.post("/user/login", loginUser)
 
+ 
 
 module.exports = router;

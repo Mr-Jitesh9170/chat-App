@@ -40,13 +40,14 @@ exports.registerUser = async (req, res) => {
   }
 }
 
+ 
 
 // Login user =>
 exports.loginUser = async (req, res) => {
   try {
     // user email and password =>
     let { email, password } = req.body;
-    
+
     // user email and password from database =>
     let { email: userEmail, password: userPassword } = await Register.findOne({ email: email })
 

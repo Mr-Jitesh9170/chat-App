@@ -5,7 +5,7 @@ const registerUser = require("./routes/chatApp.js")
 const cors = require("cors")
 dotenv.config();
 
-const app = express();
+const app = express(); 
 
 // middleware =>
 app.use(cors())

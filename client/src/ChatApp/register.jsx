@@ -2,6 +2,8 @@ import { useState } from "react"
 import "./login.scss"
 import { Link } from "react-router-dom"
 import axios from "axios"
+import GoogleIcon from "./google.webp"
+
 export const Register = () => {
   const [register, setRegister] = useState(
     {
@@ -63,8 +65,8 @@ export const Register = () => {
           <button onClick={(e) => handleSubmit(e)}>Register</button>
         </div>
         <button className="login-part3">
-          <img src="" alt="" />
-          Continue with Google
+          <img src={GoogleIcon} width={30} alt="" />
+          <span>Continue with Google </span>
         </button>
       </div>
     </div>

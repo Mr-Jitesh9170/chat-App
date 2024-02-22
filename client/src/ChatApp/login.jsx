@@ -2,6 +2,8 @@ import "./login.scss"
 import { Link } from "react-router-dom"
 import axios from "axios"
 import { useState } from "react"
+import GoogleIcon from "./google.webp"
+
 export const LoginPage = () => {
   const [login, setLogin] = useState({
     email: "",
@@ -55,8 +57,8 @@ export const LoginPage = () => {
           <button onClick={(e) => handleLogin(e)}>Login</button>
         </div>
         <button className="login-part3">
-          <img src="" alt="" />
-          Continue with Google
+          <img src={GoogleIcon} width={30} alt="" />
+          <span>Continue with Google </span>
         </button>
       </div>
     </div>

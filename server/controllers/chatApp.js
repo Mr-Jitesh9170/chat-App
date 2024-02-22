@@ -6,8 +6,6 @@ const Register = require("../models/register.js")
 exports.registerUser = async (req, res) => {
   try {
     let { firstName, lastName, email, password } = req.body;
-
-
     // register data insertion =>
     let result = await Register.create({
       name: {
@@ -17,9 +15,6 @@ exports.registerUser = async (req, res) => {
       email: email,
       password: password
     })
-
-    console.log(result, "User Registerd..!")
-
     // user response =>
     res.json(
       {
@@ -40,7 +35,7 @@ exports.registerUser = async (req, res) => {
   }
 }
 
- 
+
 
 // Login user =>
 exports.loginUser = async (req, res) => {
@@ -49,20 +44,15 @@ exports.loginUser = async (req, res) => {
     let { email, password } = req.body;
 
     // user email and password from database =>
-    let { email: userEmail, password: userPassword } = await Register.findOne({ email: email })
+    let results = await Register.findOne({ email: email })
 
-    // Email and password varification =>
-    if (email === userEmail) {
-      if (password === userPassword) {
-        console.log("user login successfully !")
+    if (results) {
+      if (password === results.password) {
         res.json({
           status: 200,
-          massage: "user logined successfully "
+          massage: "user logined successfully"
         })
-
       } else {
-        console.log("user password is wrong")
-
         res.json({
           status: 200,
           massage: "user password is wrong"
@@ -70,10 +60,18 @@ exports.loginUser = async (req, res) => {
       }
 
     } else {
-      console.log("user not exists")
+      res.json({
+        status: 200,
+        massage:"user not registered"
+      })
     }
 
   } catch (error) {
-    console.log(error)
+    res.json(
+      {
+        status: 500,
+        massage: "server error"
+      }
+    )
   }
 }

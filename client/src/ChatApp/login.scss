@@ -15,7 +15,7 @@
       p {
         margin: 3px 0;
         color: #fff;
-        Link{
+        Link {
           color: #00c39a;
         }
       }
@@ -38,6 +38,8 @@
     }
 
     .login-part3 {
+      display: flex;
+      align-items: center;
       width: 100%;
       padding: 5px 7px;
     }

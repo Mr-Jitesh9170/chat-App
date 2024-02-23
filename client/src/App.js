@@ -11,6 +11,6 @@ export function App() {
         <Route element={<ChatUI />} path="/Chats"/>
       </Routes>
     </BrowserRouter>
-  )
+  ) 
 }
 

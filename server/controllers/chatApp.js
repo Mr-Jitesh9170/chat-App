@@ -45,24 +45,26 @@ exports.loginUser = async (req, res) => {
 
     // user email and password from database =>
     let results = await Register.findOne({ email: email })
-
-    if (results) {
+    if (results.email === email) {
       if (password === results.password) {
         res.json({
           status: 200,
-          massage: "user logined successfully"
+          massage: "user logined successfully",
+          response: results
         })
       } else {
         res.json({
           status: 200,
-          massage: "user password is wrong"
+          massage: "user password is wrong",
+          response: results
         })
       }
 
     } else {
       res.json({
         status: 200,
-        massage:"user not registered"
+        massage: "user not registered",
+        response: results
       })
     }
 

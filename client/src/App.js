@@ -1,16 +1,25 @@
-import { ChatApp } from "./ChatApp/chatApp";
 import { Routes, BrowserRouter, Route } from "react-router-dom"
-import { Register } from "./ChatApp/register";
-import { ChatUI } from "./ChatComponents/chatUI";
+import { Register } from "./Components/register";
+import { ChatUI } from "./Components/chatUI";
+import { LoginPage } from "./Components/login";
+import { useState } from "react";
+import { Error } from "./Components/error";
+
 export function App() {
+  const [rendor, setRendor] = useState(false)
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<ChatApp />} path="/" />
-        <Route element={<Register />} path="/register" />
-        <Route element={<ChatUI />} path="/Chats"/>
-      </Routes>
-    </BrowserRouter>
-  ) 
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<LoginPage setRendor={setRendor} />} path="/" />
+          <Route element={<Register />} path="/register" />
+          {
+            // rendor ? <Route element={<ChatUI />} path="/chats" /> : <Route element={<Error />} path="/chats" />
+          }
+          <Route element={<ChatUI />} path="/chats" />
+        </Routes>
+      </BrowserRouter>
+    </>
+  )
 }
 

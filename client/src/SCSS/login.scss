@@ -1,0 +1,50 @@
+.login-container {
+  background-color: yellow;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  input,
+  .submitButton {
+    border: none;
+    padding: 5px 8px;
+    outline: none;
+  }
+  button {
+    cursor: pointer;
+  }
+
+  .login {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 200px;
+    .login-part2 {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      .Name {
+        display: flex;
+        gap: 10px;
+        input {
+          width: 50%;
+        }
+      }
+      .input {
+        display: flex;
+        align-items: center;
+        background-color: white;
+        img {
+          margin-right: 10px;
+          cursor: pointer;
+        }
+      }
+    }
+    .login-part3 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}

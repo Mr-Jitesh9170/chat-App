@@ -1,12 +1,9 @@
 const Register = require("../models/register.js")
 
-
-
 // Register User =>
 exports.registerUser = async (req, res) => {
   try {
     let { firstName, lastName, email, password } = req.body;
-    // register data insertion =>
     let result = await Register.create({
       name: {
         firstName: firstName,
@@ -15,21 +12,14 @@ exports.registerUser = async (req, res) => {
       email: email,
       password: password
     })
-    // user response =>
     res.json(
       {
         status: 200,
-        userData: {
-          name: {
-            firstName: firstName,
-            lastName: lastName
-          },
-          email: email,
-          password: password
-        }
+        massage: "User Registered successfully!",
+        response: result
       }
     )
-
+    console.log(" the data is => ", req.body);
   } catch (error) {
     console.log("user not registerd");
   }
@@ -50,13 +40,13 @@ exports.loginUser = async (req, res) => {
         res.json({
           status: 200,
           massage: "user logined successfully",
-          response: results
+          response: true
         })
       } else {
         res.json({
           status: 200,
           massage: "user password is wrong",
-          response: results
+          response: false
         })
       }
 
@@ -64,7 +54,7 @@ exports.loginUser = async (req, res) => {
       res.json({
         status: 200,
         massage: "user not registered",
-        response: results
+        response: false
       })
     }
 
@@ -72,7 +62,8 @@ exports.loginUser = async (req, res) => {
     res.json(
       {
         status: 500,
-        massage: "server error"
+        massage: "server error",
+        response: false
       }
     )
   }

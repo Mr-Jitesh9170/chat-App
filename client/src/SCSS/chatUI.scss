@@ -1,0 +1,55 @@
+.chatUI-container {
+  height: 100vh;
+  background-color: yellow;
+  display: flex;
+
+  .left-chat-container {
+    padding: 3px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: white;
+    height: 100%;
+    .left-top-container {
+      display: flex;
+      background-color: rgb(163, 176, 142);
+      border-radius: 10px;
+      padding: 10px;
+      justify-content: space-around;
+      align-items: center;
+      input {
+        padding: 4px 7px;
+        border-radius: 20px;
+        border: none;
+      }
+    }
+
+    .left-bottom-container {
+      background-color: rgb(163, 176, 142);
+      border-radius: 10px;
+      padding: 10px;
+      .left-bottom {
+        display: flex;
+        font-size: 10px;
+        align-items: center;
+        gap: 10px;
+      }
+    }
+  }
+  .right-chat-container {
+    flex: 2;
+  }
+}
+
+.circle {
+  width: 30px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  height: 30px;
+  background-color: black;
+  border-radius: 100%;
+}

@@ -1,8 +1,9 @@
 import { useState } from "react"
-import "./login.scss"
 import { Link } from "react-router-dom"
 import axios from "axios"
-import GoogleIcon from "./google.webp"
+import GoogleIcon from "../Assets/google.webp"
+import EYE from "../Assets/view.png"
+import "../SCSS/login.scss"
 
 export const Register = () => {
   const [register, setRegister] = useState(
@@ -13,7 +14,7 @@ export const Register = () => {
       password: ""
     }
   )
-
+  const [isShow, setShow] = useState(false)
   let { firstName, lastName, email, password } = register;
 
   // handleOnchange =>
@@ -42,6 +43,12 @@ export const Register = () => {
     }
   }
 
+  // Show/Hide =>
+  const passwordHandle = () => {
+    isShow ? setShow(false) : setShow(true)
+  }
+
+
   // handle submit =>
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -49,23 +56,26 @@ export const Register = () => {
   }
 
   return (
-    <div className="login-conainer">
+    <div className="login-container">
       <div className="login">
         <div className="login-part1">
           <h1>Register</h1>
-          <p>Have Account ? <Link to="/">Sign in</Link></p>
+          <p>Have an Account ? <Link to="/login">Sign in</Link></p>
         </div>
         <div className="login-part2">
-          <div className="login-part21">
-            <input type="text" placeholder="First Name..." name="firstName" value={firstName} onChange={(e) => handleChange(e)} />
-            <input type="text" placeholder="Last Name..." name="lastName" value={lastName} onChange={(e) => handleChange(e)} />
+          <div className="Name">
+            <input type="text" placeholder="first name..." value={register.firstName} name="firstName" onChange={(e) => handleChange(e)} />
+            <input type="text" placeholder="last name..." value={register.lastName} name="lastName" onChange={(e) => handleChange(e)} />
           </div>
-          <input type="text" placeholder="Email..." name="email" value={email} onChange={(e) => handleChange(e)} />
-          <input type="password" placeholder="Password..." name="password" value={password} onChange={(e) => handleChange(e)} />
-          <button onClick={(e) => handleSubmit(e)}>Register</button>
+          <input type="email" placeholder="Email..." value={register.email} name="email" onChange={(e) => handleChange(e)} />
+          <div className="input">
+            <input type={isShow ? "text" : "password"} placeholder="Password..." value={register.password} name="password" onChange={(e) => handleChange(e)} />
+            <img src={EYE} alt="" width={15} onClick={passwordHandle} />
+          </div>
+          <button className="submitButton" onClick={(e) => handleSubmit(e)}>Register</button>
         </div>
         <button className="login-part3">
-          <img src={GoogleIcon} width={30} alt="" />
+          <img src={GoogleIcon} alt="" width={30} />
           <span>Continue with Google </span>
         </button>
       </div>

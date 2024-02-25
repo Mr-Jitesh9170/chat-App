@@ -1,25 +1,26 @@
 .chatUI-container {
   height: 100vh;
-  background-color: yellow;
   display: flex;
-
-  .left-chat-container {
+  .left-chat-container,
+  .right-chat-container {
     padding: 3px;
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 4px;
     background-color: white;
     height: 100%;
-    .left-top-container {
+    .left-top-container,
+    .right-top-container {
       display: flex;
       background-color: rgb(163, 176, 142);
       border-radius: 10px;
       padding: 10px;
       justify-content: space-around;
       align-items: center;
+      height: 20%;
       input {
-        padding: 4px 7px;
+        padding: 6px 7px;
         border-radius: 20px;
         border: none;
       }
@@ -28,17 +29,52 @@
     .left-bottom-container {
       background-color: rgb(163, 176, 142);
       border-radius: 10px;
-      padding: 10px;
-      .left-bottom {
-        display: flex;
-        font-size: 10px;
-        align-items: center;
-        gap: 10px;
-      }
+      height: 80%;
+      overflow-y: auto;
     }
   }
   .right-chat-container {
     flex: 2;
+    .right-top-container {
+      .left-top {
+        display: flex;
+        border: none;
+      }
+    }
+    .right-mid-container {
+      height: 70%;
+      border-radius: 20px;
+      background-color: yellow;
+    }
+
+    .right-bottom-container {
+      height: 8%;
+      border-radius: 20px;
+      background-color: yellow;
+      display: flex;
+      gap: 10px;
+      width: 100%;
+      .text-area {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        .send-media,
+        .send-sticker {
+          padding: 5px;
+          background-color: grey;
+          height: 20%;
+        }
+        input {
+          width: 100%;
+          border: none;
+        }
+      }
+      .speaker,
+      .send-massage {
+        padding: 14px;
+        background-color: grey;
+      }
+    }
   }
 }
 
@@ -48,8 +84,38 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 30px;
+  font-size: 12px;
   height: 30px;
   background-color: black;
   border-radius: 100%;
+}
+.left-bottom,
+.left-top {
+  display: flex;
+  font-size: 10px;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  .chat-data {
+    p {
+      margin: 3px;
+    }
+  }
+}
+
+.left-bottom:hover {
+  background-color: yellowgreen;
+}
+
+.button {
+  padding: 8px 13px;
+  background-color: black;
+  color: white;
+  border-radius: 20px;
+  border: none;
+  font-weight: 600;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }

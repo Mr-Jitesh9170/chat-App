@@ -14,11 +14,11 @@ export function App() {
           <Route element={<LoginPage setRendor={setRendor} />} path="/" />
           <Route element={<Register />} path="/register" />
           {
-            // rendor ? <Route element={<ChatUI />} path="/chats" /> : <Route element={<Error />} path="/chats" />
+            rendor ? <Route element={<ChatUI />} path="/chats" /> : <Route element={<Error />} path="/chats" />
           }
-          <Route element={<ChatUI />} path="/chats" />
         </Routes>
       </BrowserRouter>
+
     </>
   )
 }

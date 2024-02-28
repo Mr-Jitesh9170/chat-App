@@ -33,8 +33,8 @@ export const LoginPage = ({ setRendor }) => {
         email: email,
         password: password
       }
-      let { data: { massage, response } } = await axios.post("http://localhost:8080/chatApp/user/login", userData)
-      setToast(massage)
+      let { data: { response } } = await axios.post("http://localhost:8080/chatApp/user/login", userData)
+      setRendor(response)
     } catch (error) {
       console.log("data not sent", error)
     }
@@ -50,18 +50,19 @@ export const LoginPage = ({ setRendor }) => {
   const handleLogin = (e) => {
     e.preventDefault()
     let { email, password } = login;
-    if (email !== "") {
-      if (password !== "")
+    if (email) {
+      if (password) {
         sendTodataBase();
-      else
+        navigate("/chats");
+      }
+      else {
         setToast("👉 password missing")
+      }
     }
     else {
       setToast("👉 email missing")
     }
-    // navigate("/chats");
   }
-  Toast("hello")
 
   return (
     <div className="login-container">

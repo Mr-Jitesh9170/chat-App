@@ -1,0 +1,82 @@
+.chat-container {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  height: 100vh;
+  background-color: rgb(69, 17, 17);
+  display: flex;
+  gap: 10px;
+  padding: 15px 20px;
+  .left-chat-container {
+    background-color: rgb(110, 67, 67);
+    width: 24%;
+    height: 100%;
+    border-radius: 5px;
+    padding: 18px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    .chit-chat {
+      color: #ffffff;
+      padding: 0 20px;
+    }
+    .input-search {
+      width: 100%;
+      padding: 0 20px;
+      input {
+        width: 100%;
+        padding: 10px 15px;
+        border-radius: 20px;
+        border: none;
+        box-shadow: 0px 0px 3px rgb(34, 20, 20);
+
+      }
+    }
+    .chat-lists {
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      padding: 6px 0;
+      .users {
+        padding: 6px 20px;
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        .users-profile {
+          width: 40px;
+          height: 40px;
+          background-color: yellow;
+          border-radius: 100%;
+        }
+        .user-name {
+          width: 80%;
+          .name {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            b {
+              color: rgb(59, 46, 1);
+            }
+            .chat-time {
+              font-size: 12px;
+            }
+          }
+          .last-chat {
+            font-size: 12px;
+          }
+        }
+        &:hover {
+          background-color: rgb(69, 69, 12);
+        }
+      }
+    }
+  }
+  .right-chat-contain {
+    width: 76%;
+    border-radius: 5px;
+  }
+}
+
+::-webkit-scrollbar {
+  display: none;
+}

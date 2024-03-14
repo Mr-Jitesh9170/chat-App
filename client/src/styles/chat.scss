@@ -61,6 +61,7 @@
         }
         &:hover {
           background-color: rgb(69, 69, 12);
+          cursor: pointer;
         }
       }
     }
@@ -73,6 +74,22 @@
       height: 11%;
       width: 100%;
       border-bottom: 2px solid rgb(87, 53, 53);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+      .right-chat-left {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+
+        .user-name-mi {
+          color: #fff;
+        }
+      }
+      img {
+        margin: 0 20px;
+      }
     }
     .right-chat-mid {
       height: 79%;
@@ -96,18 +113,30 @@
         outline: none;
       }
       .send-btn {
-        width: 40px;
-        height: 40px;
+        width: 35px;
+        height: 35px;
+        background-color: white;
+        border-radius: 50%;
+        padding: 5px;
+
         img {
           width: 100%;
           height: 100%;
           object-fit: contain;
-          padding: 5px;
-          border-radius: 100%;
-          background-color: white;
         }
       }
     }
+  }
+}
+.threedash-popup {
+  position: absolute;
+  right: 20px;
+  background-color: white;
+  padding: 7px 15px;
+  display: inline-block;
+  border-radius: 3px;
+  .threeDash-buttons {
+    padding: 3px 0;
   }
 }
 .users-profile {

@@ -3,11 +3,13 @@ import "../styles/chat.scss"
 import Emojis from "../Assests/emojis.svg"
 import Send from "../Assests/send.svg"
 import Attach from "../Assests/attachment.svg"
-
+import Call from "../Assests/call.svg"
+import Microphone from "../Assests/microphone.svg"
+import ThreeDots from "../Assests/threeDots.svg"
 
 const Chat = () => {
   const [search, setSearch] = useState("");
-
+  const [show, setShow] = useState(false);
 
   // search =>
   const inputSearch = (e) => {
@@ -15,9 +17,12 @@ const Chat = () => {
     setSearch(value)
   }
 
-
+  const handleThreeDash = () => {
+    show ? setShow(false) : setShow(true)
+  }
+  
   return (
-    <div className="chat-container">
+    <div className="chat-container"  >
       <div className="left-chat-container">
         <h2 className="chit-chat">Chit-Chat</h2>
         <div className="input-search">
@@ -50,11 +55,31 @@ const Chat = () => {
 
       <div className="right-chat-contain">
         <div className="right-chat-top">
-
+          <div className="right-chat-left">
+            <div className="users-profile"></div>
+            <h2 className="user-name-mi">Jitesh Pandey</h2>
+          </div>
+          <div className="right-top-right">
+            <img src={Call} alt="" width={26} />
+            <img src={ThreeDots} style={{ cursor: "pointer" }} onClick={handleThreeDash} alt="" width={26} />
+          </div>
         </div>
-        <div className="right-chat-mid"></div>
+        <div className="right-chat-mid">
+          {
+            show && (
+              <div className="threedash-popup">
+                {
+                  threeDashPopUp.map((_) => {
+                    return <div className="threeDash-buttons">{_}</div>
+                  })
+                }
+              </div>
+            )
+          }
+        </div>
         <div className="right-chat-bottom">
-          <div className="users-profile"></div>
+          <img src={Microphone} alt="" width={23} />
+
           <input type="text" className="input-chat" />
           <img src={Emojis} alt="" width={20} />
           <img src={Attach} alt="" width={20} />
@@ -63,11 +88,13 @@ const Chat = () => {
           </div>
         </div>
       </div>
+
+
     </div>
   )
 }
 
 export default Chat;
 
-
-let chatUsers = [ "Aman Bhai", "Mohit Sir", "Sachin Thapa", "Pushparaj Sir", "Rahul Sir", "Anshul Sir", "Monu", "Saumya Mam", "Prerana Mam", "Anand", "Pragati"]
+let threeDashPopUp = ["Search", "Share", "Starred massage", "Clear chats",]
+let chatUsers = ["Aman Bhai", "Mohit Sir", "Sachin Thapa", "Pushparaj Sir", "Rahul Sir", "Anshul Sir", "Monu", "Saumya Mam", "Prerana Mam", "Anand", "Pragati"]

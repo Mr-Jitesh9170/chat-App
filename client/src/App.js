@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { lazy, Suspense } from "react";
+import { Loader } from "./loader/loading";
 
-const Login = lazy(() => import("./components/login"));
+const Authentication = lazy(() => import("./components/auth"));
 const Chat = lazy(() => import("./components/Chat"));
 
 function App() {
@@ -9,17 +10,17 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route
-          path="/login"
+          path="/"
           element={
-            <Suspense fallback={<div>Loading...</div>}>
-              <Login />
+            <Suspense fallback={<Loader />}>
+              <Authentication />
             </Suspense>
           }
         />
         <Route
           path="/chat"
           element={
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loader value={"Loading...."} />}>
               <Chat />
             </Suspense>
           }

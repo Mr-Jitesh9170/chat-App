@@ -1,0 +1,11 @@
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  .loader-container {
+    font-size: 30px;
+    font-weight: 600;
+    color: rgb(87, 53, 53);
+  }
+}

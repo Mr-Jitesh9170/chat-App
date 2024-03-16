@@ -1,0 +1,31 @@
+.authentication-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .container {
+    background-color: yellow;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 350px;
+    padding: 25px 35px;
+    border-radius: 7px;
+    gap: 25px;
+    input {
+      width: 100%;
+      padding: 10px 15px;
+      border-radius: 7px;
+      border: none;
+    }
+  }
+}
+
+.auth-btn {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}

@@ -48,6 +48,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            color: yellowgreen;
+            .user {
+              color: rgb(225, 237, 242);
+            }
             b {
               color: rgb(59, 46, 1);
             }

@@ -6,11 +6,12 @@ import Attach from "../Assests/attachment.svg"
 import Call from "../Assests/call.svg"
 import Microphone from "../Assests/microphone.svg"
 import ThreeDots from "../Assests/threeDots.svg"
+import { EmojiList } from "./emoji"
 
 const Chat = () => {
   const [search, setSearch] = useState("");
   const [show, setShow] = useState(false);
-
+  const [currentUser, setCurrentuser] = useState("")
   // search =>
   const inputSearch = (e) => {
     let { value } = e.target;
@@ -20,7 +21,7 @@ const Chat = () => {
   const handleThreeDash = () => {
     show ? setShow(false) : setShow(true)
   }
-  
+
   return (
     <div className="chat-container"  >
       <div className="left-chat-container">
@@ -31,15 +32,17 @@ const Chat = () => {
         </div>
         <div className="chat-lists">
           {
-            chatUsers.map((_) => {
+            chatUsers.map((_, i) => {
               if (_.toLocaleLowerCase().includes(search.toLocaleLowerCase())) {
                 return (
                   <div className="users">
                     <div className="users-profile">
                     </div>
-                    <div className="user-name">
+                    <div className="user-name" onClick={() => {
+                      setCurrentuser(_)
+                    }}>
                       <div className="name">
-                        <b className="user">{_}</b>
+                        <b className="user" >{_}</b>
                         <span className="chat-time">9m</span>
                       </div>
                       <div className="last-chat">ok thanks</div>
@@ -53,11 +56,13 @@ const Chat = () => {
         </div>
       </div>
 
+
+
       <div className="right-chat-contain">
         <div className="right-chat-top">
           <div className="right-chat-left">
             <div className="users-profile"></div>
-            <h2 className="user-name-mi">Jitesh Pandey</h2>
+            <h2 className="user-name-mi">{currentUser}</h2>
           </div>
           <div className="right-top-right">
             <img src={Call} alt="" width={26} />
@@ -76,11 +81,13 @@ const Chat = () => {
               </div>
             )
           }
+
+          <EmojiList />
         </div>
         <div className="right-chat-bottom">
           <img src={Microphone} alt="" width={23} />
 
-          <input type="text" className="input-chat" />
+          <input type="text" placeholder="Type your massages..." className="input-chat" />
           <img src={Emojis} alt="" width={20} />
           <img src={Attach} alt="" width={20} />
           <div className="send-btn">

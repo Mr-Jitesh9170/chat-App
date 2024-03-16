@@ -9,26 +9,33 @@ const Authentication = () => {
     auth ? setAuth(false) : setAuth(true)
   }
 
+  // handle change =>
+
+  const handleChange = (e) => {
+    let { value, name } = e.target;
+    
+   }
+
   return (
     <div className="authentication-container">
       {
         auth ?
-          <form className="container" action="/login" method="post">
+          <div className="container">
             <h1 className="auth-head">Login</h1>
-            <input type="email" name="email" placeholder="Email..." />
-            <input type="password" name="password" placeholder="Password..." />
+            <input type="email" name="email" placeholder="Email..." onChange={handleChange} />
+            <input type="password" name="password" placeholder="Password..." onChange={handleChange} />
             <button className="auth-btn">Submit</button>
             <a href="/" onClick={handleAuth}>Don't have an account? Register</a>
-          </form>
+          </div>
           :
-          < form className="container" action="/register" method="post">
+          < div className="container" action="/register" method="post">
             <h1 className="auth-head">Register</h1>
-            <input type="text" name="name" placeholder="Name" />
-            <input type="email" name="email" placeholder="Email" />
-            <input type="password" name="password" placeholder="Password" />
+            <input type="text" name="name" placeholder="Name" onChange={handleChange} />
+            <input type="email" name="email" placeholder="Email" onChange={handleChange} />
+            <input type="password" name="password" placeholder="Password" onChange={handleChange} />
             <button className="auth-btn">Submit</button>
             <a href="/">have an account? Login</a>
-          </form>
+          </div>
       }
     </div >
   )

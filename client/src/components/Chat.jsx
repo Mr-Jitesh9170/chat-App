@@ -82,6 +82,10 @@ const Chat = () => {
             )
           }
 
+
+
+
+
           <EmojiList />
         </div>
         <div className="right-chat-bottom">

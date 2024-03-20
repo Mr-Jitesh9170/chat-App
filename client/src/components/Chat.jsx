@@ -8,7 +8,10 @@ import Microphone from "../Assests/microphone.svg"
 import ThreeDots from "../Assests/threeDots.svg"
 import { EmojiList } from "./emoji"
 import { Attachements } from "./attachments"
-import { threeDashPopUp, chatUsers } from "../data/AllData.js"
+import { threeDashPopUp, chatUsers, DummyChats } from "../data/AllData.js"
+
+
+
 
 const Chat = () => {
   const [search, setSearch] = useState("");
@@ -114,6 +117,31 @@ const Chat = () => {
           </div>
         </div>
         <div className="right-chat-mid">
+          {
+            DummyChats.map(({ sender, message, timestamp }) => {
+              if (sender === "Aman") {
+                return (
+                  <div className="user1-chats individual-chat">
+                    <div className="massage">{message}</div>
+                    <div className="send-massage-time">
+                      <span className="time">{timestamp.getHours() % 12}:{timestamp.getMinutes()}</span>
+                      <span className="time-am-pm">{timestamp.getHours() > 12 ? "pm" : "am"}</span>
+                    </div>
+                  </div>
+                )
+              } else {
+                return (
+                  <div className="user2-chats individual-chat">
+                    <div className="massage">{message}</div>
+                    <div className="send-massage-time">
+                      <div className="time">{timestamp.getHours() % 12}:{timestamp.getMinutes()}</div>
+                      <div className="time-am-pm">{timestamp.getHours() > 12 ? "pm" : "am"}</div>
+                    </div>
+                  </div>
+                )
+              }
+            })
+          }
 
           {/*<<<============ THREE-DASH  SHOW/HIDE =========> */}
 

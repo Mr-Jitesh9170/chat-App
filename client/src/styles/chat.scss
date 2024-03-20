@@ -81,6 +81,8 @@
           cursor: pointer;
         }
       }
+
+
     }
   }
 
@@ -115,6 +117,39 @@
     .right-chat-mid {
       height: 79%;
       width: 100%;
+      overflow-y: scroll;
+      display: flex;
+      gap: 15px;
+      flex-direction: column;
+      padding: 20px 5px;
+
+      .individual-chat {
+        width: fit-content;
+        padding: 3px 6px;
+        border-radius: 5px;
+        color: black;
+        display: flex;
+        gap: 10px;
+        align-items: end;
+
+        .send-massage-time {
+          display: flex;
+          gap: 3px;
+          font-size: 11px;
+          color: rgba(0, 0, 0, 0.774);
+        }
+
+      }
+
+      .user1-chats {
+        align-self: first baseline;
+        background-color: rgb(184, 184, 86);
+      }
+
+      .user2-chats {
+        align-self: last baseline;
+        background-color: rgb(218, 212, 212);
+      }
 
       .emojis-container,
       .attachements-container {
@@ -122,6 +157,8 @@
         bottom: 90px;
         right: 30px;
       }
+
+
     }
 
     .right-chat-bottom {
@@ -179,6 +216,18 @@
   background-color: white;
 }
 
-::-webkit-scrollbar {
+
+.chat-lists::-webkit-scrollbar {
   display: none;
+}
+
+
+.right-chat-mid::-webkit-scrollbar {
+  width: 8px;
+  background-color: rgb(122, 122, 94);
+}
+
+.right-chat-mid::-webkit-scrollbar-thumb {
+  background-color: yellow;
+  border-radius: 7px;
 }

@@ -9,6 +9,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+
         <Route
           path="/"
           element={
@@ -17,6 +18,7 @@ function App() {
             </Suspense>
           }
         />
+
         <Route
           path="/chat"
           element={
@@ -25,6 +27,7 @@ function App() {
             </Suspense>
           }
         />
+        
       </Routes>
     </BrowserRouter>
   );

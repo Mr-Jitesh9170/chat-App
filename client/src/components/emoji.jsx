@@ -1,14 +1,17 @@
 import axios from "axios";
 import React, { useEffect, useState } from 'react';
 
-const emojiStyle = {
+// SCSS Applied =>
+export const Styles1 = {
   display: "flex",
   gap: "10px",
   flexWrap: "wrap",
   width: "200px",
   height: "170px",
   overflowY: "auto",
-  padding: "7px 10px"
+  padding: "12px 16px",
+  backgroundColor: "#fff",
+  borderRadius: "10px"
 }
 
 export const EmojiList = () => {
@@ -25,7 +28,7 @@ export const EmojiList = () => {
   }, []);
 
   return (
-    <div className="emojis" style={emojiStyle}>
+    <div className="emojis" style={Styles1}>
       {emoj.map((emoji, index) => (
         <div key={index}>
           <span role="img" aria-label={emoji?.unicodeName}>{emoji?.character}</span>

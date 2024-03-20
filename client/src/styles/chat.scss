@@ -6,6 +6,7 @@
   display: flex;
   gap: 10px;
   padding: 15px 20px;
+
   .left-chat-container {
     background-color: rgb(110, 67, 67);
     width: 24%;
@@ -15,13 +16,16 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+
     .chit-chat {
       color: #ffffff;
       padding: 0 20px;
     }
+
     .input-search {
       width: 100%;
       padding: 0 20px;
+
       input {
         width: 100%;
         padding: 10px 15px;
@@ -31,38 +35,47 @@
         box-shadow: 0px 0px 3px rgb(34, 20, 20);
       }
     }
+
     .chat-lists {
       overflow-y: auto;
       display: flex;
       flex-direction: column;
       gap: 3px;
       padding: 6px 0;
+
       .users {
         padding: 6px 20px;
         display: flex;
         gap: 20px;
         align-items: center;
+
         .user-name {
           width: 80%;
+
           .name {
             display: flex;
             justify-content: space-between;
             align-items: center;
             color: yellowgreen;
+
             .user {
               color: rgb(225, 237, 242);
             }
+
             b {
               color: rgb(59, 46, 1);
             }
+
             .chat-time {
               font-size: 12px;
             }
           }
+
           .last-chat {
             font-size: 12px;
           }
         }
+
         &:hover {
           background-color: rgb(69, 69, 12);
           cursor: pointer;
@@ -70,6 +83,7 @@
       }
     }
   }
+
   .right-chat-contain {
     width: 76%;
     border-radius: 5px;
@@ -82,6 +96,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 10px;
+
       .right-chat-left {
         display: flex;
         gap: 20px;
@@ -91,14 +106,24 @@
           color: #fff;
         }
       }
+
       img {
         margin: 0 20px;
       }
     }
+
     .right-chat-mid {
       height: 79%;
       width: 100%;
+
+      .emojis-container,
+      .attachements-container {
+        position: absolute;
+        bottom: 90px;
+        right: 30px;
+      }
     }
+
     .right-chat-bottom {
       height: 10%;
       width: 100%;
@@ -116,6 +141,7 @@
         border: none;
         outline: none;
       }
+
       .send-btn {
         width: 35px;
         height: 35px;
@@ -132,6 +158,7 @@
     }
   }
 }
+
 .threedash-popup {
   position: absolute;
   right: 20px;
@@ -139,16 +166,19 @@
   padding: 7px 15px;
   display: inline-block;
   border-radius: 3px;
+
   .threeDash-buttons {
     padding: 3px 0;
   }
 }
+
 .users-profile {
   width: 40px;
   height: 40px;
   border-radius: 100%;
   background-color: white;
 }
+
 ::-webkit-scrollbar {
   display: none;
 }

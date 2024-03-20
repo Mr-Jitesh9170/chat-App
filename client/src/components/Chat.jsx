@@ -7,20 +7,66 @@ import Call from "../Assests/call.svg"
 import Microphone from "../Assests/microphone.svg"
 import ThreeDots from "../Assests/threeDots.svg"
 import { EmojiList } from "./emoji"
+import { Attachements } from "./attachments"
+import { threeDashPopUp, chatUsers } from "../data/AllData.js"
 
 const Chat = () => {
   const [search, setSearch] = useState("");
   const [show, setShow] = useState(false);
   const [currentUser, setCurrentuser] = useState("")
-  // search =>
+  const [isEmojiShow, setEmojiShow] = useState(false);
+  const [isAttachmentShow, setAttachmentShow] = useState(false);
+  const [writeMassage, setWriteMassage] = useState(
+    {
+      userId: "",
+      massage: ""
+    }
+  )
+  const [sendMassage, setSendMassage] = useState([])
+
+  // search =>  
   const inputSearch = (e) => {
     let { value } = e.target;
     setSearch(value)
   }
 
+  // Three dash show/hide => 
   const handleThreeDash = () => {
+    if (isEmojiShow)
+      setEmojiShow(false)
+    if (isAttachmentShow)
+      setAttachmentShow(false)
     show ? setShow(false) : setShow(true)
   }
+
+  // Emojis show/hide =>
+  const handleEmojiShow = () => {
+    setAttachmentShow(false)
+    setShow(false)
+    isEmojiShow ? setEmojiShow(false) : setEmojiShow(true)
+  }
+
+
+  // Attachements show/hide =>
+  const handleAttachmen = () => {
+    setEmojiShow(false)
+    setShow(false)
+    isAttachmentShow ? setAttachmentShow(false) : setAttachmentShow(true)
+  }
+
+  // Input massage  =>
+  const handleChangeMassage = (e) => {
+    let { value } = e.target;
+    setWriteMassage({ ...writeMassage, massage: value });
+  }
+
+  // Send massage =>
+  const handleSendMassage = () => {
+    setSendMassage([...sendMassage, writeMassage])
+    setWriteMassage({ massage: "" });
+  }
+
+  console.log(sendMassage)
 
   return (
     <div className="chat-container"  >
@@ -56,8 +102,6 @@ const Chat = () => {
         </div>
       </div>
 
-
-
       <div className="right-chat-contain">
         <div className="right-chat-top">
           <div className="right-chat-left">
@@ -70,6 +114,9 @@ const Chat = () => {
           </div>
         </div>
         <div className="right-chat-mid">
+
+          {/*<<<============ THREE-DASH  SHOW/HIDE =========> */}
+
           {
             show && (
               <div className="threedash-popup">
@@ -82,19 +129,33 @@ const Chat = () => {
             )
           }
 
+          {/*<<<========== ATACHMENTS  SHOW/HIDE ==========> */}
 
+          {
+            isAttachmentShow && (
+              <div className="attachements-container">
+                <Attachements />
+              </div>
+            )
+          }
 
+          {/*<<<============= EMOJIS SHOW/HIDE ==========> */}
 
+          {
+            isEmojiShow && (
+              <div className="emojis-container">
+                <EmojiList />
+              </div>
+            )
+          }
 
-          <EmojiList />
         </div>
         <div className="right-chat-bottom">
           <img src={Microphone} alt="" width={23} />
-
-          <input type="text" placeholder="Type your massages..." className="input-chat" />
-          <img src={Emojis} alt="" width={20} />
-          <img src={Attach} alt="" width={20} />
-          <div className="send-btn">
+          <input type="text" placeholder="Type your massages..." value={writeMassage.massage} name="massage" className="input-chat" onChange={handleChangeMassage} />
+          <img src={Emojis} alt="" width={20} onClick={handleEmojiShow} />
+          <img src={Attach} alt="" width={20} onClick={handleAttachmen} />
+          <div className="send-btn" onClick={handleSendMassage}>
             <img src={Send} alt="" />
           </div>
         </div>
@@ -106,6 +167,3 @@ const Chat = () => {
 }
 
 export default Chat;
-
-let threeDashPopUp = ["Search", "Share", "Starred massage", "Clear chats",]
-let chatUsers = ["Aman Bhai", "Mohit Sir", "Sachin Thapa", "Pushparaj Sir", "Rahul Sir", "Anshul Sir", "Monu", "Saumya Mam", "Prerana Mam", "Anand", "Pragati"]

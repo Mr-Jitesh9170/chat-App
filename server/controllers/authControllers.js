@@ -1,9 +1,7 @@
 const RegisterModel = require("../models/register.js")
 const bcrypt = require("bcrypt");
 
-
-
-
+//User will register =>
 exports.userRegister = async (req, res) => {
   try {
     let { password, ...rest } = req.body;
@@ -15,7 +13,7 @@ exports.userRegister = async (req, res) => {
         ...rest
       }
     )
-
+ 
     let responseObject = userRegistered.toObject();
 
     delete responseObject.password;
@@ -39,7 +37,7 @@ exports.userRegister = async (req, res) => {
   }
 }
 
-
+// User will login =>
 exports.userLogin = async (req, res) => {
   try {
     let { email, password } = req.body;

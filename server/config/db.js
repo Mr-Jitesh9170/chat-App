@@ -8,4 +8,4 @@ exports.connectMongo = async () => {
   } catch (error) {
     console.log(error, " <--- mongodb not connected ")
   }
-}
+} 

@@ -14,7 +14,7 @@ export const Styles1 = {
   borderRadius: "10px"
 }
 
-export const EmojiList = () => {
+export const EmojiList = ({ setWriteMassage }) => {
   const [emoj, setEmojis] = useState([]);
 
   useEffect(() => {
@@ -30,7 +30,12 @@ export const EmojiList = () => {
   return (
     <div className="emojis" style={Styles1}>
       {emoj.map((emoji, index) => (
-        <div key={index}>
+        <div key={index} onClick={() => {
+          setWriteMassage((prevState) => ({
+            ...prevState,
+            massage: prevState.massage + (emoji?.character || "")
+          }))
+        }}>
           <span role="img" aria-label={emoji?.unicodeName}>{emoji?.character}</span>
         </div>
       ))}

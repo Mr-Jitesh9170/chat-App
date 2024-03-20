@@ -11,8 +11,6 @@ import { Attachements } from "./attachments"
 import { threeDashPopUp, chatUsers, DummyChats } from "../data/AllData.js"
 
 
-
-
 const Chat = () => {
   const [search, setSearch] = useState("");
   const [show, setShow] = useState(false);
@@ -66,6 +64,14 @@ const Chat = () => {
   // Send massage =>
   const handleSendMassage = () => {
     setSendMassage([...sendMassage, writeMassage])
+    DummyChats.push(
+      {
+        id: 3,
+        sender: "Jitesh",
+        message: writeMassage.massage,
+        timestamp: new Date()
+      }
+    )
     setWriteMassage({ massage: "" });
   }
 
@@ -172,7 +178,7 @@ const Chat = () => {
           {
             isEmojiShow && (
               <div className="emojis-container">
-                <EmojiList />
+                <EmojiList setWriteMassage={setWriteMassage} />
               </div>
             )
           }

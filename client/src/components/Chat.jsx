@@ -174,7 +174,7 @@ const Chat = () => {
           }
 
           {/*<<<============= EMOJIS SHOW/HIDE ==========> */}
-
+          
           {
             isEmojiShow && (
               <div className="emojis-container">
@@ -194,8 +194,6 @@ const Chat = () => {
           </div>
         </div>
       </div>
-
-
     </div>
   )
 }

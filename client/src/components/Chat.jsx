@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import "../styles/chat.scss"
 import Emojis from "../Assests/emojis.svg"
 import Send from "../Assests/send.svg"
@@ -9,7 +9,7 @@ import ThreeDots from "../Assests/threeDots.svg"
 import { EmojiList } from "./emoji"
 import { Attachements } from "./attachments"
 import { threeDashPopUp, chatUsers, DummyChats } from "../data/AllData.js"
-
+import io from "socket.io-client";
 
 const Chat = () => {
   const [search, setSearch] = useState("");
@@ -24,6 +24,27 @@ const Chat = () => {
     }
   )
   const [sendMassage, setSendMassage] = useState([])
+
+  useEffect(() => {
+    // Establish connection to Socket.IO server
+    const socket = io('http://localhost:8080');
+
+    // Event listener for 'connect'
+    socket.on('connect', () => {
+      console.log('Connected to Socket.IO server from frontend');
+    });
+
+    // Event listener for 'disconnect'
+    socket.on('disconnect', () => {
+      console.log('Disconnected from Socket.IO server from frontend');
+    });
+
+    // Cleanup: Disconnect socket when component unmounts
+    return () => {
+      socket.disconnect();
+      console.log('Socket disconnected from frontend');
+    };
+  }, []);
 
   // search =>  
   const inputSearch = (e) => {
@@ -75,7 +96,6 @@ const Chat = () => {
     setWriteMassage({ massage: "" });
   }
 
-  console.log(sendMassage)
 
   return (
     <div className="chat-container"  >
@@ -124,10 +144,10 @@ const Chat = () => {
         </div>
         <div className="right-chat-mid">
           {
-            DummyChats.map(({ sender, message, timestamp }) => {
+            DummyChats.map(({ sender, message, timestamp }, i) => {
               if (sender === "Aman") {
                 return (
-                  <div className="user1-chats individual-chat">
+                  <div className="user1-chats individual-chat" key={i}>
                     <div className="massage">{message}</div>
                     <div className="send-massage-time">
                       <span className="time">{timestamp.getHours() % 12}:{timestamp.getMinutes()}</span>
@@ -155,8 +175,8 @@ const Chat = () => {
             show && (
               <div className="threedash-popup">
                 {
-                  threeDashPopUp.map((_) => {
-                    return <div className="threeDash-buttons">{_}</div>
+                  threeDashPopUp.map((_, i) => {
+                    return <div className="threeDash-buttons" key={i}>{_}</div>
                   })
                 }
               </div>
@@ -174,7 +194,7 @@ const Chat = () => {
           }
 
           {/*<<<============= EMOJIS SHOW/HIDE ==========> */}
-          
+
           {
             isEmojiShow && (
               <div className="emojis-container">

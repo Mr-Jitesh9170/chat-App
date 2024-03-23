@@ -29,7 +29,7 @@ const Chat = () => {
     // Establish connection to Socket.IO server
     const socket = io('http://localhost:8080');
 
-    // Event listener for 'connect'
+    // Event listener for 'connect' =>
     socket.on('connect', () => {
       console.log('Connected to Socket.IO server from frontend');
     });

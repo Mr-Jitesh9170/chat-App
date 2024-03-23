@@ -15,7 +15,7 @@ connectMongo();
 
 const server = createServer(app);
 
-// socket
+// socket =>
 const io = new Server(server);
 
 
@@ -27,9 +27,11 @@ io.on('connection', (socket) => {
   });
 });
 
+ 
+
+
 app.use(require("./routes/authRoutes.js"));
-
-
+app.use(require("./routes/chatRoutes.js"))
 
 // Server running
 const PORT = process.env.PORT || 8080;

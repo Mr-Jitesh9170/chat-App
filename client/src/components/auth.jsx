@@ -8,7 +8,7 @@ const Authentication = () => {
       password: ""
     }
   )
-  const [auth, setAuth] = useState(true)
+  const [auth, setAuth] = useState(true);
 
   // Login or Register =>
   const handleAuth = (e) => {

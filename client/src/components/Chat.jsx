@@ -1,17 +1,19 @@
-import { useEffect, useState } from "react"
-import "../styles/chat.scss"
-import Emojis from "../Assests/emojis.svg"
-import Send from "../Assests/send.svg"
-import Attach from "../Assests/attachment.svg"
-import Call from "../Assests/call.svg"
-import Microphone from "../Assests/microphone.svg"
-import ThreeDots from "../Assests/threeDots.svg"
-import { EmojiList } from "./emoji"
-import { Attachements } from "./attachments"
-import { threeDashPopUp, chatUsers, DummyChats } from "../data/AllData.js"
-import io from "socket.io-client";
+import { useEffect, useState } from "react";
+import "../styles/chat.scss";
+import Emojis from "../Assests/emojis.svg";
+import Send from "../Assests/send.svg";
+import Attach from "../Assests/attachment.svg";
+import Call from "../Assests/call.svg";
+import Microphone from "../Assests/microphone.svg";
+import ThreeDots from "../Assests/threeDots.svg";
+import { EmojiList } from "./emoji";
+import { Attachements } from "./attachments";
+import { threeDashPopUp, chatUsers } from "../data/AllData.js";
+import { fetchAllChats } from "../APIs/api";
+
 
 const Chat = () => {
+  const [chat, setChat] = useState([]);
   const [search, setSearch] = useState("");
   const [show, setShow] = useState(false);
   const [currentUser, setCurrentuser] = useState("")
@@ -23,28 +25,14 @@ const Chat = () => {
       massage: ""
     }
   )
-  const [sendMassage, setSendMassage] = useState([])
+  const [sendMassage, setSendMassage] = useState([]);
 
+  // Fetching Chats data =>
   useEffect(() => {
-    // Establish connection to Socket.IO server
-    const socket = io('http://localhost:8080');
-
-    // Event listener for 'connect' =>
-    socket.on('connect', () => {
-      console.log('Connected to Socket.IO server from frontend');
-    });
-
-    // Event listener for 'disconnect'
-    socket.on('disconnect', () => {
-      console.log('Disconnected from Socket.IO server from frontend');
-    });
-
-    // Cleanup: Disconnect socket when component unmounts
-    return () => {
-      socket.disconnect();
-      console.log('Socket disconnected from frontend');
-    };
+    fetchAllChats(setChat);
   }, []);
+
+
 
   // search =>  
   const inputSearch = (e) => {
@@ -85,21 +73,22 @@ const Chat = () => {
   // Send massage =>
   const handleSendMassage = () => {
     setSendMassage([...sendMassage, writeMassage])
-    DummyChats.push(
-      {
-        id: 3,
-        sender: "Jitesh",
-        message: writeMassage.massage,
-        timestamp: new Date()
-      }
-    )
+    // DummyChats.push(
+    //   {
+    //     id: 3,
+    //     sender: "Jitesh",
+    //     message: writeMassage.massage,
+    //     timestamp: new Date()
+    //   }
+    // )
     setWriteMassage({ massage: "" });
   }
 
-
   return (
-    <div className="chat-container"  >
+    <div className="chat-container">
+
       <div className="left-chat-container">
+
         <h2 className="chit-chat">Chit-Chat</h2>
         <div className="input-search">
           <img src="" alt="" />
@@ -129,9 +118,11 @@ const Chat = () => {
             )
           }
         </div>
+
       </div>
 
       <div className="right-chat-contain">
+
         <div className="right-chat-top">
           <div className="right-chat-left">
             <div className="users-profile"></div>
@@ -142,16 +133,18 @@ const Chat = () => {
             <img src={ThreeDots} style={{ cursor: "pointer" }} onClick={handleThreeDash} alt="" width={26} />
           </div>
         </div>
+
         <div className="right-chat-mid">
           {
-            DummyChats.map(({ sender, message, timestamp }, i) => {
+            chat.map(({ sender, message, timestamp }, i) => {
+              let time = new Date(timestamp);
               if (sender === "Aman") {
                 return (
                   <div className="user1-chats individual-chat" key={i}>
                     <div className="massage">{message}</div>
                     <div className="send-massage-time">
-                      <span className="time">{timestamp.getHours() % 12}:{timestamp.getMinutes()}</span>
-                      <span className="time-am-pm">{timestamp.getHours() > 12 ? "pm" : "am"}</span>
+                      <span className="time">{time.getHours() % 12}:{time.getMinutes()}</span>
+                      <span className="time-am-pm">{time.getHours() > 12 ? "pm" : "am"}</span>
                     </div>
                   </div>
                 )
@@ -160,8 +153,8 @@ const Chat = () => {
                   <div className="user2-chats individual-chat">
                     <div className="massage">{message}</div>
                     <div className="send-massage-time">
-                      <div className="time">{timestamp.getHours() % 12}:{timestamp.getMinutes()}</div>
-                      <div className="time-am-pm">{timestamp.getHours() > 12 ? "pm" : "am"}</div>
+                      <div className="time">{time.getHours() % 12}:{time.getMinutes()}</div>
+                      <div className="time-am-pm">{time.getHours() > 12 ? "pm" : "am"}</div>
                     </div>
                   </div>
                 )
@@ -213,6 +206,7 @@ const Chat = () => {
             <img src={Send} alt="" />
           </div>
         </div>
+
       </div>
     </div>
   )

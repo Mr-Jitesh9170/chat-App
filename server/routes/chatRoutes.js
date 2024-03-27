@@ -1,8 +1,10 @@
 const { Router } = require("express")
-const { chatControllers } = require("../controllers/chatControllers.js")
+const { getChatControllers, postChatControllers, deleteChatControllers } = require("../controllers/chatControllers.js")
 const router = Router();
 
-// chats =>
-router.get("/chat", chatControllers)
+// Chat Controllers Routes =>
+router.get("/chat", getChatControllers)
+router.post("/chat", postChatControllers)
+router.delete("/chat", deleteChatControllers)
 
 module.exports = router;

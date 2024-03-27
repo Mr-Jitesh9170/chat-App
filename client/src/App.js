@@ -10,21 +10,18 @@ import Chat from "./components/Chat";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter> 
       <Routes>
-
         <Route
           path="/"
           element={<Authentication />}
         />
-
         <Route
           path="/chat"
           element={
             <Chat />
           }
         />
-
       </Routes>
     </BrowserRouter>
   );

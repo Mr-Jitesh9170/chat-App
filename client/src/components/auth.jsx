@@ -1,6 +1,10 @@
 import { useState } from "react"
 import "../styles/auth.scss"
+import { userAuthorization } from "../APIs/api"
+import { ToastNotifications } from "./Toastnotification"
+
 const Authentication = () => {
+  const [toastShow, setToastShow] = useState(false);
   const [inputData, setInputData] = useState(
     {
       name: "",
@@ -10,6 +14,10 @@ const Authentication = () => {
   )
   const [auth, setAuth] = useState(true);
 
+
+
+
+  
   // Login or Register =>
   const handleAuth = (e) => {
     e.preventDefault();
@@ -34,17 +42,24 @@ const Authentication = () => {
         return alert("fill the blank feilds!")
       }
       data = { name, email, password }
+      userAuthorization(data, "register");
     }
     else if (e.target.name === "login") {
       if (!email || !password) {
         return alert("fill the blank feilds!")
       }
       data = { email, password }
+      userAuthorization(data, "login");
     }
   }
 
   return (
     <div className="authentication-container">
+
+      <div className="toast-notification-container">
+        <ToastNotifications toastMassages={"Hello I am the Toast Notifications!"} />
+      </div>
+
       {
         auth ?
           <div className="container">

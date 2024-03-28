@@ -13,6 +13,11 @@ const { connectMongo } = require("./config/db.js");
 connectMongo();
 
 
+// const crypto = require('crypto');
+// // Generate a random secret key
+// const secretKey = crypto.randomBytes(32).toString('hex');
+// console.log("Randomly generated secret key:", secretKey);
+
 // Routes =>
 app.use(require("./routes/authRoutes.js"));
 app.use(require("./routes/chatRoutes.js"))

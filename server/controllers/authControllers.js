@@ -1,19 +1,25 @@
 const RegisterModel = require("../models/register.js")
 const bcrypt = require("bcrypt");
 
-//User will register =>
+// User will register =>
 exports.userRegister = async (req, res) => {
   try {
-    let { password, ...rest } = req.body;
+    let { password, email, name } = req.body;
+
+    let user = await RegisterModel.findOne({ email });
+    console.log(req.session)
+    if (user) {
+      return res.json(
+        {
+          massage: "already exists"
+        }
+      )
+    }
+
     let saltRounds = 10;
     password = await bcrypt.hash(password, saltRounds);
-    let userRegistered = await RegisterModel.create(
-      {
-        password,
-        ...rest
-      }
-    )
- 
+    let userRegistered = await RegisterModel.create({ password, email, name })
+
     let responseObject = userRegistered.toObject();
 
     delete responseObject.password;
@@ -58,6 +64,10 @@ exports.userLogin = async (req, res) => {
           status: 200,
           massage: "wrong password"
         })
+
+    // cookie =>
+    let token = user._id;
+    res.cookie('token', token, { httpOnly: true });
 
     res.json(
       {

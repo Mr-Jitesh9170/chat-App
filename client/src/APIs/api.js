@@ -2,15 +2,27 @@ import axios from "axios"
 
 let CHAT_URL = "http://localhost:8080/";
 
-// User Authorizations =>
+// User Authorizations ( Register/Login ) =>
 export const userAuthorization = async (userData, route) => {
     try {
-        let response = await axios.post(CHAT_URL + route, userData);
-        console.log(response, "<---- server response")
+        await axios.post(CHAT_URL + route, userData);
     } catch (error) {
-        console.log(error, " <---- Error")
+        console.log(error, " <---- Error");
     }
 }
+
+
+// Registered users Lists =>
+export const registerUserLists = async (setChatUsersLists) => {
+    try {
+        let response = await axios.get(CHAT_URL + "register");
+        setChatUsersLists(response.data.results);
+    } catch (error) {
+        console.log(error, " <---- Error");
+    }
+}
+
+
 
 // Users Chats => 
 export const fetchAllChats = async (setChat) => {

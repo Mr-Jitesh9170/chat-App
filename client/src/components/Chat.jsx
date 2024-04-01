@@ -8,11 +8,12 @@ import Microphone from "../Assests/microphone.svg";
 import ThreeDots from "../Assests/threeDots.svg";
 import { EmojiList } from "./emoji";
 import { Attachements } from "./attachments";
-import { threeDashPopUp, chatUsers } from "../data/AllData.js";
-import { fetchAllChats } from "../APIs/api";
+import { threeDashPopUp } from "../data/AllData.js";
+import { fetchAllChats, registerUserLists } from "../APIs/api";
 
 
 const Chat = () => {
+  const [chatUserList, setChatUsersLists] = useState([]);
   const [chat, setChat] = useState([]);
   const [search, setSearch] = useState("");
   const [show, setShow] = useState(false);
@@ -27,10 +28,15 @@ const Chat = () => {
   )
   const [sendMassage, setSendMassage] = useState([]);
 
-  // Fetching Chats data =>
   useEffect(() => {
+    // Fetching Chats data =>
     fetchAllChats(setChat);
+
+    // Registered User Lists =>
+    registerUserLists(setChatUsersLists);
   }, []);
+
+
 
 
 
@@ -96,17 +102,17 @@ const Chat = () => {
         </div>
         <div className="chat-lists">
           {
-            chatUsers.map((_, i) => {
-              if (_.toLocaleLowerCase().includes(search.toLocaleLowerCase())) {
+            chatUserList.map((_, i) => {
+              if (_.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())) {
                 return (
                   <div className="users">
                     <div className="users-profile">
                     </div>
                     <div className="user-name" onClick={() => {
-                      setCurrentuser(_)
+                      setCurrentuser(_.name)
                     }}>
                       <div className="name">
-                        <b className="user" >{_}</b>
+                        <b className="user" >{_.name}</b>
                         <span className="chat-time">9m</span>
                       </div>
                       <div className="last-chat">ok thanks</div>

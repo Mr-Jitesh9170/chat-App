@@ -1,0 +1,16 @@
+.chat-profiles-container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+
+    .chat-profiles-left-container {
+        width: 5%;
+        height: 100%;
+        background-color: #ADEFD1FF;
+    }
+
+    .chat-profiles-right-container {
+        width: 95%;
+        height: 100%;
+    }
+}

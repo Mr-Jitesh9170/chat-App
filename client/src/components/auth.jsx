@@ -2,6 +2,8 @@ import { useState } from "react"
 import "../styles/auth.scss"
 import { userAuthorization } from "../APIs/api"
 import { ToastNotifications } from "./Toastnotification"
+import { useNavigate } from "react-router-dom"
+
 
 const Authentication = () => {
   const [toastMassage, setToastMassage] = useState("")
@@ -14,6 +16,7 @@ const Authentication = () => {
     }
   )
   const [auth, setAuth] = useState(true);
+  const navigation = useNavigate();
 
   // Login or Register =>
   const handleAuth = (e) => {
@@ -41,7 +44,9 @@ const Authentication = () => {
       }
       data = { name, email, password }
       userAuthorization(data, "register");
+      setAuth(true)
     }
+
     else if (e.target.name === "login") {
       if (!email || !password) {
         setToastShow(true);
@@ -49,8 +54,11 @@ const Authentication = () => {
       }
       data = { email, password }
       userAuthorization(data, "login");
+      navigation("/chat")
     }
+
   }
+
   return (
     <div className="authentication-container">
       {

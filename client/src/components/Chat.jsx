@@ -13,6 +13,7 @@ import { fetchAllChats, registerUserLists } from "../APIs/api";
 
 
 const Chat = () => {
+  
   const [chatUserList, setChatUsersLists] = useState([]);
   const [chat, setChat] = useState([]);
   const [search, setSearch] = useState("");
@@ -28,6 +29,7 @@ const Chat = () => {
   )
   const [sendMassage, setSendMassage] = useState([]);
 
+
   useEffect(() => {
     // Fetching Chats data =>
     fetchAllChats(setChat);
@@ -35,9 +37,6 @@ const Chat = () => {
     // Registered User Lists =>
     registerUserLists(setChatUsersLists);
   }, []);
-
-
-
 
 
   // search =>  

@@ -1,26 +1,27 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-// import { lazy, Suspense } from "react";
 import Authentication from "./components/auth"
 import Chat from "./components/Chat";
+import { ErrorPage } from "./error/error";
+import { useState } from "react";
 
+
+// import { lazy, Suspense } from "react";
 // import { Loader } from "./loader/loading";
-
 // const Authentication = lazy(() => import("./components/auth"));
 // const Chat = lazy(() => import("./components/Chat"));
 
 function App() {
+  const [user, setUser] = useState("")
   return (
-    <BrowserRouter> 
+    <BrowserRouter>
       <Routes>
         <Route
           path="/"
-          element={<Authentication />}
+          element={<Authentication setUser={setUser} />}
         />
         <Route
           path="/chat"
-          element={
-            <Chat />
-          }
+          element={user ? <Chat /> : <ErrorPage />}
         />
       </Routes>
     </BrowserRouter>

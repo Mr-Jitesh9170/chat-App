@@ -5,7 +5,7 @@ import { ToastNotifications } from "./Toastnotification"
 import { useNavigate } from "react-router-dom"
 
 
-const Authentication = () => {
+const Authentication = ({ setUser }) => {
   const [toastMassage, setToastMassage] = useState("")
   const [toastShow, setToastShow] = useState(false);
   const [inputData, setInputData] = useState(
@@ -15,6 +15,7 @@ const Authentication = () => {
       password: ""
     }
   )
+
   const [auth, setAuth] = useState(true);
   const navigation = useNavigate();
 
@@ -32,7 +33,7 @@ const Authentication = () => {
   }
 
   // Validation/Submit data  =>
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let { name, email, password } = inputData
     let data;
@@ -53,10 +54,16 @@ const Authentication = () => {
         return setToastMassage("fill the blank feilds!");
       }
       data = { email, password }
-      userAuthorization(data, "login");
-      navigation("/chat")
+      let { token, massage } = await userAuthorization(data, "login")
+      if (token) {
+        setUser(token);
+        navigation("/chat");
+      }
+      else {
+        setToastShow(true);
+        setToastMassage(massage)
+      }
     }
-
   }
 
   return (

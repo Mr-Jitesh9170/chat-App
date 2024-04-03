@@ -1,3 +1,4 @@
+import "../error/error.scss"
 export const ErrorPage = () => {
     return (
         <div className="error-page">
@@ -6,4 +7,4 @@ export const ErrorPage = () => {
             <p>We can not find the page you are looking for , Sorry about that.</p>
         </div>
     )
-}
+} 

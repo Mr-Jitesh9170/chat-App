@@ -5,7 +5,8 @@ let CHAT_URL = "http://localhost:8080/";
 // User Authorizations ( Register/Login ) =>
 export const userAuthorization = async (userData, route) => {
     try {
-        await axios.post(CHAT_URL + route, userData);
+        let responseUser = await axios.post(CHAT_URL + route, userData);
+        return responseUser.data;
     } catch (error) {
         console.log(error, " <---- Error");
     }
@@ -21,7 +22,6 @@ export const registerUserLists = async (setChatUsersLists) => {
         console.log(error, " <---- Error");
     }
 }
-
 
 
 // Users Chats => 

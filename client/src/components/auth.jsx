@@ -5,7 +5,7 @@ import { ToastNotifications } from "./Toastnotification"
 import { useNavigate } from "react-router-dom"
 
 
-const Authentication = ({ setUser }) => {
+const Authentication = () => {
   const [toastMassage, setToastMassage] = useState("")
   const [toastShow, setToastShow] = useState(false);
   const [inputData, setInputData] = useState(
@@ -23,7 +23,7 @@ const Authentication = ({ setUser }) => {
   const handleAuth = (e) => {
     e.preventDefault();
     auth ? setAuth(false) : setAuth(true)
-  }
+  } 
 
   // handle change =>
   const handleChange = (e) => {
@@ -37,7 +37,6 @@ const Authentication = ({ setUser }) => {
     e.preventDefault();
     let { name, email, password } = inputData
     let data;
-
     if (e.target.name === "register") {
       if (!name || !email || !password) {
         setToastShow(true);
@@ -47,7 +46,6 @@ const Authentication = ({ setUser }) => {
       userAuthorization(data, "register");
       setAuth(true)
     }
-
     else if (e.target.name === "login") {
       if (!email || !password) {
         setToastShow(true);
@@ -56,12 +54,12 @@ const Authentication = ({ setUser }) => {
       data = { email, password }
       let { token, massage } = await userAuthorization(data, "login")
       if (token) {
-        setUser(token);
-        navigation("/chat");
+        localStorage.setItem("token", token);
+        navigation("/chit-chat/dashboard");
       }
       else {
         setToastShow(true);
-        setToastMassage(massage)
+        setToastMassage(massage);
       }
     }
   }
@@ -75,8 +73,6 @@ const Authentication = ({ setUser }) => {
           </div>
         )
       }
-
-
       {
         auth ?
           (
@@ -85,7 +81,7 @@ const Authentication = ({ setUser }) => {
               <input type="email" name="email" value={inputData.email} onChange={handleChange} placeholder="Email..." />
               <input type="password" name="password" value={inputData.password} onChange={handleChange} placeholder="Password..." />
               <button className="auth-btn" name="login" onClick={handleSubmit}>Submit</button>
-              <a href="/" onClick={handleAuth}>Don't have an account? Register</a>
+              <a href="" onClick={handleAuth}>Don't have an account? Register</a>
             </div>
           )
           :
@@ -96,7 +92,7 @@ const Authentication = ({ setUser }) => {
               <input type="email" name="email" placeholder="Email" value={inputData.email} onChange={handleChange} />
               <input type="password" name="password" placeholder="Password" value={inputData.password} onChange={handleChange} />
               <button className="auth-btn" name="register" onClick={handleSubmit} >Submit</button>
-              <a href="/">have an account? Login</a>
+              <a href="">have an account? Login</a>
             </div>
           )
       }

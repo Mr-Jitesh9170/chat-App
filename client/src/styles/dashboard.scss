@@ -1,0 +1,67 @@
+//--- Image property =>
+@mixin img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+//--- Flex property =>
+@mixin flex-property {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+// ---------------------------- >>>
+.chat-profiles-container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+
+    .chat-profiles-left-container {
+        width: 6%;
+        height: 100%;
+        background-color: #ADEFD1FF;
+        gap: 30px;
+        padding: 20px 0;
+        @include flex-property;
+
+        .left-top-container {
+            @include flex-property;
+
+            .profile-image {
+                width: 50px;
+                height: 50px;
+                border-radius: 100%;
+                overflow: hidden;
+                box-shadow: 0px 0px 3px black;
+
+                img {
+                    @include img;
+                }
+            }
+
+            .profile-name {
+                margin: 10px 0;
+                text-align: center;
+                font-weight: 700;
+                font-size: 24px;
+            }
+        }
+
+
+        .nav-icons {
+            @include flex-property;
+            gap: 40px;
+            cursor: pointer;
+        }
+
+
+
+    }
+
+    .chat-profiles-right-container {
+        width: 95%;
+        height: 100%;
+    }
+}

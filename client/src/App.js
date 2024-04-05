@@ -2,26 +2,28 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Authentication from "./components/auth"
 import Chat from "./components/Chat";
 import { ErrorPage } from "./error/error";
-import { useState } from "react";
-
-
-// import { lazy, Suspense } from "react";
-// import { Loader } from "./loader/loading";
-// const Authentication = lazy(() => import("./components/auth"));
-// const Chat = lazy(() => import("./components/Chat"));
+import DashBoard from "./components/dashboard";
 
 function App() {
-  const [user, setUser] = useState("")
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path="/"
-          element={<Authentication setUser={setUser} />}
+          element={<Authentication />}
         />
         <Route
-          path="/chat"
-          element={user ? <Chat /> : <ErrorPage />}
+          path="/chit-chat/dashboard"
+          element={<DashBoard />}
+        >
+          <Route
+            path="/chit-chat/dashboard/chat"
+            element={<Chat />}
+          />
+        </Route>
+        <Route
+          path="*"
+          element={<ErrorPage />}
         />
       </Routes>
     </BrowserRouter>
@@ -29,3 +31,7 @@ function App() {
 }
 
 export default App;
+
+// http://localhost:3000
+// http://localhost:3000/chit-chat/dashboard
+// http://localhost:3000/chit-chat/dashboard/chat

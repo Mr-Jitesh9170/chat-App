@@ -1,0 +1,64 @@
+@mixin img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+//--- Flex property =>
+@mixin flex-property {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+
+@mixin input {
+    padding: 10px 15px;
+    border-radius: 7px;
+}
+
+@mixin button {
+    padding: 6px 10px;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+// ---------------------------- >>>
+.profile-container {
+    height: 100%;
+    .preview-profiles-container {
+        .profile-photo {
+            width: 120px;
+            height: 120px;
+            border: 1px solid black;
+            border-radius: 100%;
+        }
+    }
+    .edit-profiles-container {
+        border: 1px solid black;
+        height: 100%;
+        @include flex-property;
+
+        input {
+            @include input;
+        }
+
+        label {
+            border: 1px solid black;
+            padding: 7px 15px;
+            border-radius: 7px;
+            color: #F95700FF;
+            background-color: #ADEFD1FF;
+        }
+
+        .files-input {
+            display: none;
+        }
+
+        .save-changes {
+            @include button;
+        }
+    }
+}

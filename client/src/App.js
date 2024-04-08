@@ -1,8 +1,11 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Authentication from "./components/auth"
+import DashBoard from "./components/dashboard";
 import Chat from "./components/Chat";
 import { ErrorPage } from "./error/error";
-import DashBoard from "./components/dashboard";
+import Profile from "./components/profile";
+
+
 
 function App() {
   return (
@@ -12,6 +15,7 @@ function App() {
           path="/"
           element={<Authentication />}
         />
+
         <Route
           path="/chit-chat/dashboard"
           element={<DashBoard />}
@@ -20,7 +24,12 @@ function App() {
             path="/chit-chat/dashboard/chat"
             element={<Chat />}
           />
+          <Route
+            path="/chit-chat/dashboard/profile"
+            element={<Profile />}
+          />
         </Route>
+
         <Route
           path="*"
           element={<ErrorPage />}

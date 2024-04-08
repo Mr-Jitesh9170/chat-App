@@ -6,8 +6,6 @@ import NotificationIcon from "../Assests/notificationIcons.svg";
 import LogoutIcon from "../Assests/logout.svg"
 import { Link, Outlet, useNavigate, Navigate } from "react-router-dom";
 
-
-
 // All the icons =>
 const ICONS = [
     {
@@ -30,6 +28,8 @@ const ICONS = [
         icons: LogoutIcon
     }
 ];
+
+
 const DashBoard = () => {
     const navigate = useNavigate();
     const user = localStorage.getItem("token");
@@ -39,7 +39,7 @@ const DashBoard = () => {
         if (i === 4) {
             localStorage.removeItem("token");
         }
-    }
+    } 
     return (
         <>
             {

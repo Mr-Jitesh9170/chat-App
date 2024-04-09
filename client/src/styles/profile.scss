@@ -8,41 +8,47 @@
 @mixin flex-property {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     gap: 20px;
 }
 
+@mixin h2 {
+    width: 100%;
+    padding: 10px 0;
+    text-align: center;
+    background-color: #ffd1dc;
+}
 
 @mixin input {
     padding: 10px 15px;
     border-radius: 7px;
 }
 
-@mixin button {
-    padding: 6px 10px;
-    border-radius: 7px;
-    cursor: pointer;
-}
-
 // ---------------------------- >>>
 .profile-container {
     height: 100%;
+    width: 100%;
+
     .preview-profiles-container {
         .profile-photo {
-            width: 120px;
-            height: 120px;
+            width: 140px;
+            height: 140px;
             border: 1px solid black;
             border-radius: 100%;
         }
     }
+
     .edit-profiles-container {
-        border: 1px solid black;
         height: 100%;
         @include flex-property;
 
+        h2 {
+            @include h2;
+        }
+
         input {
             @include input;
+            width: 20%;
         }
 
         label {
@@ -51,14 +57,43 @@
             border-radius: 7px;
             color: #F95700FF;
             background-color: #ADEFD1FF;
-        }
 
-        .files-input {
-            display: none;
+            .files-input {
+                display: none;
+            }
         }
 
         .save-changes {
-            @include button;
+            background-color: #222;
+            border-radius: 4px;
+            border-style: none;
+            box-sizing: border-box;
+            color: #fff;
+            cursor: pointer;
+            display: inline-block;
+            font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 1.5;
+            margin: 0;
+            max-width: none;
+            min-height: 44px;
+            min-width: 10px;
+            outline: none;
+            overflow: hidden;
+            padding: 9px 20px 8px;
+            position: relative;
+            text-align: center;
+            text-transform: none;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
         }
+
+        .save-changes:hover,
+        .save-changes:focus {
+            opacity: .75;
+        }
+
     }
 }

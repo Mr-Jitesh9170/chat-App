@@ -12,10 +12,26 @@ const registerSchema = new Schema(
       unique: true,
       required: true
     },
+    profilePhoto: {
+      type: String,
+      default: ""
+    },
+    number: {
+      type: String,
+      default: null,
+    },
     password: {
       type: String,
       required: true,
-    }
+    },
+    address: {
+      type: String,
+      default: ""
+    },
+    timeStamp: {
+      type: Date,
+      default: Date.now
+    },
   }
 )
 

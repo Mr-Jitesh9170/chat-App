@@ -2,6 +2,17 @@ import axios from "axios"
 
 let CHAT_URL = "http://localhost:8080/";
 
+export const userProfileUpdate = async (userData, route) => {
+    try {
+        let responseUser = await axios.put(CHAT_URL + route, userData);
+        return responseUser.data;
+    } catch (error) {
+        console.log(error, " <---- Error");
+    }
+}
+
+
+
 // User Authorizations ( Register/Login ) =>
 export const userAuthorization = async (userData, route) => {
     try {
@@ -12,7 +23,6 @@ export const userAuthorization = async (userData, route) => {
     }
 }
 
-
 // Registered users Lists =>
 export const registerUserLists = async (setChatUsersLists) => {
     try {
@@ -22,7 +32,6 @@ export const registerUserLists = async (setChatUsersLists) => {
         console.log(error, " <---- Error");
     }
 }
-
 
 // Users Chats => 
 export const fetchAllChats = async (setChat) => {

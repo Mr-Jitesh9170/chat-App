@@ -23,7 +23,7 @@ const Authentication = () => {
   const handleAuth = (e) => {
     e.preventDefault();
     auth ? setAuth(false) : setAuth(true)
-  } 
+  }
 
   // handle change =>
   const handleChange = (e) => {
@@ -52,7 +52,7 @@ const Authentication = () => {
         return setToastMassage("fill the blank feilds!");
       }
       data = { email, password }
-      let { token, massage } = await userAuthorization(data, "login")
+      let { results: { _id: token }, massage } = await userAuthorization(data, "login")
       if (token) {
         localStorage.setItem("token", token);
         navigation("/chit-chat/dashboard");

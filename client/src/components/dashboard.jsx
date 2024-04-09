@@ -5,6 +5,8 @@ import ProfileIcon from "../Assests/profileIcons.svg";
 import NotificationIcon from "../Assests/notificationIcons.svg";
 import LogoutIcon from "../Assests/logout.svg"
 import { Link, Outlet, useNavigate, Navigate } from "react-router-dom";
+import { useState } from "react";
+
 
 // All the icons =>
 const ICONS = [
@@ -29,8 +31,8 @@ const ICONS = [
     }
 ];
 
-
 const DashBoard = () => {
+    const [profileImage, setProfileImage] = useState("")
     const navigate = useNavigate();
     const user = localStorage.getItem("token");
 
@@ -39,7 +41,8 @@ const DashBoard = () => {
         if (i === 4) {
             localStorage.removeItem("token");
         }
-    } 
+    }
+
     return (
         <>
             {
@@ -56,7 +59,11 @@ const DashBoard = () => {
                                 <div className="nav-icons">
                                     {
                                         ICONS.map((_, i) => {
-                                            return <Link to={_?.route} onClick={() => handleLogout(i)}><img className="nav-img" src={_?.icons} alt="chat-icons" width={25} key={i} /></Link>
+                                            return (
+                                                <Link to={_?.route} onClick={() => handleLogout(i)}>
+                                                    <img className="nav-img" src={_?.icons} alt="chat-icons" width={25} key={i} />
+                                                </Link>
+                                            )
                                         })
                                     }
                                 </div>
@@ -65,7 +72,11 @@ const DashBoard = () => {
                                 <Outlet />
                             </div>
                         </div >
-                    ) : <Navigate to="/" />
+                    )
+                    :
+                    (
+                        <Navigate to="/" />
+                    )
             }
         </>
     )

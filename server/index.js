@@ -20,7 +20,8 @@ connectMongo();
 
 // Routes =>
 app.use(require("./routes/authRoutes.js"));
-app.use(require("./routes/chatRoutes.js"))
+app.use(require("./routes/chatRoutes.js"));
+app.use(require("./routes/profileRoutes.js"));
 
 // Server running =>
 const PORT = process.env.PORT || 8080;

@@ -64,19 +64,15 @@ exports.userLogin = async (req, res) => {
       return res.json(
         {
           status: 200,
-          massage: "wrong password",
+          massage: "wrong password", 
           token: ""
         })
-
-    // cookie =>
-    let token = user._id;
-    res.cookie('token', token, { httpOnly: true });
 
     res.json(
       {
         status: 200,
         massage: "user loggined",
-        token
+        results: user
       }
     )
 

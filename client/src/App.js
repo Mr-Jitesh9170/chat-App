@@ -48,6 +48,8 @@ function App() {
 
 export default App;
 
-// http://localhost:3000
-// http://localhost:3000/chit-chat/dashboard
-// http://localhost:3000/chit-chat/dashboard/chat
+// http://localhost:3000                                      <----- Login page
+// http://localhost:3000/chit-chat/dashboard                  <----- Dashboard page
+// http://localhost:3000/chit-chat/dashboard/profile          <----- Profile page
+// http://localhost:3000/chit-chat/dashboard/chat             <----- Chat page
+// http://localhost:3000/chit-chat/dashboard/notification     <----- Notification page

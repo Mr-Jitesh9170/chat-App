@@ -11,9 +11,8 @@ import { Attachements } from "./attachments";
 import { threeDashPopUp } from "../data/AllData.js";
 import { fetchAllChats, registerUserLists } from "../APIs/api";
 
-
-
 const Chat = () => {
+
   const [chatUserList, setChatUsersLists] = useState([]);
   const [chat, setChat] = useState([]);
   const [search, setSearch] = useState("");
@@ -27,6 +26,7 @@ const Chat = () => {
       massage: ""
     }
   );
+
   const [sendMassage, setSendMassage] = useState([]);
 
   useEffect(() => {
@@ -58,7 +58,6 @@ const Chat = () => {
     setShow(false)
     isEmojiShow ? setEmojiShow(false) : setEmojiShow(true)
   }
-
 
   // Attachements show/hide =>
   const handleAttachmen = () => {
@@ -98,10 +97,10 @@ const Chat = () => {
           </div>
           <div className="chat-lists">
             {
-              chatUserList.map((_, i) => {
+              chatUserList.map((_, index) => {
                 if (_.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())) {
                   return (
-                    <div className="users">
+                    <div className="users" key={index}>
                       <div className="users-profile">
                       </div>
                       <div className="user-name" onClick={() => {
@@ -136,11 +135,11 @@ const Chat = () => {
 
           <div className="right-chat-mid">
             {
-              chat.map(({ sender, message, timestamp }, i) => {
+              chat.map(({ sender, message, timestamp }, index) => {
                 let time = new Date(timestamp);
                 if (sender === "Aman") {
                   return (
-                    <div className="user1-chats individual-chat" key={i}>
+                    <div className="user1-chats individual-chat" key={index}>
                       <div className="massage">{message}</div>
                       <div className="send-massage-time">
                         <span className="time">{time.getHours() % 12}:{time.getMinutes()}</span>
@@ -150,7 +149,7 @@ const Chat = () => {
                   )
                 } else {
                   return (
-                    <div className="user2-chats individual-chat">
+                    <div className="user2-chats individual-chat" key={index}>
                       <div className="massage">{message}</div>
                       <div className="send-massage-time">
                         <div className="time">{time.getHours() % 12}:{time.getMinutes()}</div>

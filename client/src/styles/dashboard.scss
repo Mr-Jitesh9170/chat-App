@@ -1,4 +1,5 @@
 //--- Image property =>
+
 @mixin img {
     width: 100%;
     height: 100%;
@@ -11,6 +12,7 @@
     flex-direction: column;
     align-items: center;
 }
+
 
 // ---------------------------- >>>
 .chat-profiles-container {
@@ -41,23 +43,13 @@
                 }
             }
 
-            .profile-name {
-                margin: 10px 0;
-                text-align: center;
-                font-weight: 700;
-                font-size: 24px;
-            }
         }
-
 
         .nav-icons {
             @include flex-property;
             gap: 40px;
             cursor: pointer;
         }
-
-
-
     }
 
     .chat-profiles-right-container {

@@ -15,7 +15,6 @@ const Authentication = () => {
       password: ""
     }
   )
-
   const [auth, setAuth] = useState(true);
   const navigation = useNavigate();
 
@@ -52,10 +51,10 @@ const Authentication = () => {
         return setToastMassage("fill the blank feilds!");
       }
       data = { email, password }
-      let { results: { _id: token }, massage } = await userAuthorization(data, "login")
+      let { results: token, massage } = await userAuthorization(data, "login")
       if (token) {
         localStorage.setItem("token", token);
-        navigation("/chit-chat/dashboard");
+        navigation("/chit-chat/dashboard/profile");
       }
       else {
         setToastShow(true);
@@ -63,6 +62,7 @@ const Authentication = () => {
       }
     }
   }
+
 
   return (
     <div className="authentication-container">

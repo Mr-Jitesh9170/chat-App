@@ -3,9 +3,39 @@ import DocumentsIcon from "../Assests/document.svg"
 import LocationIcon from "../Assests/location.svg"
 import CameraIcon from "../Assests/camera.svg"
 
+// Dashboard Icons =>
+import ChatIcon from "../Assests/chatIcons.svg";
+import SettingIcon from "../Assests/settingIcons.svg";
+import ProfileIcon from "../Assests/profileIcons.svg";
+import NotificationIcon from "../Assests/notificationIcons.svg";
+import LogoutIcon from "../Assests/logout.svg"
+
+// Dashboard Icons =>
+export const ICONS = [
+    {
+        route: "/chit-chat/dashboard/profile",
+        icons: ProfileIcon
+    },
+    {
+        route: "/chit-chat/dashboard/chat",
+        icons: ChatIcon
+    },
+    {
+        route: "/chit-chat/dashboard/notification",
+        icons: NotificationIcon
+    },
+    {
+        route: "/chit-chat/dashboard/setting",
+        icons: SettingIcon
+    },
+    {
+        icons: LogoutIcon
+    }
+];
 
 
 
+// Notifications data =>
 export const dummyNotifications = [
     {
         notification_id: "1",

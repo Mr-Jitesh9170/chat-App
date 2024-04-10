@@ -50,7 +50,7 @@ exports.userLogin = async (req, res) => {
   try {
     let { email, password } = req.body;
 
-    let user = await RegisterModel.findOne({ email })
+    let user = await RegisterModel.findOne({ email });
     if (!user)
       return res.json(
         {
@@ -64,7 +64,7 @@ exports.userLogin = async (req, res) => {
       return res.json(
         {
           status: 200,
-          massage: "wrong password", 
+          massage: "wrong password",
           token: ""
         })
 
@@ -72,12 +72,12 @@ exports.userLogin = async (req, res) => {
       {
         status: 200,
         massage: "user loggined",
-        results: user
+        results: user._id
       }
     )
 
   } catch (error) {
-    console.log(error, "<--- user not loggined")
+    console.log(error, "<--- user not loggined");
     res.json(
       {
         status: 500,

@@ -1,46 +1,18 @@
 import "../styles/dashboard.scss"
-import ChatIcon from "../Assests/chatIcons.svg";
-import SettingIcon from "../Assests/settingIcons.svg";
-import ProfileIcon from "../Assests/profileIcons.svg";
-import NotificationIcon from "../Assests/notificationIcons.svg";
-import LogoutIcon from "../Assests/logout.svg"
+import { ICONS } from "../data/AllData";
 import { Link, Outlet, useNavigate, Navigate } from "react-router-dom";
 import { useState } from "react";
 
-
-// All the icons =>
-const ICONS = [
-    {
-        route: "/chit-chat/dashboard/profile",
-        icons: ProfileIcon
-    },
-    {
-        route: "/chit-chat/dashboard/chat",
-        icons: ChatIcon
-    },
-    {
-        route: "/chit-chat/dashboard/notification",
-        icons: NotificationIcon
-    },
-    {
-        route: "/chit-chat/dashboard/setting",
-        icons: SettingIcon
-    },
-    {
-        icons: LogoutIcon
-    }
-];
-
 const DashBoard = () => {
-    const [profileImage, setProfileImage] = useState("")
-    const navigate = useNavigate();
-    const user = localStorage.getItem("token");
+    const [userProfile, setUserProfile] = useState();
+    let user = localStorage.getItem("token");
+    let navigate = useNavigate()
+
 
     // Logout =>
-    const handleLogout = (i) => {
-        if (i === 4) {
-            localStorage.removeItem("token");
-        }
+    const handleLogout = (index) => {
+        user = localStorage.removeItem("token");
+        navigate("/");
     }
 
     return (
@@ -52,16 +24,15 @@ const DashBoard = () => {
                             <div className="chat-profiles-left-container" >
                                 <div className="left-top-container">
                                     <div className="profile-image">
-                                        <img src="https://preview.keenthemes.com/metronic-v4/theme_rtl/assets/pages/media/profile/profile_user.jpg" alt="user-image" />
+                                        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png" alt="user-image" />
                                     </div>
-                                    <div className="profile-name">Jitesh</div>
                                 </div>
                                 <div className="nav-icons">
                                     {
-                                        ICONS.map((_, i) => {
+                                        ICONS.map((_, index) => {
                                             return (
-                                                <Link to={_?.route} onClick={() => handleLogout(i)}>
-                                                    <img className="nav-img" src={_?.icons} alt="chat-icons" width={25} key={i} />
+                                                <Link to={_?.route} onClick={index === 4 ? handleLogout : null} key={index} >
+                                                    <img className="nav-img" src={_?.icons} alt="chat-icons" width={25} />
                                                 </Link>
                                             )
                                         })

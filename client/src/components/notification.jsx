@@ -8,9 +8,6 @@ const Notifications = () => {
     const [isNotifications, setNotifications] = useState(false)
     const [isDelete, setDelete] = useState([...dummyNotifications])
 
-
-
-
     // Delete Notifications =>
     const handleNotificationDelete = (index) => {
         let deleteNotificatonData = isDelete.filter((_, i) => {

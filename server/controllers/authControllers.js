@@ -7,7 +7,6 @@ exports.userRegister = async (req, res) => {
     let { password, email, name } = req.body;
 
     let user = await RegisterModel.findOne({ email });
-    console.log(req.session)
     if (user) {
       return res.json(
         {
@@ -20,9 +19,11 @@ exports.userRegister = async (req, res) => {
     password = await bcrypt.hash(password, saltRounds);
     let userRegistered = await RegisterModel.create({ password, email, name })
 
+
     let responseObject = userRegistered.toObject();
 
     delete responseObject.password;
+
 
     res.json(
       {

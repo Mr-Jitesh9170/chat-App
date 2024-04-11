@@ -5,44 +5,38 @@ import Chat from "./components/Chat";
 import { ErrorPage } from "./error/error";
 import Profile from "./components/profile";
 import Notifications from "./components/notification";
- 
+
 function App() {
   return (
-      <BrowserRouter>
-        <Routes>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={<Authentication />}
+        />
+        <Route
+          path="/chit-chat/dashboard"
+          element={<DashBoard />}
+        >
           <Route
-            path="/"
-            element={<Authentication />}
+            path="/chit-chat/dashboard/chat"
+            element={<Chat />}
           />
-
           <Route
-            path="/chit-chat/dashboard"
-            element={<DashBoard />}
-          >
-            <Route
-              path="/chit-chat/dashboard/chat"
-              element={<Chat />}
-            />
-
-            <Route
-              path="/chit-chat/dashboard/profile"
-              element={<Profile />}
-            />
-
-            <Route
-              path="/chit-chat/dashboard/notification"
-              element={<Notifications />}
-            />
-          </Route>
-
-          <Route
-            path="*"
-            element={<ErrorPage />}
+            path="/chit-chat/dashboard/profile"
+            element={<Profile />}
           />
-        </Routes>
-      </BrowserRouter>
-   
-
+          <Route
+            path="/chit-chat/dashboard/notification"
+            element={<Notifications />}
+          />
+        </Route>
+        <Route
+          path="*"
+          element={<ErrorPage />}
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

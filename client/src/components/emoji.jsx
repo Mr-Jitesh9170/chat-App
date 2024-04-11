@@ -1,5 +1,5 @@
-import axios from "axios";
 import React, { useEffect, useState } from 'react';
+import { getEmojis } from "../APIs/api";
 
 // SCSS Applied =>
 export const Styles1 = {
@@ -18,15 +18,10 @@ export const EmojiList = ({ setWriteMassage }) => {
   const [emoj, setEmojis] = useState([]);
 
   useEffect(() => {
-    axios.get("https://emoji-api.com/emojis?access_key=214d3619cb6d7e14b37ef532c713329a60077d15")
-      .then((res) => {
-        setEmojis(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // get emojis api =>
+    getEmojis(setEmojis)
   }, []);
-
+  
   return (
     <div className="emojis" style={Styles1}>
       {emoj.map((emoji, index) => (

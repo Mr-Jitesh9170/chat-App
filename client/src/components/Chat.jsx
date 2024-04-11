@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../styles/chat.scss";
 import Emojis from "../Assests/emojis.svg";
 import Send from "../Assests/send.svg";
@@ -12,7 +12,6 @@ import { threeDashPopUp } from "../data/AllData.js";
 import { fetchAllChats, registerUserLists } from "../APIs/api";
 
 const Chat = () => {
-
   const [chatUserList, setChatUsersLists] = useState([]);
   const [chat, setChat] = useState([]);
   const [search, setSearch] = useState("");
@@ -26,9 +25,31 @@ const Chat = () => {
       massage: ""
     }
   );
-
   const [sendMassage, setSendMassage] = useState([]);
 
+  // Input massage  =>
+  const handleChangeMassage = (e) => {
+    let { value } = e.target;
+    setWriteMassage({ ...writeMassage, massage: value });
+  }
+
+  // Send massage =>
+  const handleSendMassage = () => {
+    setSendMassage([...sendMassage, writeMassage])
+    setWriteMassage({ massage: "" });
+  }
+
+  // Scroll to the bottom when the component mounts or when its content changes =>
+  const chatRef = useRef(null);
+
+  useEffect(() => {
+    if (chatRef.current) {
+      // Scroll to the bottom of the scrollable element
+      chatRef.current.scrollTop = chatRef.current.scrollHeight;
+    }
+  }, [chatRef]);
+
+  // Retrieve data from the APIs =>
   useEffect(() => {
     // Fetching Chats data =>
     fetchAllChats(setChat);
@@ -64,26 +85,6 @@ const Chat = () => {
     setEmojiShow(false)
     setShow(false)
     isAttachmentShow ? setAttachmentShow(false) : setAttachmentShow(true)
-  }
-
-  // Input massage  =>
-  const handleChangeMassage = (e) => {
-    let { value } = e.target;
-    setWriteMassage({ ...writeMassage, massage: value });
-  }
-
-  // Send massage =>
-  const handleSendMassage = () => {
-    setSendMassage([...sendMassage, writeMassage])
-    // DummyChats.push(
-    //   {
-    //     id: 3,
-    //     sender: "Jitesh",
-    //     message: writeMassage.massage,
-    //     timestamp: new Date()
-    //   }
-    // )
-    setWriteMassage({ massage: "" });
   }
 
   return (
@@ -133,7 +134,7 @@ const Chat = () => {
             </div>
           </div>
 
-          <div className="right-chat-mid">
+          <div className="right-chat-mid" ref={chatRef}>
             {
               chat.map(({ sender, message, timestamp }, index) => {
                 let time = new Date(timestamp);
@@ -174,7 +175,7 @@ const Chat = () => {
               )
             }
 
-            {/*<<<========== ATACHMENTS  SHOW/HIDE ==========> */}
+            {/*<<<============= ATACHMENTS  SHOW/HIDE ==========> */}
             {
               isAttachmentShow && (
                 <div className="attachements-container">
@@ -195,7 +196,7 @@ const Chat = () => {
           </div>
           <div className="right-chat-bottom">
             <img src={Microphone} alt="" width={23} />
-            <input type="text" placeholder="Type your massages..." value={writeMassage.massage} name="massage" className="input-chat" onChange={handleChangeMassage} />
+            <input className="input-chat" type="text" placeholder="Type your massages..." value={writeMassage.massage} name="massage" onChange={handleChangeMassage} />
             <img src={Emojis} alt="" width={20} onClick={handleEmojiShow} />
             <img src={Attach} alt="" width={20} onClick={handleAttachmen} />
             <div className="send-btn" onClick={handleSendMassage}>

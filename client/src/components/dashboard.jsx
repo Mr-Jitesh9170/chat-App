@@ -4,9 +4,10 @@ import { Link, Outlet, useNavigate, Navigate } from "react-router-dom";
 import { useState } from "react";
 
 const DashBoard = () => {
-    const [userProfile, setUserProfile] = useState();
     let user = localStorage.getItem("token");
     let navigate = useNavigate()
+
+
 
 
     // Logout =>

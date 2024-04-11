@@ -52,3 +52,15 @@ export const fetchAllChats = async (setChat) => {
         console.log(error, "  <---- chat did not fetch")
     }
 }
+
+
+// Get , Emojis =>
+export const getEmojis = async (setEmojis) => {
+    try {
+        const URL = "https://emoji-api.com/emojis?access_key=214d3619cb6d7e14b37ef532c713329a60077d15"
+        let response = await axios.get(URL)
+        return setEmojis(response.data);
+    } catch (error) {
+        console.log(error, "<-- emoji not retrieved")
+    }
+}

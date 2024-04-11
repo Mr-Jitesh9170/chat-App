@@ -3,6 +3,7 @@ import "../styles/notification.scss"
 import NotificationsIcon from "../Assests/notificationIcons.svg";
 import { dummyNotifications } from "../data/AllData";
 import DeleteIcons from "../Assests/deleteIcons.svg"
+import { Header } from "./header";
 
 const Notifications = () => {
     const [isNotifications, setNotifications] = useState(false)
@@ -18,6 +19,7 @@ const Notifications = () => {
 
     return (
         <>
+            <Header heading={"Notification"} />
             {
                 isNotifications ?
                     (
@@ -32,7 +34,6 @@ const Notifications = () => {
                     :
                     (
                         <div className="notification-container">
-                            <h2>Nofications!</h2>
                             {
                                 isDelete.map((_, index) => {
                                     let date = new Date(_.timestamp)

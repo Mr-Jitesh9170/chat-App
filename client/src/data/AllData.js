@@ -10,6 +10,36 @@ import ProfileIcon from "../Assests/profileIcons.svg";
 import NotificationIcon from "../Assests/notificationIcons.svg";
 import LogoutIcon from "../Assests/logout.svg"
 
+
+// Edit Profile => 
+export const editProfile = [
+    {
+        name: "profilePhoto",
+        accept: "image/*",
+        type: "file",
+    },
+    {
+        name: "name",
+        placeHolder: "Name...",
+        type: "text",
+    },
+    {
+        name: "email",
+        placeHolder: "Email...",
+        type: "email",
+    },
+    {
+        name: "number",
+        placeHolder: "Number...",
+        type: "number",
+    },
+    {
+        name: "address",
+        placeHolder: "Address...",
+        type: "text",
+    },
+]
+
 // Dashboard Icons =>
 export const ICONS = [
     {

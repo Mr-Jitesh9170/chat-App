@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react"
-import "../styles/profile.scss"
+import { useEffect, useState } from "react";
+import "../styles/profile.scss";
 import { userProfileUpdate } from "../APIs/api";
 import { getProfileUser } from "../APIs/api";
+import { Header } from "./header";
+import { editProfile } from "../data/AllData";
 
 const Profile = () => {
     // user data =>
@@ -10,55 +12,19 @@ const Profile = () => {
     const [input, setInput] = useState(
         {
             _id: localStorage.getItem("token"),
-            profilePhoto: "",
-            name: "",
-            email: "",
-            number: "",
-            address: ""
+            profilePhoto: userProfile?.profilePhoto,
+            name: userProfile?.name,
+            email: userProfile?.email,
+            number: userProfile?.number,
+            address: userProfile?.address
         }
     );
 
     // User Profile data =>
     useEffect(() => {
-        getProfileUser(setUserProfile, input._id)
-    }, [])
+        getProfileUser(setUserProfile, input._id);
+    }, [profile])
 
-    console.log(userProfile, "<---- user data is here")
-
-    // Edit profile data=>
-    const editProfile = [
-        {
-            name: "profilePhoto",
-            accept: "image/*",
-            type: "file",
-            value: input.profilePhoto
-        },
-        {
-            name: "name",
-            placeHolder: "Name...",
-            type: "text",
-            value: input.name
-        },
-        {
-            name: "email",
-            placeHolder: "Email...",
-            type: "email",
-            value: input.email
-        },
-        {
-            name: "number",
-            placeHolder: "Number...",
-            type: "number",
-            value: input.number
-
-        },
-        {
-            name: "address",
-            placeHolder: "Address...",
-            type: "text",
-            value: input.address
-        },
-    ]
 
     // handle changes=>
     const handleChange = (e) => {
@@ -80,11 +46,11 @@ const Profile = () => {
 
     return (
         <>
+            <Header heading={"Profile"} />
             {
                 profile ?
                     (
                         <div className="view-profile-container">
-                            <h2>Profile!</h2>
                             <div className="view-profile-photo">
                                 <img src={userProfile?.profilePhoto ? userProfile?.profilePhoto : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"} alt="" />
                             </div>
@@ -96,10 +62,10 @@ const Profile = () => {
                                     <b className="name">Address :</b>
                                 </div>
                                 <div className="user-name-details">
-                                    <p>{userProfile.name}</p>
-                                    <p>{userProfile.email}</p>
-                                    <p>{userProfile.number}</p>
-                                    <p>{userProfile.address}</p>
+                                    <p>{userProfile?.name}</p>
+                                    <p>{userProfile?.email}</p>
+                                    <p>{userProfile?.number}</p>
+                                    <p>{userProfile?.address}</p>
                                 </div>
                             </div>
                             <button className="save-changes" onClick={handleEditProfile}>Edit profile</button>
@@ -108,7 +74,6 @@ const Profile = () => {
                     :
                     (
                         <div className="edit-profiles-container">
-                            <h2>Profile!</h2>
                             <div className="preview-profiles-container">
                                 <img className="profile-photo" src={input.profilePhoto ? input.profilePhoto : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"} alt="profile-photo" />
                             </div>
@@ -124,7 +89,7 @@ const Profile = () => {
                                             )
                                             :
                                             (
-                                                <input onChange={handleChange} type={type} value={value} name={name} placeholder={placeHolder} key={index} />
+                                                <input onChange={handleChange} type={type} value={input[`${name}`]} name={name} placeholder={placeHolder} key={index} />
                                             )
                                     )
                                 })

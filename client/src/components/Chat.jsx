@@ -1,55 +1,45 @@
 import { useEffect, useRef, useState } from "react";
 import "../styles/chat.scss";
-import Emojis from "../Assests/emojis.svg";
 import Send from "../Assests/send.svg";
-import Attach from "../Assests/attachment.svg";
-import Call from "../Assests/call.svg";
-import Microphone from "../Assests/microphone.svg";
-import ThreeDots from "../Assests/threeDots.svg";
-import { EmojiList } from "./emoji";
-import { Attachements } from "./attachments";
-import { threeDashPopUp } from "../data/AllData.js";
 import { fetchAllChats, registerUserLists } from "../APIs/api";
 
-const Chat = () => {
-  const [chatUserList, setChatUsersLists] = useState([]);
-  const [chat, setChat] = useState([]);
-  const [search, setSearch] = useState("");
-  const [show, setShow] = useState(false);
-  const [currentUser, setCurrentuser] = useState("");
-  const [isEmojiShow, setEmojiShow] = useState(false);
-  const [isAttachmentShow, setAttachmentShow] = useState(false);
-  const [writeMassage, setWriteMassage] = useState(
-    {
-      userId: "",
-      massage: ""
-    }
-  );
-  const [sendMassage, setSendMassage] = useState([]);
 
-  // Input massage  =>
+const Chat = () => {
+  // Searching Users =>
+  const [search, setSearch] = useState("");
+  // ChatUser Lists=>
+  const [chatUserList, setChatUsersLists] = useState([]);
+  // Particuler Chat person =>
+  const [chat, setChat] = useState([]);
+
+  const [currentUser, setCurrentuser] = useState("");
+
+  const [writeMassage, setWriteMassage] = useState("");
+  const [saveMassage, setSaveMassage] = useState([]);
+
+  //INPUT MASSAGES =>
   const handleChangeMassage = (e) => {
     let { value } = e.target;
-    setWriteMassage({ ...writeMassage, massage: value });
+    setWriteMassage(value);
   }
 
-  // Send massage =>
+  //SEND MASSAGES =>
   const handleSendMassage = () => {
-    setSendMassage([...sendMassage, writeMassage])
-    setWriteMassage({ massage: "" });
+    setSaveMassage(
+      [
+        ...saveMassage,
+        {
+          massage: writeMassage,
+          massageTo: "",
+          massageBy: localStorage.getItem("token"),
+          timestamp: new Date()
+        }
+      ]
+    )
+    setWriteMassage("");
   }
 
-  // Scroll to the bottom when the component mounts or when its content changes =>
-  const chatRef = useRef(null);
-
-  useEffect(() => {
-    if (chatRef.current) {
-      // Scroll to the bottom of the scrollable element
-      chatRef.current.scrollTop = chatRef.current.scrollHeight;
-    }
-  }, [chatRef]);
-
-  // Retrieve data from the APIs =>
+  // APIs CALL =>
   useEffect(() => {
     // Fetching Chats data =>
     fetchAllChats(setChat);
@@ -58,34 +48,20 @@ const Chat = () => {
     registerUserLists(setChatUsersLists);
   }, []);
 
-  // search =>  
+  // SEARCH CHAT USER =>
   const inputSearch = (e) => {
     let { value } = e.target;
     setSearch(value)
   }
 
-  // Three dash show/hide => 
-  const handleThreeDash = () => {
-    if (isEmojiShow)
-      setEmojiShow(false)
-    if (isAttachmentShow)
-      setAttachmentShow(false)
-    show ? setShow(false) : setShow(true)
-  }
+  // SCROLL TOP TO BOTTOM  =>
+  const chatRef = useRef(null);
 
-  // Emojis show/hide =>
-  const handleEmojiShow = () => {
-    setAttachmentShow(false)
-    setShow(false)
-    isEmojiShow ? setEmojiShow(false) : setEmojiShow(true)
-  }
-
-  // Attachements show/hide =>
-  const handleAttachmen = () => {
-    setEmojiShow(false)
-    setShow(false)
-    isAttachmentShow ? setAttachmentShow(false) : setAttachmentShow(true)
-  }
+  useEffect(() => {
+    if (chatRef.current) {
+      chatRef.current.scrollTop = chatRef.current.scrollHeight;
+    }
+  }, [chatRef]);
 
   return (
     <>
@@ -103,6 +79,7 @@ const Chat = () => {
                   return (
                     <div className="users" key={index}>
                       <div className="users-profile">
+                        <img src={_.profilePhoto} alt="" />
                       </div>
                       <div className="user-name" onClick={() => {
                         setCurrentuser(_.name)
@@ -123,16 +100,17 @@ const Chat = () => {
         </div>
 
         <div className="right-chat-contain">
+
+          {/* ===================== TOP - CHAT ===================================> */}
+
           <div className="right-chat-top">
             <div className="right-chat-left">
               <div className="users-profile"></div>
               <h2 className="user-name-mi">{currentUser}</h2>
             </div>
-            <div className="right-top-right">
-              <img src={Call} alt="" width={26} />
-              <img src={ThreeDots} style={{ cursor: "pointer" }} onClick={handleThreeDash} alt="" width={26} />
-            </div>
           </div>
+
+          {/* ===================== MIDDLE - CHAT ===================================> */}
 
           <div className="right-chat-mid" ref={chatRef}>
             {
@@ -161,44 +139,12 @@ const Chat = () => {
                 }
               })
             }
-
-            {/*<<<============ THREE-DASH  SHOW/HIDE =========> */}
-            {
-              show && (
-                <div className="threedash-popup">
-                  {
-                    threeDashPopUp.map((_, i) => {
-                      return <div className="threeDash-buttons" key={i}>{_}</div>
-                    })
-                  }
-                </div>
-              )
-            }
-
-            {/*<<<============= ATACHMENTS  SHOW/HIDE ==========> */}
-            {
-              isAttachmentShow && (
-                <div className="attachements-container">
-                  <Attachements />
-                </div>
-              )
-            }
-
-            {/*<<<============= EMOJIS SHOW/HIDE ==========> */}
-            {
-              isEmojiShow && (
-                <div className="emojis-container">
-                  <EmojiList setWriteMassage={setWriteMassage} />
-                </div>
-              )
-            }
-
           </div>
+
+          {/*========================== BOTTOM - CHAT ====================> */}
+
           <div className="right-chat-bottom">
-            <img src={Microphone} alt="" width={23} />
-            <input className="input-chat" type="text" placeholder="Type your massages..." value={writeMassage.massage} name="massage" onChange={handleChangeMassage} />
-            <img src={Emojis} alt="" width={20} onClick={handleEmojiShow} />
-            <img src={Attach} alt="" width={20} onClick={handleAttachmen} />
+            <input className="input-chat" value={writeMassage} onChange={handleChangeMassage} type="text" placeholder="Type your massages..." name="massage" />
             <div className="send-btn" onClick={handleSendMassage}>
               <img src={Send} alt="" />
             </div>

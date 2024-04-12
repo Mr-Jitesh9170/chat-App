@@ -25,7 +25,6 @@ const Profile = () => {
         getProfileUser(setUserProfile, input._id);
     }, [profile])
 
-
     // handle changes=>
     const handleChange = (e) => {
         let { value, name, files } = e.target;

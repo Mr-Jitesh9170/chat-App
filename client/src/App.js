@@ -7,6 +7,7 @@ import Profile from "./components/profile";
 import Notifications from "./components/notification";
 
 function App() {
+
   return (
     <BrowserRouter>
       <Routes>

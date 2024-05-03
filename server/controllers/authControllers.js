@@ -5,26 +5,14 @@ const bcrypt = require("bcrypt");
 exports.userRegister = async (req, res) => {
   try {
     let { password, email, name } = req.body;
-
     let user = await RegisterModel.findOne({ email });
-    if (user) {
-      return res.json(
-        {
-          massage: "already exists"
-        }
-      )
-    }
-
+    if (user)
+      res.send("user already exists")
     let saltRounds = 10;
     password = await bcrypt.hash(password, saltRounds);
     let userRegistered = await RegisterModel.create({ password, email, name })
-
-
     let responseObject = userRegistered.toObject();
-
     delete responseObject.password;
-
-
     res.json(
       {
         status: 200,
@@ -32,7 +20,6 @@ exports.userRegister = async (req, res) => {
         results: responseObject
       }
     )
-
   } catch (error) {
     console.log(error, " <--- user not registered")
     res.json(
@@ -43,8 +30,6 @@ exports.userRegister = async (req, res) => {
     )
   }
 }
-
-
 
 // User will login =>
 exports.userLogin = async (req, res) => {

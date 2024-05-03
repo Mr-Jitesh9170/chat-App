@@ -4,7 +4,9 @@ const chatSchema = new Schema(
   {
     sender: String,
     message: String,
-    timestamp: Date
+  },
+  {
+    timestamps: true
   }
 )
 

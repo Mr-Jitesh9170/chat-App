@@ -1,6 +1,5 @@
 const { Schema, model } = require("mongoose")
 
-
 const registerSchema = new Schema(
   {
     name: {
@@ -14,7 +13,7 @@ const registerSchema = new Schema(
     },
     profilePhoto: {
       type: String,
-      default: ""
+      default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9LJ-AHFG7OTn0OFl7v2m8elkhlz2iIodFuXpBTVROwQ&s"
     },
     number: {
       type: String,
@@ -27,12 +26,11 @@ const registerSchema = new Schema(
     address: {
       type: String,
       default: ""
-    },
-    timeStamp: {
-      type: Date,
-      default: Date.now
-    },
+    }
+  },
+  {
+    timpestamp: true
   }
 )
 
-module.exports = model("Register", registerSchema, "Register")
+module.exports = model("Register", registerSchema, "Register");

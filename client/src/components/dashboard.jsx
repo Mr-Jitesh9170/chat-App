@@ -6,11 +6,7 @@ import { useState } from "react";
 const DashBoard = () => {
     let user = localStorage.getItem("token");
     let navigate = useNavigate()
-
-
-
-
-    // Logout =>
+   // Logout =>
     const handleLogout = (index) => {
         user = localStorage.removeItem("token");
         navigate("/");
@@ -53,8 +49,4 @@ const DashBoard = () => {
         </>
     )
 }
-
-
 export default DashBoard;
-
-

@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import "../styles/profile.scss";
 import { userProfileUpdate } from "../APIs/api";
 import { getProfileUser } from "../APIs/api";
-import { Header } from "./header";
 import { editProfile } from "../data/AllData";
 
 const Profile = () => {
     // user data =>
     const [userProfile, setUserProfile] = useState();
     const [profile, setProfile] = useState(true);
+
     const [input, setInput] = useState(
         {
             _id: localStorage.getItem("token"),
@@ -45,28 +45,12 @@ const Profile = () => {
 
     return (
         <>
-            <Header heading={"Profile"} />
+            <div className="profile-header"></div>
             {
                 profile ?
                     (
                         <div className="view-profile-container">
-                            <div className="view-profile-photo">
-                                <img src={userProfile?.profilePhoto ? userProfile?.profilePhoto : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"} alt="" />
-                            </div>
-                            <div className="view-profile-user-details">
-                                <div className="user-name">
-                                    <b className="name">Name :</b>
-                                    <b className="name">Email :</b>
-                                    <b className="name">Number :</b>
-                                    <b className="name">Address :</b>
-                                </div>
-                                <div className="user-name-details">
-                                    <p>{userProfile?.name}</p>
-                                    <p>{userProfile?.email}</p>
-                                    <p>{userProfile?.number}</p>
-                                    <p>{userProfile?.address}</p>
-                                </div>
-                            </div>
+
                             <button className="save-changes" onClick={handleEditProfile}>Edit profile</button>
                         </div>
                     )

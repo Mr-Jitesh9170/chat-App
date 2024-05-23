@@ -30,7 +30,7 @@ const Chat = () => {
   })
 
   // handle room =>
-  const handleRoom = (roomId, name, profilePhoto) => {
+  const handleUser = (roomId, name, profilePhoto) => {
     setChatData({
       ...chatData, room: roomId, isChatShow: true, userName: name, userProfilePhoto: profilePhoto
     })
@@ -88,7 +88,7 @@ const Chat = () => {
               users.map((_, index) => {
                 if (_.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())) {
                   return (
-                    <div className="users" key={index} onClick={() => handleRoom(_._id, _.name, _.profilePhoto)}>
+                    <div className="users" key={index} onClick={() => handleUser(_._id, _.name, _.profilePhoto)}>
                       <div className="users-profile">
                         <img src={_.profilePhoto} alt="" />
                       </div>
@@ -110,7 +110,7 @@ const Chat = () => {
 
         {
           chatData.isChatShow && (
-            <div className="right-chat-contain">
+            <div className="right-chat-container">
               {/* ===================== TOP - CHAT ===================================> */}
               <div className="right-chat-top">
                 <div className="right-chat-left">

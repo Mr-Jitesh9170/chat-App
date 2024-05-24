@@ -1,5 +1,6 @@
-const Circle = () => {
+import "./usedComponentStyle.scss"
+export const Circle = () => {
   return (
-    <div className="circle-contai"></div>
+    <div className="circle-container"></div>
   )
 }

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import "../styles/dashboard.scss"
 import { ICONS } from "../data/AllData";
-import { Link, Outlet, useNavigate, Navigate } from "react-router-dom";
+import { Link, Outlet, useNavigate, Navigate, useParams } from "react-router-dom";
 import { registerUserLists } from "../APIs/api";
-
 const DashBoard = () => {
+    const [header, setHeader] = useState("")
     let user = localStorage.getItem("token");
     let navigate = useNavigate()
     // Searching Users =>
@@ -41,7 +41,9 @@ const DashBoard = () => {
                                     {
                                         ICONS.map((_, index) => {
                                             return (
-                                                <Link to={_?.route} onClick={index === 4 ? handleLogout : null} key={index} >
+                                                <Link to={_?.route} onClick={index === 3 ? handleLogout : () => {
+                                                    setHeader(_?.name)
+                                                }} key={index} >
                                                     <img className="nav-img" src={_?.icons} alt="chat-icons" width={27} />
                                                 </Link>
                                             )
@@ -61,18 +63,20 @@ const DashBoard = () => {
                                             users.map((_, index) => {
                                                 if (_.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())) {
                                                     return (
-                                                        <div className="users" key={index} >
-                                                            <div className="users-profile">
-                                                                <img src={_.profilePhoto} alt="" />
-                                                            </div>
-                                                            <div className="user-name"  >
-                                                                <div className="name">
-                                                                    <b className="user" >{_.name}</b>
-                                                                    <span className="chat-time">9m</span>
+                                                        <Link to={"/chit-chat/dashboard/chat/user"} style={{ textDecoration: "none" }}>
+                                                            <div className="users" key={index} >
+                                                                <div className="users-profile">
+                                                                    <img src={_.profilePhoto} alt="" />
                                                                 </div>
-                                                                <div className="last-chat">{_._id}</div>
+                                                                <div className="user-name"  >
+                                                                    <div className="name">
+                                                                        <b className="user" >{_.name}</b>
+                                                                        <span className="chat-time">9m</span>
+                                                                    </div>
+                                                                    <div className="last-chat" >{_._id}</div>
+                                                                </div>
                                                             </div>
-                                                        </div>
+                                                        </Link>
                                                     )
                                                 }
                                             }
@@ -81,7 +85,12 @@ const DashBoard = () => {
                                     </div>
                                 </div>
                                 <div className="right-container">
-                                    <Outlet />
+                                    {/* <div className="header-container">
+                                        <h2>{header}</h2>
+                                    </div> */}
+                                    <div className="pages">
+                                        <Outlet />
+                                    </div>
                                 </div>
                             </div>
                         </div >

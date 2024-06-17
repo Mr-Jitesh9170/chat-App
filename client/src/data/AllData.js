@@ -43,18 +43,17 @@ export const editProfile = [
 // Dashboard Icons =>
 export const ICONS = [
     {
+        name: "Profile 👥",
         route: "/chit-chat/dashboard/profile",
         icons: ProfileIcon
     },
     {
-        route: "/chit-chat/dashboard/chat",
-        icons: ChatIcon
-    },
-    {
+        name: "Notification 🔔",
         route: "/chit-chat/dashboard/notification",
         icons: NotificationIcon
     },
     {
+        name: "Setting ⚙️",
         route: "/chit-chat/dashboard/setting",
         icons: SettingIcon
     },

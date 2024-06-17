@@ -2,7 +2,11 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Authentication from "./components/auth"
 import DashBoard from "./components/dashboard";
 import { ErrorPage } from "./error/error";
- 
+import Notifications from "./pages/notification";
+import Setting from "./pages/setting";
+import Profile from "./pages/profile";
+import Chat from "./pages/chat";
+
 function App() {
 
   return (
@@ -16,6 +20,22 @@ function App() {
           path="/chit-chat/dashboard"
           element={<DashBoard />}
         >
+          <Route
+            path="/chit-chat/dashboard/:notification"
+            element={<Notifications header={"Notification"} />}
+          />
+          <Route
+            path="/chit-chat/dashboard/setting"
+            element={<Setting />}
+          />
+          <Route
+            path="/chit-chat/dashboard/profile"
+            element={<Profile />}
+          />
+          <Route
+            path="/chit-chat/dashboard/chat/user"
+            element={<Chat />}
+          />
         </Route>
         <Route
           path="*"

@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 const { connectMongo } = require("./config/db.js");
 connectMongo();
 
-// socket connections =>
+// websocket connections =>
 let io = new Server(server, {
   cors: {
     origin: "http://localhost:3000",
@@ -23,10 +23,8 @@ let io = new Server(server, {
   },
 });
 
-
 // socket connection =>
 io.on("connection", (socket) => {
-
   // room joined =>
   socket.on("roomJoin", (roomNumber) => {
     socket.join(roomNumber)
@@ -34,7 +32,7 @@ io.on("connection", (socket) => {
 
   // chat massages =>
   socket.on("chat", (room, massage) => {
-    io.to(room).emit("chat", { id: socket.id, massage })
+    io.to(room).emit("chat", { id: socket.id, massage, date: new Date() })
   })
 
   // room leaved =>
@@ -44,10 +42,9 @@ io.on("connection", (socket) => {
 
   // user disconnected =>
   socket.on("disconnect", () => {
-    console.log("user disconnected")
+    console.log("User disconnected! , 🥹")
   });
 });
-
 
 // Routes =>
 app.use(require("./routes/authRoutes.js"));

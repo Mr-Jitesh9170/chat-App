@@ -33,7 +33,7 @@ exports.getProfileControllers = async (req, res) => {
                 status: 200,
                 massage: "User profile",
                 results: responseUserProfile
-            }
+            } 
         )
     } catch (error) {
         console.log(error, "<---- user profile not retrieved")

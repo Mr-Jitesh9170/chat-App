@@ -1,20 +1,12 @@
+import { useEffect, useState } from "react"
+import { getProfileUser } from "../APIs/api";
 import "../styles/profile.scss"
-const Profile = () => {
-    const profile = [
-        {
-            icon: "👥",
-            data: "Jitesh Pandey"
-        },
-        {
-            icon: "📱",
-            data: "9170006101"
-        },
-        {
-            icon: "📧",
-            data: "mr.jiteshpandey9170@gmail.com"
-        }
-    ]
 
+const Profile = () => {
+    const [profile, setProfile] = useState([{ name: "", icon: "👥", }, { mobile: "", icon: "📱", }, { email: "", icon: "📧", }])
+    useEffect(() => {
+        getProfileUser(setProfile, localStorage.getItem("token"))
+    }, [])
     const socialMedias = [
         {
             name: "Linkdin",

@@ -1,15 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, createContext } from "react";
 import "../styles/dashboard.scss"
 import { ICONS } from "../data/AllData";
 import { Link, Outlet, useNavigate, Navigate, useParams } from "react-router-dom";
 import { registerUserLists } from "../APIs/api";
+import Chat from "../pages/chat";
+ 
+const myContext = createContext("hello")
+
 const DashBoard = () => {
+    console.log(myContext)
     const [header, setHeader] = useState("")
     let user = localStorage.getItem("token");
     let navigate = useNavigate()
     // Searching Users =>
     const [search, setSearch] = useState("");
-    // ChatUser Lists=>
+    // ChatUser Lists=> 
     const [users, setUsers] = useState([]);
     // SEARCH CHAT USER =>
     const inputSearch = (e) => {
@@ -24,7 +29,8 @@ const DashBoard = () => {
     useEffect(() => {
         // Registered User Lists =>
         registerUserLists(setUsers)
-    }, [])
+    }, []);
+
     return (
         <>
             {
@@ -61,23 +67,26 @@ const DashBoard = () => {
                                     <div className="chat-lists">
                                         {
                                             users.map((_, index) => {
-                                                if (_.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())) {
-                                                    return (
-                                                        <Link to={"/chit-chat/dashboard/chat/user"} style={{ textDecoration: "none" }}>
-                                                            <div className="users" key={index} >
-                                                                <div className="users-profile">
-                                                                    <img src={_.profilePhoto} alt="" />
-                                                                </div>
-                                                                <div className="user-name"  >
-                                                                    <div className="name">
-                                                                        <b className="user" >{_.name}</b>
-                                                                        <span className="chat-time">9m</span>
+                                                if (_._id !== localStorage.getItem("token")) {
+                                                    if (_.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())) {
+                                                        return (
+                                                            <Link to={"/chit-chat/dashboard/chat/user"} style={{ textDecoration: "none" }} key={index} onClick={() => {
+                                                            }}>
+                                                                <div className="users" >
+                                                                    <div className="users-profile">
+                                                                        <img src={_.profilePhoto} alt="" />
                                                                     </div>
-                                                                    <div className="last-chat" >{_._id}</div>
+                                                                    <div className="user-name"  >
+                                                                        <div className="name">
+                                                                            <b className="user" >{_.name}</b>
+                                                                            <span className="chat-time">9m</span>
+                                                                        </div>
+                                                                        <div className="last-chat" >{_._id}</div>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </Link>
-                                                    )
+                                                            </Link>
+                                                        )
+                                                    }
                                                 }
                                             }
                                             )

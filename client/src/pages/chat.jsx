@@ -8,9 +8,9 @@ const socket = io("http://localhost:8080");
 const Chat = () => {
   const [input, setInput] = useState("")
   const [massage, setMassage] = useState([])
-  const [room, setRoom] = useState(1)
   const [user, setUser] = useState(
     {
+      room: 1,
       userName: "Radha Pandey",
       isActive: true,
       userPhoto: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9LJ-AHFG7OTn0OFl7v2m8elkhlz2iIodFuXpBTVROwQ&s"
@@ -18,7 +18,7 @@ const Chat = () => {
   )
   useEffect(() => {
     // room join =>
-    socket.emit("roomJoin", room);
+    socket.emit("roomJoin", user.room);
     //  new massage =>
     socket.on("chat", (newMassages) => {
       setMassage([...massage, newMassages])
@@ -33,7 +33,7 @@ const Chat = () => {
   const handleSend = () => {
     if (!input.trim())
       return
-    socket.emit("chat", room, input.trim())
+    socket.emit("chat", user.room, input.trim())
     setInput("")
   }
 

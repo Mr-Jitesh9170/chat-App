@@ -6,19 +6,20 @@ import Notifications from "./pages/notification";
 import Setting from "./pages/setting";
 import Profile from "./pages/profile";
 import Chat from "./pages/chat";
-
+import { useContext } from "react";
+import { UserContext } from "./utils/contextApi";
 function App() {
-
+  const { user, setUser, profile, setProfile } = useContext(UserContext);
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path="/"
-          element={<Authentication />}
+          element={<Authentication setProfile={setProfile} />}
         />
         <Route
           path="/chit-chat/dashboard"
-          element={<DashBoard />}
+          element={<DashBoard setUser={setUser} />}
         >
           <Route
             path="/chit-chat/dashboard/:notification"
@@ -30,11 +31,11 @@ function App() {
           />
           <Route
             path="/chit-chat/dashboard/profile"
-            element={<Profile />}
+            element={<Profile profile={profile} />}
           />
           <Route
             path="/chit-chat/dashboard/chat/user"
-            element={<Chat />}
+            element={<Chat user={user} />}
           />
         </Route>
         <Route

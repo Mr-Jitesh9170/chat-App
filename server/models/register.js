@@ -26,11 +26,12 @@ const registerSchema = new Schema(
     address: {
       type: String,
       default: ""
-    }
+    },
+    isActive: Boolean,
   },
   {
     timpestamp: true
   }
 )
 
-module.exports = model("Register", registerSchema, "Register");
+module.exports = model("User", registerSchema, "Users");

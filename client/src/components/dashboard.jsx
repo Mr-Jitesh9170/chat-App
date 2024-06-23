@@ -1,15 +1,11 @@
-import { useEffect, useState, createContext } from "react";
+import { useEffect, useState } from "react";
 import "../styles/dashboard.scss"
 import { ICONS } from "../data/AllData";
-import { Link, Outlet, useNavigate, Navigate, useParams } from "react-router-dom";
+import { Link, Outlet, useNavigate, Navigate } from "react-router-dom";
 import { registerUserLists } from "../APIs/api";
-import Chat from "../pages/chat";
- 
-const myContext = createContext("hello")
 
-const DashBoard = () => {
-    console.log(myContext)
-    const [header, setHeader] = useState("")
+
+const DashBoard = ({ setUser }) => {
     let user = localStorage.getItem("token");
     let navigate = useNavigate()
     // Searching Users =>
@@ -21,6 +17,7 @@ const DashBoard = () => {
         let { value } = e.target;
         setSearch(value)
     }
+
     // Logout =>
     const handleLogout = (index) => {
         user = localStorage.removeItem("token");
@@ -47,9 +44,7 @@ const DashBoard = () => {
                                     {
                                         ICONS.map((_, index) => {
                                             return (
-                                                <Link to={_?.route} onClick={index === 3 ? handleLogout : () => {
-                                                    setHeader(_?.name)
-                                                }} key={index} >
+                                                <Link to={_?.route} onClick={index === 3 ? handleLogout : null} key={index} >
                                                     <img className="nav-img" src={_?.icons} alt="chat-icons" width={27} />
                                                 </Link>
                                             )
@@ -71,6 +66,8 @@ const DashBoard = () => {
                                                     if (_.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())) {
                                                         return (
                                                             <Link to={"/chit-chat/dashboard/chat/user"} style={{ textDecoration: "none" }} key={index} onClick={() => {
+                                                                let roomId = [user, _._id];
+                                                                setUser({ room: roomId.sort().join(""), userName: _.name, isActive: false, userPhoto: _.profilePhoto, participant: [user, _._id], timestamp: new Date() })
                                                             }}>
                                                                 <div className="users" >
                                                                     <div className="users-profile">

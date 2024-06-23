@@ -30,6 +30,11 @@ io.on("connection", (socket) => {
     socket.join(roomNumber)
   })
 
+
+  socket.on("typing...", (value) => {
+    socket.emit("typing...", value)
+  })
+
   // chat massages =>
   socket.on("chat", (room, massage) => {
     io.to(room).emit("chat", { id: socket.id, massage, date: new Date() })
@@ -46,9 +51,10 @@ io.on("connection", (socket) => {
   });
 });
 
+
 // Routes =>
 app.use(require("./routes/authRoutes.js"));
-app.use(require("./routes/chatRoutes.js"));
+// app.use(require("./routes/chatRoutes.js"));
 app.use(require("./routes/profileRoutes.js"));
 
 // Server running =>

@@ -4,12 +4,12 @@ const Notifications = () => {
     return (
         <div className="notification-container">
             {
-                dummyNotifications.map((_) => {
+                dummyNotifications.map((_, index) => {
                     let date = new Date(_.timestamp)
                     let hours = date.getHours();
                     let minute = date.getMinutes();
                     return (
-                        <div className="notification-lists">
+                        <div className="notification-lists" key={index}>
                             <div className="sender-profile-photo">
                                 <img src={_?.profile_photo} alt="not available" />
                             </div>

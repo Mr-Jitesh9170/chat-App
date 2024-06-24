@@ -28,12 +28,13 @@ exports.getProfileControllers = async (req, res) => {
     try {
         let { _id } = req.body;
         let responseUserProfile = await UserProfiles.findById(_id).select("-password")
+        console.log(responseUserProfile)
         res.json(
             {
                 status: 200,
                 massage: "User profile",
                 results: responseUserProfile
-            } 
+            }
         )
     } catch (error) {
         console.log(error, "<---- user profile not retrieved")

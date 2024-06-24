@@ -8,4 +8,4 @@ router.post("/profile", getProfileControllers);
 // Update User Profile =>
 router.put("/profile", updateProfileControllers);
 
-module.exports = router; 
+module.exports = router;  

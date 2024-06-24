@@ -9,13 +9,13 @@ import Chat from "./pages/chat";
 import { useContext } from "react";
 import { UserContext } from "./utils/contextApi";
 function App() {
-  const { user, setUser, profile, setProfile } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path="/"
-          element={<Authentication setProfile={setProfile} />}
+          element={<Authentication />}
         />
         <Route
           path="/chit-chat/dashboard"
@@ -31,7 +31,7 @@ function App() {
           />
           <Route
             path="/chit-chat/dashboard/profile"
-            element={<Profile profile={profile} />}
+            element={<Profile />}
           />
           <Route
             path="/chit-chat/dashboard/chat/user"

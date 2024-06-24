@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 // Database connections =>
 const { connectMongo } = require("./config/db.js");
 connectMongo();
-
+const roomModel = require("./models/chatRoom.js")
 // websocket connections =>
 let io = new Server(server, {
   cors: {
@@ -25,14 +25,13 @@ let io = new Server(server, {
 
 // socket connection =>
 io.on("connection", (socket) => {
+
   // room joined =>
-  socket.on("roomJoin", (roomNumber) => {
-    socket.join(roomNumber)
-  })
-
-
-  socket.on("typing...", (value) => {
-    socket.emit("typing...", value)
+  socket.on("roomJoin", async (roomNumber) => {
+    let isRoom = await roomModel.findOne({ roomId: roomNumber.roomId })
+    if (!isRoom) {
+      socket.join(roomNumber.roomId);
+    }
   })
 
   // chat massages =>

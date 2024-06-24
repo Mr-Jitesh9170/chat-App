@@ -5,8 +5,8 @@ let CHAT_URL = "http://localhost:8080/";
 // Get , User Profile Data =>
 export const getProfileUser = async (setUserProfile, _id) => {
     try {
-        let responseUser = await axios.post(CHAT_URL + "profile", { _id });
-        return setUserProfile(responseUser.data.results);
+        let { data: { results } } = await axios.post(CHAT_URL + "profile", { _id });
+        return setUserProfile(results);
     } catch (error) {
         console.log(error, " <---- User profile data not retrieved");
     }
@@ -42,5 +42,4 @@ export const registerUserLists = async (setChatUsersLists) => {
     }
 }
 
- 
- 
+

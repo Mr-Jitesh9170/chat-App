@@ -8,25 +8,22 @@ const socket = io("http://localhost:8080");
 const Chat = ({ user }) => {
   const [input, setInput] = useState("")
   const [massage, setMassage] = useState([])
-  const [typing, setTyping] = useState(false);
+
   useEffect(() => {
-    socket.on("typing...", (value) => {
-      setTyping(value)
-    })
+    // room setup =>
+    socket.emit("roomJoin", { roomId: user.room, participant: user.participant, timestamp: user.timestamp });
+  }, [user.room])
+
+  useEffect(() => {
     //  new massage =>
     socket.on("chat", (newMassages) => {
       setMassage([...massage, newMassages])
     })
-    // room setup =>
-    if (user.room !== "" || user.room !== null) {
-      socket.emit("roomJoin", user.room);
-    }
-  })
+  }, [])
 
   // input massage =>
   const handleInput = (e) => {
     setInput(e.target.value)
-    socket.emit("typing...", true)
   }
   // send massage =>
   const handleSend = () => {
@@ -35,7 +32,6 @@ const Chat = ({ user }) => {
     socket.emit("chat", user.room, input.trim())
     setInput("")
   }
-  console.log(typing, "<--- another user is typing!")
   return (
     <>
       {

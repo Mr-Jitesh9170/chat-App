@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react"
 import "../styles/profile.scss"
+import { getProfileUser } from "../APIs/api"
 
 const Profile = () => {
-    const [profile, setProfile] = useState([{ name: "", icon: "👥", }, { mobile: "", icon: "📱", }, { email: "", icon: "📧", }])
-
+    const [profile, setProfile] = useState({});
+    let updatedProfile = [{ name: profile.name, icon: "👥", }, { name: profile.number, icon: "📱", }, { name: profile.email, icon: "📧", }]
+    useEffect(() => {
+        getProfileUser(setProfile, localStorage.getItem("token"))
+    }, [])
     const socialMedias = [
         {
             name: "Linkdin",
@@ -22,14 +26,14 @@ const Profile = () => {
     return (
         <div className="profile-container">
             <div className="profile-photo">
-                <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D" alt="" />
+                <img src={profile.profilePhoto} alt="" />
             </div>
             {
-                profile.map((_) => {
+                updatedProfile.map((_) => {
                     return (
                         <div className="profiles">
                             <div className="name-icons">{_.icon}</div>
-                            <div className="name">{_.data}</div>
+                            <div className="name">{_.name}</div>
                         </div>
                     )
                 })

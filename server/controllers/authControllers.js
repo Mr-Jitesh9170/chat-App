@@ -58,7 +58,7 @@ exports.userLogin = async (req, res) => {
       {
         status: 200,
         massage: "user loggined",
-        results: user._id
+        results: { _id: user._id, profilePhoto: user.profilePhoto }
       }
     )
 

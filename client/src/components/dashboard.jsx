@@ -4,7 +4,6 @@ import { ICONS } from "../data/AllData";
 import { Link, Outlet, useNavigate, Navigate } from "react-router-dom";
 import { registerUserLists } from "../APIs/api";
 
-
 const DashBoard = ({ setUser }) => {
     let user = localStorage.getItem("token");
     let navigate = useNavigate()
@@ -17,7 +16,6 @@ const DashBoard = ({ setUser }) => {
         let { value } = e.target;
         setSearch(value)
     }
-
     // Logout =>
     const handleLogout = (index) => {
         user = localStorage.removeItem("token");
@@ -37,7 +35,7 @@ const DashBoard = ({ setUser }) => {
                             <div className="dashboard-left-container" >
                                 <div className="left-top-container">
                                     <div className="profile-image">
-                                        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png" alt="user-image" />
+                                        <img src={localStorage.getItem("profilePhoto")} alt="user-image" />
                                     </div>
                                 </div>
                                 <div className="nav-icons">

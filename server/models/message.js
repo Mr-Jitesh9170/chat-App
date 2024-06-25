@@ -2,11 +2,11 @@ const { Schema, model } = require("mongoose")
 
 const massageSchema = new Schema(
     {
-        roomChatId: { type: String, required: true, unique: true },
+        roomChatId: { type: String, required: true },
         senderId: Schema.Types.ObjectId,
-        message: String,
+        massage: String,
         timestamp: Date
     }
 )
 
-module.exports = model("Messages", massageSchema, "Messages");
+module.exports = model("Massages", massageSchema, "Massages");

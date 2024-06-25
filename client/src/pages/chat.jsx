@@ -29,7 +29,7 @@ const Chat = ({ user }) => {
   const handleSend = () => {
     if (!input.trim())
       return
-    socket.emit("chat", user.room, input.trim())
+    socket.emit("chat", { roomChatId: user.room, massage: input.trim(), timestamp: new Date(), senderId: localStorage.getItem("token") })
     setInput("")
   }
   return (

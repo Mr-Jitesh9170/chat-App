@@ -1,6 +1,7 @@
 const express = require("express");
 const { createServer } = require("http");
 const { Server } = require("socket.io");
+const massageModel = require("./models/message.js")
 
 const app = express();
 let server = createServer(app);
@@ -35,8 +36,11 @@ io.on("connection", (socket) => {
   })
 
   // chat massages =>
-  socket.on("chat", (room, massage) => {
-    io.to(room).emit("chat", { id: socket.id, massage, date: new Date() })
+  socket.on("chat", async (newMassages) => {
+    if (newMassages) {
+      await massageModel.create({ newMassages });
+    }
+    io.to(newMassages.roomChatId).emit("chat", { id: socket.id, massage, date: new Date() })
   })
 
   // room leaved =>

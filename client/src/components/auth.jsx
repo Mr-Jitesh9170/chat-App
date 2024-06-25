@@ -52,9 +52,10 @@ const Authentication = () => {
         return setToastMassage("fill the blank feilds!");
       }
       data = { email, password }
-      let { results: token, massage } = await userAuthorization(data, "login")
+      let { results: { _id: token, profilePhoto }, massage } = await userAuthorization(data, "login")
       if (token) {
         localStorage.setItem("token", token);
+        localStorage.setItem("profilePhoto", profilePhoto);
         navigation("/chit-chat/dashboard/profile");
       }
       else {

@@ -6,6 +6,6 @@ const chatSchema = new Schema(
         participant: [{ type: Schema.Types.ObjectId, ref: 'User' }],
         timestamp: Date
     }
-)
+) 
 
 module.exports = model("chatRoom", chatSchema, "chatRoom")

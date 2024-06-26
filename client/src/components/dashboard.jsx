@@ -51,7 +51,7 @@ const DashBoard = ({ setUser }) => {
                                 </div>
                             </div >
                             <div className="dashboard-right-container">
-                                <div className="left-container">
+                                <div className="left-container"> 
                                     <h2 className="chit-chat">Chit-Chat</h2>
                                     <div className="input-search">
                                         <img src="" alt="" />

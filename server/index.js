@@ -29,18 +29,12 @@ io.on("connection", (socket) => {
 
   // room joined =>
   socket.on("roomJoin", async (roomNumber) => {
-    let isRoom = await roomModel.findOne({ roomId: roomNumber.roomId })
-    if (!isRoom) {
-      socket.join(roomNumber.roomId);
-    }
+    socket.join(roomNumber.roomId);
   })
 
   // chat massages =>
   socket.on("chat", async (newMassages) => {
-    if (newMassages) {
-      await massageModel.create({ newMassages });
-    }
-    io.to(newMassages.roomChatId).emit("chat", { id: socket.id, massage, date: new Date() })
+    io.to(newMassages.roomChatId).emit("chat", { id: socket.id, massage: newMassages.massage, date: new Date() })
   })
 
   // room leaved =>

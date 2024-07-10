@@ -27,7 +27,14 @@ const registerSchema = new Schema(
       type: String,
       default: ""
     },
-    isActive: Boolean,
+    isOnline: {
+      type: Boolean,
+      default: false
+    },
+    lastSeen: {
+      type: Date,
+      default: Date.now()
+    }
   },
   {
     timpestamp: true

@@ -4,8 +4,7 @@ const { userRegister, userLogin, getUserRegister } = require("../controllers/aut
 const router = Router()
 
 router.post("/register", userRegister);
-router.get("/register", getUserRegister)
-
+router.get("/register", getUserRegister);
 router.post("/login", userLogin);
-
+ 
 module.exports = router;

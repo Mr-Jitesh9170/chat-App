@@ -1,13 +1,18 @@
 import { createContext, useState } from "react";
 
-export const UserContext = createContext()
+export const UserContext = createContext({})
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(
         {
-            room: "",
+            oldRoomId: "",
+            roomId: "",
             userName: "",
             isActive: "",
-            userPhoto: ""
+            userPhoto: "",
+            participant: [],
+            isOnline: '',
+            lastSeen: '',
+            timestamp: ""
         }
     )
     return (

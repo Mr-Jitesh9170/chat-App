@@ -34,7 +34,7 @@ function App() {
             element={<Profile />}
           />
           <Route
-            path="/chit-chat/dashboard/chat/user"
+            path="/chit-chat/dashboard/chat/:user?"
             element={<Chat user={user} />}
           />
         </Route>

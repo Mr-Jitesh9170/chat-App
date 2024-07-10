@@ -21,7 +21,7 @@ exports.userRegister = async (req, res) => {
       }
     )
   } catch (error) {
-    console.log(error, " <--- user not registered")
+    console.log(error, " <--- user not registered");
     res.json(
       {
         status: 500,

@@ -1,49 +1,96 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../styles/chat.scss";
 import Send from "../Assests/send.svg";
 import io from "socket.io-client";
+import { fetchMassages } from "../APIs/chatApi";
+import { getTime } from "../utils/date";
 
-const socket = io("http://localhost:8080");
+
+export const socket = io("http://localhost:8080");
 
 const Chat = ({ user }) => {
   const [input, setInput] = useState("");
   const [massage, setMassage] = useState([]);
+  const [room, setRoom] = useState(
+    {
+      roomId: "",
+      roomChatId: ""
+    }
+  );
+  const [isTyping, setTyping] = useState({ typing: false, _id: '' });
+
 
   useEffect(() => {
-    // room setup =>
+    if (!user.roomId) {
+      return
+    }
+    // fetch massages =>
+    fetchMassages(setMassage, `/user/massage/${user.roomId}`);
+    // emit roomId =>
     socket.emit("roomJoin", {
-      roomId: user.room,
-      participant: user.participant,
-      timestamp: user.timestamp,
+      user: localStorage.getItem('token'),
+      roomId: user?.roomId,
+      participant: user?.participant,
+      timestamp: user?.timestamp,
     });
-  }, [user.room]);
-
+    // old room leave => 
+    if (user.oldRoomId) {
+      socket.emit('roomLeave', user.oldRoomId);
+    }
+  }, [user]);
 
   useEffect(() => {
+    // room joining =>
+    socket.on('roomJoin', (roomNumber) => {
+      setRoom({ roomId: roomNumber.roomId, roomChatId: roomNumber.roomChatId });
+    })
     // new message =>
     socket.on("chat", (newMessage) => {
       setMassage((prevMessages) => [...prevMessages, newMessage]);
     });
+
+    // typing =>
+    socket.on('typing', ({ isTyping, _id }) => {
+      setTyping({ typing: isTyping, _id })
+    })
+    return () => {
+      socket.emit('roomLeave', user.roomId)
+      socket.off();
+    }
   }, []);
 
   // input massage =>
   const handleInput = (e) => {
     setInput(e.target.value);
+    socket.emit('typing', { isTyping: true, roomId: room.roomId, _id: socket.id })
   };
+
   // send massage =>
   const handleSend = () => {
     if (!input.trim()) return;
-    socket.emit("chat", {
-      roomChatId: user.room,
+    let createMassage = {
+      roomChatId: room.roomChatId,
       massage: input.trim(),
       timestamp: new Date(),
+      seen: false,
       senderId: localStorage.getItem("token"),
-    });
+    }
+    socket.emit("chat", user?.roomId, createMassage);
     setInput("");
+    socket.emit('typing', { isTyping: false, roomId: room.roomId, _id: socket.id })
   };
+
+  // scroll top to bottom =>
+  const scrollRef = useRef(null);
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [massage]);
+
   return (
     <>
-      {user.userName && (
+      {user && (
         <div className="chat-container">
           <div className="chat-top">
             <div className="chat-profile">
@@ -51,38 +98,35 @@ const Chat = ({ user }) => {
             </div>
             <div className="chat-head">
               <h4>{user?.userName}</h4>
-              <p className="active">{user?.isActive ? "Online" : "Offline"}</p>
+              <p className="active">
+                {/* {user.isOnline ? 'online' : `Last Seen - ${getTime(new Date())}`} */}
+                {(isTyping.typing && isTyping._id !== socket.id) ? 'Typing...' : (user.isOnline ? 'online' : `Last Seen - ${getTime(user.lastSeen)}`)}
+              </p>
             </div>
           </div>
-          <div className="chat-mid">
-            {massage.map((newMsg, index) => {
-              let date = new Date(newMsg.date);
-              let hours = date.getHours(),
-                minutes = date.getMinutes();
-              if (newMsg.id === socket.id) {
-                return (
-                  <div className="me" key={index}>
-                    {newMsg.massage}{" "}
-                    <span>
-                      {hours > 12
-                        ? `${hours % 12}:${minutes}PM`
-                        : `${hours}:${minutes}AM`}
-                    </span>{" "}
-                  </div>
-                );
-              } else {
-                return (
-                  <div className="you">
-                    {newMsg.massage}{" "}
-                    <span>
-                      {hours > 12
-                        ? `${hours % 12}:${minutes}PM`
-                        : `${hours}:${minutes}AM`}
-                    </span>
-                  </div>
-                );
-              }
-            })}
+          <div className="chat-mid" ref={scrollRef}>
+            {
+              massage.map((newMsg, index) => {
+                if (newMsg.senderId === localStorage.getItem('token')) {
+                  return (
+                    <div className="me" key={index}>
+                      {newMsg.massage}{" "}
+                      <span>{getTime(newMsg.timestamp)}</span>
+                      <b style={newMsg?.seen ? { color: "blue" } : { color: "black" }}>{newMsg?.seen ? '✓✓' : (user.isOnline ? '✓✓' : '✓')}</b>
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div className="you">
+                      {newMsg.massage}{" "}
+                      <span>
+                        {getTime(newMsg.timestamp)}
+                      </span>
+                    </div>
+                  );
+                }
+              })
+            }
           </div>
           <div className="chat-bottom">
             <input type="text" value={input} onChange={handleInput} />

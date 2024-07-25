@@ -4,11 +4,13 @@ import Send from "../Assests/send.svg";
 import io from "socket.io-client";
 import { fetchMassages } from "../APIs/chatApi";
 import { getTime } from "../utils/date";
+import { useNavigate } from "react-router-dom";
 
 
 export const socket = io("http://localhost:8080");
 
 const Chat = ({ user }) => {
+  const profile = useNavigate();
   const [input, setInput] = useState("");
   const [massage, setMassage] = useState([]);
   const [room, setRoom] = useState(
@@ -18,7 +20,6 @@ const Chat = ({ user }) => {
     }
   );
   const [isTyping, setTyping] = useState({ typing: false, _id: '' });
-
 
   useEffect(() => {
     if (!user.roomId) {
@@ -90,7 +91,7 @@ const Chat = ({ user }) => {
 
   return (
     <>
-      {user && (
+      {user.userName !== '' ? (
         <div className="chat-container">
           <div className="chat-top">
             <div className="chat-profile">
@@ -110,16 +111,16 @@ const Chat = ({ user }) => {
                 if (newMsg.senderId === localStorage.getItem('token')) {
                   return (
                     <div className="me" key={index}>
-                      {newMsg.massage}{" "}
-                      <span>{getTime(newMsg.timestamp)}</span>
+                      <span>{newMsg.massage}</span>
+                      <span className="time">{getTime(newMsg.timestamp)}</span>
                       <b style={newMsg?.seen ? { color: "blue" } : { color: "black" }}>{newMsg?.seen ? '✓✓' : (user.isOnline ? '✓✓' : '✓')}</b>
                     </div>
                   );
                 } else {
                   return (
                     <div className="you">
-                      {newMsg.massage}{" "}
-                      <span>
+                      <span>{newMsg.massage}</span>
+                      <span className="time">
                         {getTime(newMsg.timestamp)}
                       </span>
                     </div>
@@ -129,13 +130,13 @@ const Chat = ({ user }) => {
             }
           </div>
           <div className="chat-bottom">
-            <input type="text" value={input} onChange={handleInput} />
+            <input type="text" value={input} placeholder={`Say hello to ${user.userName.toLowerCase()}!`} onChange={handleInput} />
             <button className="send-button" onClick={handleSend}>
               <img src={Send} alt="" />
             </button>
           </div>
         </div>
-      )}
+      ) : profile('/chit-chat/dashboard/profile')}
     </>
   );
 };

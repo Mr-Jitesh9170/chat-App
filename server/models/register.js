@@ -41,4 +41,4 @@ const registerSchema = new Schema(
   }
 )
 
-module.exports = model("User", registerSchema, "Users");
+module.exports = model("User", registerSchema);

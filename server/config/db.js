@@ -6,6 +6,6 @@ exports.connectMongo = async () => {
     await connect(URL);
     console.log("mongodb connected !!")
   } catch (error) {
-    console.log(error, " <--- mongodb not connected ")
+    console.log(error, " <--- mongodb not connected ");
   }
 }

@@ -26,7 +26,7 @@ export const userProfileUpdate = async (userData, route) => {
 export const userAuthorization = async (userData, route) => {
     try {
         let responseUser = await axios.post(CHAT_URL + route, userData);
-        return responseUser.data;
+        return responseUser?.data;
     } catch (error) {
         console.log(error, " <---- User not authorised");
     }
@@ -41,5 +41,3 @@ export const registerUserLists = async (setChatUsersLists) => {
         console.log(error, " <---- Registered user lists");
     }
 }
-
-

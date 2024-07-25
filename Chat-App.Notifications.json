@@ -1,0 +1,142 @@
+[
+  {
+    "_id": {
+      "$oid": "669a68bbce956274133d6c19"
+    },
+    "userId": {
+      "$oid": "667752e13e7af6e2a0b2fe7b"
+    },
+    "toUser": {
+      "$oid": "6671eff1325eb5005282b9bf"
+    },
+    "notifyMsg": "You have a new friend request.",
+    "isRead": false,
+    "timestamp": "2024-07-19T10:00:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "669a68bbce956274133d6c1a"
+    },
+    "userId": {
+      "$oid": "66839058e743a0f57dea85ab"
+    },
+    "toUser": {
+      "$oid": "6671eff1325eb5005282b9bf"
+    },
+    "notifyMsg": "Your post has been liked.",
+    "isRead": true,
+    "timestamp": "2024-07-19T10:05:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "669a68bbce956274133d6c1b"
+    },
+    "userId": {
+      "$oid": "66839058e743a0f57dea85ab"
+    },
+    "toUser": {
+      "$oid": "6671eff1325eb5005282b9bf"
+    },
+    "notifyMsg": "You have a new message.",
+    "isRead": false,
+    "timestamp": "2024-07-19T10:10:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "669a68bbce956274133d6c1c"
+    },
+    "userId": {
+      "$oid": "60d5ec49f10a0b0015c5d8a7"
+    },
+    "toUser": {
+      "$oid": "60d5ec49f10a0b0015c5d8a8"
+    },
+    "notifyMsg": "Someone mentioned you in a comment.",
+    "isRead": true,
+    "timestamp": "2024-07-19T10:15:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "669a68bbce956274133d6c1d"
+    },
+    "userId": {
+      "$oid": "60d5ec49f10a0b0015c5d8a9"
+    },
+    "toUser": {
+      "$oid": "60d5ec49f10a0b0015c5d8aa"
+    },
+    "notifyMsg": "Your profile picture was updated.",
+    "isRead": false,
+    "timestamp": "2024-07-19T10:20:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "669a68bbce956274133d6c1e"
+    },
+    "userId": {
+      "$oid": "60d5ec49f10a0b0015c5d8ab"
+    },
+    "toUser": {
+      "$oid": "60d5ec49f10a0b0015c5d8ac"
+    },
+    "notifyMsg": "You were tagged in a photo.",
+    "isRead": true,
+    "timestamp": "2024-07-19T10:25:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "669a68bbce956274133d6c1f"
+    },
+    "userId": {
+      "$oid": "60d5ec49f10a0b0015c5d8ad"
+    },
+    "toUser": {
+      "$oid": "60d5ec49f10a0b0015c5d8ae"
+    },
+    "notifyMsg": "Your comment received a reply.",
+    "isRead": false,
+    "timestamp": "2024-07-19T10:30:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "669a68bbce956274133d6c20"
+    },
+    "userId": {
+      "$oid": "6671eff1325eb5005282b9bf"
+    },
+    "toUser": {
+      "$oid": "60d5ec49f10a0b0015c5d8b0"
+    },
+    "notifyMsg": "You have a new follower.",
+    "isRead": true,
+    "timestamp": "2024-07-19T10:35:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "669a68bbce956274133d6c21"
+    },
+    "userId": {
+      "$oid": "6671eff1325eb5005282b9bf"
+    },
+    "toUser": {
+      "$oid": "60d5ec49f10a0b0015c5d8b2"
+    },
+    "notifyMsg": "Your story was viewed.",
+    "isRead": false,
+    "timestamp": "2024-07-19T10:40:00Z"
+  },
+  {
+    "_id": {
+      "$oid": "669a68bbce956274133d6c22"
+    },
+    "userId": {
+      "$oid": "60d5ec49f10a0b0015c5d8b3"
+    },
+    "toUser": {
+      "$oid": "60d5ec49f10a0b0015c5d8b4"
+    },
+    "notifyMsg": "Your friend request was accepted.",
+    "isRead": true,
+    "timestamp": "2024-07-19T10:45:00Z"
+  }
+]

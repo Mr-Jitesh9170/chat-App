@@ -19,6 +19,7 @@
         color: yellowgreen;
       }
     }
+
     .chat-profile {
       width: 50px;
       height: 50px;
@@ -32,6 +33,7 @@
       }
     }
   }
+
   .chat-mid {
     width: 100%;
     height: 77%;
@@ -40,27 +42,48 @@
     display: flex;
     gap: 7px;
     flex-direction: column;
+    .me,
+    .you {
+      padding: 10px 12px;
+      display: flex;
+      gap: 4px;
+
+      &:nth-child(1) {
+        border-radius: 3px;
+        text-align: justify;
+        max-width: 40%;
+        box-shadow: -1px 2px 0px #D4D4D4;
+      }
+
+      .time {
+        font-size: 9px;
+        align-self: flex-end;
+      }
+    }
+
     .me {
       align-self: flex-end;
       background-color: #d1e7ff;
-      padding: 5px 9px;
-      border-radius: 10px;
-      text-align: justify;
-      max-width: 40%;
+      border-top-right-radius: 15px;
+      border-bottom-left-radius: 7px;
+      border-top-left-radius: 7px;
 
+      b {
+        font-size: 9px;
+        align-self: flex-end;
+      }
     }
+
     .you {
+      border-top-right-radius: 7px;
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 7px;
       align-self: flex-start;
       background-color: #f1f1f1;
-      padding: 5px 9px;
-      border-radius: 10px;
-      text-align: justify;
-      max-width: 40%;
     }
-    span {
-      font-size: 10px;
-    }
+
   }
+
   .chat-bottom {
     width: 100%;
     height: 8%;
@@ -88,4 +111,22 @@
       }
     }
   }
+}
+
+
+.chat-mid::-webkit-scrollbar-thumb {
+  background-color: yellow;
+  border-radius: 30px;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: darkgrey;
+}
+
+::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }

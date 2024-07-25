@@ -6,19 +6,19 @@ import { registerUserLists } from "../APIs/api";
 import { fetchCountUnreadMsg } from "../APIs/chatApi";
 import { socket } from "../pages/chat";
 
-const DashBoard = ({ setUser }) => {
+const DashBoard = ({ setUser, notification }) => {
     let navigate = useNavigate();
     let user = localStorage.getItem("token");
     const [users, setUsers] = useState([]);
     const [search, setSearch] = useState("");
     const [lastMsgCount, setLastMsgCount] = useState();
-
+    
     // fetching register users =>
     useEffect(() => {
         registerUserLists(setUsers);
         socket.emit("isOnline", { isOnline: true, user })
         return () => {
-            socket.emit('isOnline', { isOnline: false, user })
+            socket.emit('isOnline', { isOnline: false, user });
         }
     }, []);
 
@@ -42,11 +42,13 @@ const DashBoard = ({ setUser }) => {
             return { oldRoomId: prevState.roomId, roomId: roomId, userName: _.name, isActive: false, userPhoto: _.profilePhoto, participant: [user, _._id], isOnline: _.isOnline, timestamp: new Date(), lastSeen: _.lastSeen }
         })
     }
+
     // SEARCH CHAT USER =>
     const inputSearch = (e) => {
         let { value } = e.target;
         setSearch(value)
     }
+
     // Logout =>
     const handleLogout = (index) => {
         user = localStorage.removeItem("token");
@@ -69,8 +71,9 @@ const DashBoard = ({ setUser }) => {
                                     {
                                         ICONS.map((_, index) => {
                                             return (
-                                                <Link to={_?.route} onClick={index === 3 ? handleLogout : null} key={index} >
+                                                <Link to={_?.route} onClick={index === 2 ? handleLogout : null} key={index} style={{ textDecoration: "none", position: 'relative' }} >
                                                     <img className="nav-img" src={_?.icons} alt="chat-icons" width={27} />
+                                                    {index == 1 && <span style={{ position: "absolute", top: "-10px", right: '-10px', color: "yellow", background: "black", borderRadius: "10px", padding: "4px", fontSize: "10px" }}>{notification.notiCount > 100 ? `${notification.notiCount}k` : notification.notiCount}</span>}
                                                 </Link>
                                             )
                                         })
@@ -82,7 +85,7 @@ const DashBoard = ({ setUser }) => {
                                     <h2 className="chit-chat">Chit-Chat</h2>
                                     <div className="input-search">
                                         <img src="" alt="" />
-                                        <input type="text" placeholder="Search user for chat...." value={search} onChange={inputSearch} />
+                                        <input type="text" placeholder="Search user for chat!" value={search} onChange={inputSearch} />
                                     </div>
                                     <div className="chat-lists">
                                         {

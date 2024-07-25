@@ -14,7 +14,7 @@ export const fetchCountUnreadMsg = async (routes, recieverId) => {
 // fetch chat massages =>
 export const fetchMassages = async (setMassages, routes) => {
     try {
-        let { data: { results } } = await axios.get(CHAT_URL + routes);
+        let { data: { results } } = await axios.get(CHAT_URL + routes); 
         setMassages([...results])
     } catch (error) {
         console.log(error, "<----  Error fetching massage!")

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import "../styles/profile.scss"
 import { getProfileUser } from "../APIs/api"
-
 const Profile = () => {
     const [profile, setProfile] = useState({});
     let updatedProfile = [{ name: profile.name, icon: "👥", }, { name: profile.number, icon: "📱", }, { name: profile.email, icon: "📧", }]

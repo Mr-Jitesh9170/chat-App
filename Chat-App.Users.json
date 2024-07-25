@@ -1,0 +1,112 @@
+[
+  {
+    "_id": {
+      "$oid": "6671eff1325eb5005282b9bf"
+    },
+    "name": "Jitesh Pandey",
+    "email": "mr.jiteshpandey9170@gmail.com",
+    "profilePhoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9LJ-AHFG7OTn0OFl7v2m8elkhlz2iIodFuXpBTVROwQ&s",
+    "number": {
+      "$numberLong": "9170006101"
+    },
+    "password": "$2b$10$CZwhYI.BUbw5itgRzkSmievZnFOP99YEp1z.E1oTXUEr9IvCEahIa",
+    "address": "",
+    "__v": 0,
+    "isOnline": true, 
+    "lastSeen": {
+      "$date": "2024-07-24T10:49:48.740Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "667752e13e7af6e2a0b2fe7b"
+    },
+    "name": "Aman chauhan",
+    "email": "amanchauhan@gmail.com",
+    "profilePhoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9LJ-AHFG7OTn0OFl7v2m8elkhlz2iIodFuXpBTVROwQ&s",
+    "number": {
+      "$numberLong": "9170006101"
+    },
+    "password": "$2b$10$elm82BgIRzwYDChTXMpoQeupGsd3qi5NU/aC1fr3fMxUdzXuWq/bi",
+    "address": "",
+    "__v": 0,
+    "isOnline": false,
+    "lastSeen": {
+      "$date": "2024-07-14T18:52:02.237Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6683904ae743a0f57dea85a8"
+    },
+    "name": "Charlie Davis",
+    "email": "charlie.davis@example.com",
+    "profilePhoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9LJ-AHFG7OTn0OFl7v2m8elkhlz2iIodFuXpBTVROwQ&s",
+    "number": null,
+    "password": "$2b$10$5vYJKw/h7Kuq5luprHSqXu4viPdYVJuOJAY8wLCs4mU8peHuXctkK",
+    "address": "",
+    "__v": 0,
+    "isOnline": false,
+    "lastSeen": "Mon Jul 08 2024 18:43:09 GMT+0530 (India Standard Time)"
+  },
+  {
+    "_id": {
+      "$oid": "66839058e743a0f57dea85ab"
+    },
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "profilePhoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9LJ-AHFG7OTn0OFl7v2m8elkhlz2iIodFuXpBTVROwQ&s",
+    "number": null,
+    "password": "$2b$10$yktDnzIjvRtzHDdaG970FuTXESLZDyCZ6uL4jw4ITUCrLAcpFp0Gq",
+    "address": "",
+    "__v": 0,
+    "isOnline": false,
+    "lastSeen": "Mon Jul 08 2024 18:43:09 GMT+0530 (India Standard Time)"
+  },
+  {
+    "_id": {
+      "$oid": "66839078e743a0f57dea85ae"
+    },
+    "name": "Jane Smith",
+    "email": "jane.smith@example.com",
+    "profilePhoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9LJ-AHFG7OTn0OFl7v2m8elkhlz2iIodFuXpBTVROwQ&s",
+    "number": null,
+    "password": "$2b$10$SCR/RoNyweNlime8dFG7guQ9n2yaUs7RGoqynD7Mpqv7aEhMnJHMS",
+    "address": "",
+    "__v": 0,
+    "isOnline": false,
+    "lastSeen": "Mon Jul 08 2024 18:43:09 GMT+0530 (India Standard Time)"
+  },
+  {
+    "_id": {
+      "$oid": "6683909fe743a0f57dea85b1"
+    },
+    "name": "Charlie Green",
+    "email": "charlie.green@example.com",
+    "profilePhoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9LJ-AHFG7OTn0OFl7v2m8elkhlz2iIodFuXpBTVROwQ&s",
+    "number": null,
+    "password": "$2b$10$u.lvta.HnaeshaXBICdxJ.L3jU5S6SOc1w.P2GjJYkjzWLph19NOS",
+    "address": "",
+    "__v": 0,
+    "isOnline": false,
+    "lastSeen": "Mon Jul 08 2024 18:43:09 GMT+0530 (India Standard Time)"
+  },
+  {
+    "_id": {
+      "$oid": "669cf56703675e2feae57739"
+    },
+    "name": "Pragati",
+    "email": "pragati@gmail.com",
+    "profilePhoto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9LJ-AHFG7OTn0OFl7v2m8elkhlz2iIodFuXpBTVROwQ&s",
+    "number": {
+      "$numberLong": "7052612328"
+    },
+    "password": "$2b$10$RBotr6zlnljce1saCCkIPuv40K5rDGkgjusoull0ZKoSFyDQVdqvi",
+    "address": "",
+    "isOnline": false,
+    "lastSeen": {
+      "$date": "2024-07-21T11:55:09.572Z"
+    },
+    "__v": 0
+  }
+]

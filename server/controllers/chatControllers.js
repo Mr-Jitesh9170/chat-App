@@ -83,7 +83,7 @@ exports.socketConnection = (io) => {
     io.on("connection", (socket) => {
         console.log(`This User => ${socket.id} connected!!`)
         // isOnline =>
-        socket.on('isOnline', async ({ isOnline, user }) => {
+        socket.on('isOnline', async ({ isOnline, user }) => {   
             socket.username = user;
             await userModel.findOneAndUpdate({ _id: user }, { isOnline });
         })

@@ -3,13 +3,15 @@ import Authentication from "./components/auth"
 import DashBoard from "./components/dashboard";
 import { ErrorPage } from "./error/error";
 import Notifications from "./pages/notification";
-import Setting from "./pages/setting";
 import Profile from "./pages/profile";
 import Chat from "./pages/chat";
 import { useContext } from "react";
-import { UserContext } from "./utils/contextApi";
+import { UserContext, NotificationContext } from "./utils/contextApi";
+
 function App() {
   const { user, setUser } = useContext(UserContext);
+  const { notification, setNotification } = useContext(NotificationContext);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -19,15 +21,11 @@ function App() {
         />
         <Route
           path="/chit-chat/dashboard"
-          element={<DashBoard setUser={setUser} />}
+          element={<DashBoard setUser={setUser} notification={notification} />}
         >
           <Route
             path="/chit-chat/dashboard/:notification"
-            element={<Notifications header={"Notification"} />}
-          />
-          <Route
-            path="/chit-chat/dashboard/setting"
-            element={<Setting />}
+            element={<Notifications setNotification={setNotification} notification={notification} />}
           />
           <Route
             path="/chit-chat/dashboard/profile"

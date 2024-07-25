@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import { UserProvider } from './utils/contextApi';
+import { UserProvider, NotificationProvider } from './utils/contextApi';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <UserProvider>
-    <App />
-  </UserProvider> 
+    <NotificationProvider>
+      <App />
+    </NotificationProvider>
+  </UserProvider>
 );
 

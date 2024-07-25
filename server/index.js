@@ -3,7 +3,9 @@ const { createServer } = require("http");
 const { Server } = require("socket.io");
 const app = express();
 let server = createServer(app);
-let { socketConnection } = require("./controllers/chatControllers.js")
+let { socketConnection } = require("./controllers/chatControllers.js");
+
+
 
 // Middlewares => 
 const cors = require("cors");
@@ -23,9 +25,11 @@ let io = new Server(server, {
   },
 });
 
+// socket connections =>
 socketConnection(io);
 
 // Routes =>
+app.use(require("./routes/notificationRoutes.js"));
 app.use(require("./routes/authRoutes.js"));
 app.use(require("./routes/chatRoutes.js"));
 app.use(require("./routes/profileRoutes.js"));

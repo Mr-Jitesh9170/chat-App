@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
 
+// user =>
 export const UserContext = createContext({})
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(
@@ -19,5 +20,20 @@ export const UserProvider = ({ children }) => {
         <UserContext.Provider value={{ user, setUser }}>
             {children}
         </UserContext.Provider>
+    )
+}
+
+export const NotificationContext = createContext({})
+export const NotificationProvider = ({ children }) => {
+    const [notification, setNotification] = useState(
+        {
+            notiCount: 0,
+            notiLists: []
+        }
+    )
+    return (
+        <NotificationContext.Provider value={{ notification, setNotification }}>
+            {children}
+        </NotificationContext.Provider>
     )
 }

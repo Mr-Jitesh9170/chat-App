@@ -28,6 +28,14 @@ let io = new Server(server, {
 // socket connections =>
 socketConnection(io);
 
+
+const hellow = (...data) => {
+  console.log(data, "<--- data came")
+}
+
+hellow({ data: 'You are the hero!', name: "Jitesh pandey", age: 40 })
+
+
 // Routes =>
 app.use(require("./routes/notificationRoutes.js"));
 app.use(require("./routes/authRoutes.js"));

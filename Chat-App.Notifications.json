@@ -10,7 +10,7 @@
       "$oid": "6671eff1325eb5005282b9bf"
     },
     "notifyMsg": "You have a new friend request.",
-    "isRead": false,
+    "isRead": true,
     "timestamp": "2024-07-19T10:00:00Z"
   },
   {
@@ -38,7 +38,7 @@
       "$oid": "6671eff1325eb5005282b9bf"
     },
     "notifyMsg": "You have a new message.",
-    "isRead": false,
+    "isRead": true,
     "timestamp": "2024-07-19T10:10:00Z"
   },
   {
@@ -52,7 +52,7 @@
       "$oid": "60d5ec49f10a0b0015c5d8a8"
     },
     "notifyMsg": "Someone mentioned you in a comment.",
-    "isRead": true,
+    "isRead": false,
     "timestamp": "2024-07-19T10:15:00Z"
   },
   {
@@ -80,7 +80,7 @@
       "$oid": "60d5ec49f10a0b0015c5d8ac"
     },
     "notifyMsg": "You were tagged in a photo.",
-    "isRead": true,
+    "isRead": false,
     "timestamp": "2024-07-19T10:25:00Z"
   },
   {
@@ -108,7 +108,7 @@
       "$oid": "60d5ec49f10a0b0015c5d8b0"
     },
     "notifyMsg": "You have a new follower.",
-    "isRead": true,
+    "isRead": false,
     "timestamp": "2024-07-19T10:35:00Z"
   },
   {
@@ -136,7 +136,7 @@
       "$oid": "60d5ec49f10a0b0015c5d8b4"
     },
     "notifyMsg": "Your friend request was accepted.",
-    "isRead": true,
+    "isRead": false,
     "timestamp": "2024-07-19T10:45:00Z"
   }
 ]

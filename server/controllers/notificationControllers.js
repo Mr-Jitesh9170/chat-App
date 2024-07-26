@@ -36,6 +36,7 @@ exports.notificationRead = async (req, res) => {
     }
 }
 
+// delete notifications =>
 exports.deleteNotifications = async (req, res) => {
     let { notificationId: _id } = req.body;
     try {
@@ -46,12 +47,14 @@ exports.deleteNotifications = async (req, res) => {
     }
 }
 
+// create notifications =>
 exports.createNotifications = async (req, res) => {
-    let { } = req.body
+    let { userId, toUser, notifyMsg, isRead, timestamp } = req.body;
     try {
-
+        await notificationModel.create(req.body);
+        res.json({ status: 200, message: "Notification sent successfully!" })
     } catch (error) {
-
+        console.log(error, "<---- Create notifications!")
+        res.json({ status: 500, message: "Internal server error!" })
     }
-
 }

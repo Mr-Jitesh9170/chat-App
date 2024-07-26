@@ -100,10 +100,9 @@ const Chat = ({ user }) => {
             <div className="chat-head">
               <h4>{user?.userName}</h4>
               <p className="active">
-                {/* {user.isOnline ? 'online' : `Last Seen - ${getTime(new Date())}`} */}
                 {(isTyping.typing && isTyping._id !== socket.id) ? 'Typing...' : (user.isOnline ? 'online' : `Last Seen - ${getTime(user.lastSeen)}`)}
               </p>
-            </div>
+            </div> 
           </div>
           <div className="chat-mid" ref={scrollRef}>
             {

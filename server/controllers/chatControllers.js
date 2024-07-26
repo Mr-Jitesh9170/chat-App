@@ -1,6 +1,7 @@
 const massageModel = require("../models/message.js");
 const roomModel = require("../models/chatRoom.js");
 const userModel = require('../models/register.js');
+const notificationModel = require("../models/notification.js");
 
 // method => GET
 // work => unseen massages =>
@@ -83,10 +84,15 @@ exports.socketConnection = (io) => {
     io.on("connection", (socket) => {
         console.log(`This User => ${socket.id} connected!!`)
         // isOnline =>
-        socket.on('isOnline', async ({ isOnline, user }) => {   
+        socket.on('isOnline', async ({ isOnline, user }) => {
             socket.username = user;
             await userModel.findOneAndUpdate({ _id: user }, { isOnline });
+            const onlineUsers = await userModel.find({ _id: { $ne: user }, isOnline: true })
+            await Promise.all(onlineUsers.map(async (online) => {
+                await notificationModel.create({ notifyMsg: "is online", toUser: user, userId: online._id, timestamp: new Date() })
+            }))
         })
+
         // room joined =>
         socket.on("roomJoin", async (roomNumber) => {
             console.log(roomNumber.user, "<---- this user came")

@@ -16,7 +16,6 @@ export const notificationLists = async (routes, userId, setNotification) => {
 export const notificationRead = async (routes, notificationIds) => {
     try {
         await axios.post(CHAT_URL + routes, { notificationIds });
-        console.log("send")
     } catch (error) {
         console.log(error, " <---- Notifications retrieve failed!");
     }

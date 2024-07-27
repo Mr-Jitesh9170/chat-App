@@ -1,19 +1,18 @@
 import "../styles/notifications.scss";
-import { notificationLists, notificationRead } from "../APIs/notification.js";
 import { useEffect, useState } from "react";
 import THREEDOT from "../Assests/threeDots.svg"
+import { notificationRead } from "../APIs/notification";
 
-const Notifications = ({ notification: { notiLists }, setNotification }) => {
-    const [notificationIds, setNotificationIds] = useState('');
-    // notification read =>
-    const handleClick = (notificationId) => {
-        setNotificationIds(notificationId)
+const Notifications = ({ notification: { notiLists } }) => {
+    const [notificationIds, setNotificationsIds] = useState('');
+
+    // handle read notification =>
+    const handleReadNotify = (ids) => {
+        setNotificationsIds(ids)
     }
-    // notification read and lists =>
     useEffect(() => {
-        if (notificationIds) { notificationRead('chit-chat/user/notification/isRead', notificationIds); }
-        notificationLists('chit-chat/user/notification/lists', localStorage.getItem('token'), setNotification);
-    }, [notificationIds])
+        notificationRead('chit-chat/user/notification/isRead', notificationIds);
+    }, [notificationIds, notification])
     return (
         <div className="notification-container">
             <div className="header">
@@ -27,8 +26,7 @@ const Notifications = ({ notification: { notiLists }, setNotification }) => {
                         let hours = date.getHours();
                         let minute = date.getMinutes();
                         return (
-                            <div className="notification-lists" key={index} style={notify.isRead ? { background: "#f2f2f2" } : null} onClick={() => notify.isRead ? null : handleClick(notify._id)
-                            }>
+                            <div className="notification-lists" key={index} style={notify.isRead ? { background: "#f2f2f2" } : null} onClick={() => handleReadNotify(notify._id)}>
                                 <div className="sender-profile-photo">
                                     <img src={notify?.userId?.profilePhoto} alt="not available" />
                                 </div>

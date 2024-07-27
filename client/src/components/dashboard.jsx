@@ -5,14 +5,20 @@ import { Link, Outlet, useNavigate, Navigate } from "react-router-dom";
 import { registerUserLists } from "../APIs/api";
 import { fetchCountUnreadMsg } from "../APIs/chatApi";
 import { socket } from "../pages/chat";
-import { sendNotifications } from "../APIs/notification";
+import { notificationLists, sendNotifications, notificationRead } from "../APIs/notification";
 
-const DashBoard = ({ setUser, notification }) => {
+
+const DashBoard = ({ setUser, notification, setNotification }) => {
     let navigate = useNavigate();
     let user = localStorage.getItem("token");
     const [users, setUsers] = useState([]);
     const [search, setSearch] = useState("");
     const [lastMsgCount, setLastMsgCount] = useState();
+
+    // notification lists =>
+    useEffect(() => {
+        notificationLists('chit-chat/user/notification/lists', localStorage.getItem('token'), setNotification);
+    }, [])
 
     // fetching register users =>
     useEffect(() => {
@@ -53,7 +59,7 @@ const DashBoard = ({ setUser, notification }) => {
     }
 
     // Logout =>
-    const handleLogout = (index) => {
+    const handleLogout = () => {
         user = localStorage.removeItem("token");
         navigate("/");
     }

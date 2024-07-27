@@ -21,7 +21,7 @@ function App() {
         />
         <Route
           path="/chit-chat/dashboard"
-          element={<DashBoard setUser={setUser} notification={notification} />}
+          element={<DashBoard setUser={setUser} notification={notification} setNotification={setNotification} />}
         >
           <Route
             path="/chit-chat/dashboard/:notification"

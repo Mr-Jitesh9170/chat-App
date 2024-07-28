@@ -5,7 +5,7 @@ import { Link, Outlet, useNavigate, Navigate } from "react-router-dom";
 import { registerUserLists } from "../APIs/api";
 import { fetchCountUnreadMsg } from "../APIs/chatApi";
 import { socket } from "../pages/chat";
-import { notificationLists, sendNotifications, notificationRead } from "../APIs/notification";
+import { notificationLists, notificationRead, sendNotifications } from "../APIs/notification";
 
 
 const DashBoard = ({ setUser, notification, setNotification }) => {
@@ -18,7 +18,8 @@ const DashBoard = ({ setUser, notification, setNotification }) => {
     // notification lists =>
     useEffect(() => {
         notificationLists('chit-chat/user/notification/lists', localStorage.getItem('token'), setNotification);
-    }, [])
+        notificationRead('chit-chat/user/notification/isRead', notification.notificationIds);
+    }, [notification])
 
     // fetching register users =>
     useEffect(() => {

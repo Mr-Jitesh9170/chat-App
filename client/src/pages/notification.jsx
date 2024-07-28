@@ -3,21 +3,20 @@ import { useEffect, useState } from "react";
 import THREEDOT from "../Assests/threeDots.svg"
 import { notificationRead } from "../APIs/notification";
 
-const Notifications = ({ notification: { notiLists } }) => {
-    const [notificationIds, setNotificationsIds] = useState('');
+const Notifications = ({ notification: { notiLists }, setNotification }) => {
 
     // handle read notification =>
     const handleReadNotify = (ids) => {
-        setNotificationsIds(ids)
+        setNotification((prevState) => ({ ...prevState, notificationIds: ids }))
     }
-    useEffect(() => {
-        notificationRead('chit-chat/user/notification/isRead', notificationIds);
-    }, [notificationIds, notification])
+
     return (
         <div className="notification-container">
             <div className="header">
-                <h3> Notifications 🔔</h3>
-                <img src={THREEDOT} alt="" width={40} />
+                <div style={{ fontWeight: "bold" }}> Notifications 🔔</div>
+                <div className="notify-threedot">
+                    <img src={THREEDOT} alt="" />
+                </div>
             </div >
             <div className="notification-bottom">
                 {
@@ -41,6 +40,8 @@ const Notifications = ({ notification: { notiLists } }) => {
                         )
                     })
                 }
+            </div>
+            <div className="notification-paginations">
             </div>
         </div >
     )

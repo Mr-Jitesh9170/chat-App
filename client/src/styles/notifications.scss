@@ -5,21 +5,29 @@
     .header {
         height: 7%;
         width: 100%;
-        font-weight: bold;
         background-color: #adefd1;
-        padding: 10px 0;
         color: #6e4343;
         display: flex;
+        justify-content: center;
         align-items: center;
+        position: relative;
 
-        h3 {
-            justify-self: center;
+        .notify-threedot {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            right: 40px;
+            cursor: pointer;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+
+            }
         }
 
-        img {
-            margin-left: auto;
-        }
     }
+
     .notification-bottom {
         width: 100%;
         height: 93%;

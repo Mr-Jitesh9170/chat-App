@@ -28,7 +28,8 @@ export const NotificationProvider = ({ children }) => {
     const [notification, setNotification] = useState(
         {
             notiCount: 0,
-            notiLists: []
+            notiLists: [],
+            notificationIds: ''
         }
     )
     return (

@@ -1,5 +1,18 @@
 const notificationModel = require("../models/notification.js")
 
+
+// delete notifications =>
+exports.deleteNotifications = async (req, res) => {
+    let { toUser, deleteIds } = req.body;
+    try {
+        let results = await notificationModel.deleteMany({ toUser, _id: { $in: deleteIds } });
+        console.log(results, "<---- deleted successfully!");
+    } catch (error) {
+        console.log(error, "<---- error delete notifications!")
+        res.json({ status: 500, message: "Internal server error!" })
+    }
+}
+
 // notification lists and count =>
 exports.notificationListAndCount = async (req, res) => {
     let { userId } = req.body;
@@ -35,18 +48,6 @@ exports.notificationRead = async (req, res) => {
         res.json({ status: 500, message: "Internal server error!" })
     }
 }
-
-// delete notifications =>
-exports.deleteNotifications = async (req, res) => {
-    let { notificationId: _id } = req.body;
-    try {
-        await notificationModel
-    } catch (error) {
-        console.log(error, "<---- error delete notifications!")
-        res.json({ status: 500, message: "Internal server error!" })
-    }
-}
-
 // create notifications =>
 exports.createNotifications = async (req, res) => {
     let { userId, toUser, notifyMsg, isRead, timestamp } = req.body;

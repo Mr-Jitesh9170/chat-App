@@ -2,6 +2,17 @@ import axios from "axios"
 
 let CHAT_URL = "http://localhost:8080/";
 
+
+// delete notifications =>
+export const deleteMessages = async (routes, deleteMsg) => {
+    try {
+        await axios.post(CHAT_URL + routes, deleteMsg);
+        console.log('message deleted successfully!')
+    } catch (error) {
+        console.log(error, "<----  Error deletion massage!")
+    }
+}
+
 // notification lists and counts =>
 export const notificationLists = async (routes, userId, setNotification) => {
     try {

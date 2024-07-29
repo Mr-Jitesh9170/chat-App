@@ -1,6 +1,7 @@
 .notification-container {
     width: 100%;
     height: 100%;
+    position: relative;
 
     .header {
         height: 7%;
@@ -12,12 +13,22 @@
         align-items: center;
         position: relative;
 
+        .cancle-btn {
+            cursor: pointer;
+            position: absolute;
+            left: 40px;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+            padding: 4px 7px;
+            border-radius: 4px;
+        }
+
         .notify-threedot {
             width: 20px;
             height: 20px;
             position: absolute;
             right: 40px;
             cursor: pointer;
+
             img {
                 width: 100%;
                 height: 100%;
@@ -26,6 +37,38 @@
             }
         }
 
+    }
+
+    .delete-notifications {
+        z-index: 1;
+        position: absolute;
+        background-color: gray;
+        color: wheat;
+        right: 40px;
+        top: 60px;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        width: fit-content;
+        padding: 6px 10px;
+        border-radius: 4px;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+        cursor: pointer;
+
+        span {
+            font-weight: 500;
+        }
+
+        .delete {
+            width: 16px;
+            height: 16px;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
     }
 
     .notification-bottom {

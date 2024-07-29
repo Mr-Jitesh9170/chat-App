@@ -10,7 +10,7 @@ export const UserProvider = ({ children }) => {
             userName: "",
             isActive: "",
             userPhoto: "",
-            participant: [],
+            participant: [], 
             isOnline: '',
             lastSeen: '',
             timestamp: ""

@@ -17,8 +17,10 @@ const DashBoard = ({ setUser, notification, setNotification }) => {
 
     // notification lists =>
     useEffect(() => {
+        if (notification.notificationIds) {
+            notificationRead('chit-chat/user/notification/isRead', notification.notificationIds);
+        }
         notificationLists('chit-chat/user/notification/lists', localStorage.getItem('token'), setNotification);
-        notificationRead('chit-chat/user/notification/isRead', notification.notificationIds);
     }, [notification])
 
     // fetching register users =>

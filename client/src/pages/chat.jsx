@@ -102,7 +102,7 @@ const Chat = ({ user }) => {
               <p className="active">
                 {(isTyping.typing && isTyping._id !== socket.id) ? 'Typing...' : (user.isOnline ? 'online' : `Last Seen - ${getTime(user.lastSeen)}`)}
               </p>
-            </div> 
+            </div>
           </div>
           <div className="chat-mid" ref={scrollRef}>
             {
@@ -117,7 +117,7 @@ const Chat = ({ user }) => {
                   );
                 } else {
                   return (
-                    <div className="you">
+                    <div className="you" key={index}>
                       <span>{newMsg.massage}</span>
                       <span className="time">
                         {getTime(newMsg.timestamp)}

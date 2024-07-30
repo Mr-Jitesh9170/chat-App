@@ -72,28 +72,34 @@ const Notifications = ({ notification: { notiLists }, setNotification }) => {
                     </div>
                 )
             }
-            <div className="notification-bottom">
+            <div className="notification-bottom" style={notiLists.length == 0 && { display: "flex", justifyContent: "center", alignItems: "center" }}>
                 {
-                    notiLists.map((notify, index) => {
-                        let date = new Date(notify.timestamp)
-                        let hours = date.getHours();
-                        let minute = date.getMinutes();
-                        return (
-                            <div className="notification-lists" key={index} style={notify.isRead ? { background: "#f2f2f2" } : null} onClick={() => handleReadNotify(notify._id)}>
-                                {isDelete.isSelect && <input type="checkbox" className="checkbox" onClick={(e) => handleCheckBox(e, notify._id)} />}
-                                <div className="sender-profile-photo">
-                                    <img src={notify?.userId?.profilePhoto} alt="not available" />
+                    notiLists.length > 0 ? (
+                        notiLists.map((notify, index) => {
+                            let date = new Date(notify.timestamp)
+                            let hours = date.getHours();
+                            let minute = date.getMinutes();
+                            return (
+                                <div className="notification-lists" key={index} style={notify.isRead ? { background: "#f2f2f2" } : null} onClick={() => handleReadNotify(notify._id)}>
+                                    {isDelete.isSelect && <input type="checkbox" className="checkbox" onClick={(e) => handleCheckBox(e, notify._id)} />}
+                                    <div className="sender-profile-photo">
+                                        <img src={notify?.userId?.profilePhoto} alt="not available" />
+                                    </div>
+                                    <div className="sender-name">
+                                        <b>{notify?.userId.name} </b>{notify?.notifyMsg}
+                                    </div>
+                                    <div className="notification-time">
+                                        <div className="icon">⌚</div>
+                                        <time className="date-time">{hours > 12 ? `${hours % 12}:${minute} A.M` : `${hours}:${minute} P.M`}</time>
+                                    </div>
                                 </div>
-                                <div className="sender-name">
-                                    <b>{notify?.userId.name} </b>{notify?.notifyMsg}
-                                </div>
-                                <div className="notification-time">
-                                    <div className="icon">⌚</div>
-                                    <time className="date-time">{hours > 12 ? `${hours % 12}:${minute} A.M` : `${hours}:${minute} P.M`}</time>
-                                </div>
-                            </div>
-                        )
-                    })
+                            )
+                        })
+                    ) : (
+                        <div className="no-notifications">
+                            <img src="https://cdni.iconscout.com/illustration/premium/thumb/no-notification-7359561-6024629.png?f=webp" alt="" />
+                        </div>
+                    )
                 }
             </div>
             <div className="notification-paginations">

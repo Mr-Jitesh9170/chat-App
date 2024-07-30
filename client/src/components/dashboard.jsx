@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "../styles/dashboard.scss"
+import '../responsiveness/mediaQueriese.scss'
 import { ICONS } from "../data/AllData";
 import { Link, Outlet, useNavigate, Navigate } from "react-router-dom";
 import { registerUserLists } from "../APIs/api";
@@ -28,24 +29,23 @@ const DashBoard = ({ setUser, notification, setNotification }) => {
         registerUserLists(setUsers);
         socket.emit("isOnline", { isOnline: true, user })
 
-        // Promise =>
-        Promise.all(users.map(({ _id }) => {
-            if (user !== _id) {
-                let roomId = [user, _id].sort().join("");
-                return (fetchCountUnreadMsg(`/user/unseen/massage/${roomId}`, _id));
-            }
-            return null;
-        })).then((res) => {
-            setLastMsgCount(res)
-        }).catch((err) => {
-            console.log(err, "<---- Error massage and massage count!");
-        });
-
         return () => {
             socket.emit('isOnline', { isOnline: false, user });
         }
     }, []);
 
+    // Promise =>
+    Promise.all(users.map(({ _id }) => {
+        if (user !== _id) {
+            let roomId = [user, _id].sort().join("");
+            return (fetchCountUnreadMsg(`/user/unseen/massage/${roomId}`, _id));
+        }
+        return null;
+    })).then((res) => {
+        setLastMsgCount(res)
+    }).catch((err) => {
+        console.log(err, "<---- Error massage and massage count!");
+    });
 
     // handleRoom =>
     const handleChangeRoom = (_) => {
@@ -102,15 +102,6 @@ const DashBoard = ({ setUser, notification, setNotification }) => {
                                     <div className="chat-lists">
                                         {
                                             users.map((_, index) => {
-                                                // if (_.isOnline) {
-                                                //     sendNotifications("chit-chat/user/notification/create", {
-                                                //         userId: "6683909fe743a0f57dea85b1",
-                                                //         toUser: "669cf56703675e2feae57739",
-                                                //         notifyMsg: "I have sent you a mail!",
-                                                //         isRead: true,
-                                                //         timestamp: "2024-07-21T11:55:09.572+00:00"
-                                                //     })
-                                                // }
                                                 if (_._id !== localStorage.getItem("token") && (_.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()))) {
                                                     let msgCounts = lastMsgCount[index]?.unReadCount !== 0 && lastMsgCount[index]?.unReadCount
                                                     return (

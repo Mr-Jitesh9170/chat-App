@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import "../styles/dashboard.scss"
-import '../responsiveness/mediaQueriese.scss'
 import { ICONS } from "../data/AllData";
 import { Link, Outlet, useNavigate, Navigate } from "react-router-dom";
 import { registerUserLists } from "../APIs/api";
 import { fetchCountUnreadMsg } from "../APIs/chatApi";
 import { socket } from "../pages/chat";
-import { notificationLists, notificationRead, sendNotifications } from "../APIs/notification";
-import THREEDASH_ICON from "../Assests/threeDash.svg";
+import { notificationLists, notificationRead } from "../APIs/notification";
 
 const DashBoard = ({ setUser, notification, setNotification }) => {
     let navigate = useNavigate();
@@ -15,12 +13,7 @@ const DashBoard = ({ setUser, notification, setNotification }) => {
     const [users, setUsers] = useState([]);
     const [search, setSearch] = useState("");
     const [lastMsgCount, setLastMsgCount] = useState();
-    const [isNavbar, setNavbar] = useState(false);
 
-    // mobile navbar => (show/hide) 
-    const handleMobileNavbar = () => {
-        isNavbar ? setNavbar(false) : setNavbar(true)
-    }
     // notification lists =>
     useEffect(() => {
         if (notification.notificationIds) {
@@ -71,31 +64,13 @@ const DashBoard = ({ setUser, notification, setNotification }) => {
         navigate("/");
     }
 
+
     return (
         <>
             {
                 user ?
                     (
                         <div className="dashboard-container">
-                            <div className={`dashboard-left-container mobile`} style={isNavbar ? { display: "block" } : { display: "none" }} >
-                                <div className="left-top-container">
-                                    <div className="profile-image" style={{ border: "2px solid yellow" }}>
-                                        <img src={localStorage.getItem("profilePhoto")} alt="" />
-                                    </div>
-                                </div>
-                                <div className="nav-icons">
-                                    {
-                                        ICONS.map((_, index) => {
-                                            return (
-                                                <Link to={_?.route} onClick={index === 2 ? handleLogout : null} key={index} style={{ textDecoration: "none", position: 'relative' }} >
-                                                    <img className="nav-img" src={_?.icons} alt="chat-icons" width={27} />
-                                                    {index == 1 && <span style={{ position: "absolute", top: "-10px", right: '-10px', color: "yellow", background: "black", borderRadius: "10px", padding: "4px", fontSize: "10px" }}>{notification.notiCount > 100 ? `${notification.notiCount}k` : notification.notiCount}</span>}
-                                                </Link>
-                                            )
-                                        })
-                                    }
-                                </div>
-                            </div >
                             <div className="dashboard-left-container" >
                                 <div className="left-top-container">
                                     <div className="profile-image" style={{ border: "2px solid yellow" }}>
@@ -116,14 +91,8 @@ const DashBoard = ({ setUser, notification, setNotification }) => {
                                 </div>
                             </div >
                             <div className="dashboard-right-container">
-                                <div className="left-container">
+                                <div className={`left-container`}>
                                     <h2 className="chit-chat">Chit-Chat</h2>
-                                    <div className="mobile-chit-chat">
-                                        <h2 className="mobile-chit-chat-head" >Chit-Chat</h2>
-                                        <div className="img" onClick={handleMobileNavbar} >
-                                            <img src={THREEDASH_ICON} alt="" />
-                                        </div>
-                                    </div>
                                     <div className="input-search">
                                         <img src="" alt="" />
                                         <input type="text" placeholder="Search user for chat!" value={search} onChange={inputSearch} />
@@ -155,7 +124,7 @@ const DashBoard = ({ setUser, notification, setNotification }) => {
                                     </div>
                                 </div>
                                 <div className="right-container">
-                                    <div className="pages">
+                                    <div className="pages" >
                                         <Outlet />
                                     </div>
                                 </div>

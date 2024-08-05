@@ -10,7 +10,7 @@ import { UserContext, NotificationContext } from "./utils/contextApi";
 
 function App() {
   const { user, setUser } = useContext(UserContext);
-  const { notification, setNotification } = useContext(NotificationContext);
+  const { notification, setNotification } = useContext(NotificationContext); 
 
   return (
     <BrowserRouter>

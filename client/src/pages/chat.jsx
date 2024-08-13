@@ -5,7 +5,7 @@ import io from "socket.io-client";
 import { fetchMassages } from "../APIs/chatApi";
 import { getTime } from "../utils/date";
 import { useNavigate } from "react-router-dom";
-
+import { Loader } from "../components/loader";
 
 export const socket = io("http://localhost:8080");
 
@@ -106,26 +106,32 @@ const Chat = ({ user }) => {
           </div>
           <div className="chat-mid" ref={scrollRef}>
             {
-              massage.map((newMsg, index) => {
-                if (newMsg.senderId === localStorage.getItem('token')) {
-                  return (
-                    <div className="me" key={index}>
-                      <span>{newMsg.massage}</span>
-                      <span className="time">{getTime(newMsg.timestamp)}</span>
-                      <b style={newMsg?.seen ? { color: "blue" } : { color: "black" }}>{newMsg?.seen ? '✓✓' : (user.isOnline ? '✓✓' : '✓')}</b>
-                    </div>
-                  );
-                } else {
-                  return (
-                    <div className="you" key={index}>
-                      <span>{newMsg.massage}</span>
-                      <span className="time">
-                        {getTime(newMsg.timestamp)}
-                      </span>
-                    </div>
-                  );
-                }
-              })
+              !massage.length ?
+                (
+                  <Loader />
+                ) :
+                (
+                  massage.map((newMsg, index) => {
+                    if (newMsg.senderId === localStorage.getItem('token')) {
+                      return (
+                        <div className="me" key={index}>
+                          <span>{newMsg.massage}</span>
+                          <span className="time">{getTime(newMsg.timestamp)}</span>
+                          <b style={newMsg?.seen ? { color: "blue" } : { color: "black" }}>{newMsg?.seen ? '✓✓' : (user.isOnline ? '✓✓' : '✓')}</b>
+                        </div>
+                      );
+                    } else {
+                      return (
+                        <div className="you" key={index}>
+                          <span>{newMsg.massage}</span>
+                          <span className="time">
+                            {getTime(newMsg.timestamp)}
+                          </span>
+                        </div>
+                      );
+                    }
+                  })
+                )
             }
           </div>
           <div className="chat-bottom">

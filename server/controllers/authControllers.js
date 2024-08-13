@@ -31,6 +31,16 @@ exports.userRegister = async (req, res) => {
   }
 }
 
+// Logout =>
+exports.userLogout = (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).send('Failed to log out');
+    }
+    res.send('Logged out successfully');
+  });
+}
+
 // User will login =>
 exports.userLogin = async (req, res) => {
   try {
@@ -53,6 +63,17 @@ exports.userLogin = async (req, res) => {
           massage: "wrong password",
           token: ""
         })
+
+    // delete another devices of tokens =>
+    if (user.sessionId) {
+      req.sessionStore.destroy(user.sessionId, (err) => {
+        if (err) console.log(err);
+      });
+    }
+    // add on new session =>
+    user.sessionId = req.sessionID;
+    await user.save();
+    req.session.userId = user._id;
 
     res.json(
       {

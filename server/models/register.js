@@ -34,7 +34,8 @@ const registerSchema = new Schema(
     lastSeen: {
       type: Date,
       default: Date.now()
-    }
+    },
+    sessionId: String
   },
   {
     timpestamp: true

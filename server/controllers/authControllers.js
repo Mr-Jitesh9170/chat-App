@@ -1,13 +1,14 @@
 const RegisterModel = require("../models/register.js")
 const bcrypt = require("bcrypt");
+const mongoose = require("mongoose")
+
 
 // Post , User will register =>
 exports.userRegister = async (req, res) => {
   try {
     let { password, email, name } = req.body;
     let user = await RegisterModel.findOne({ email });
-    if (user)
-      res.send("user already exists")
+    if (user) { return res.send("user already exists") }
     let saltRounds = 10;
     password = await bcrypt.hash(password, saltRounds);
     let userRegistered = await RegisterModel.create({ password, email, name })
@@ -64,17 +65,18 @@ exports.userLogin = async (req, res) => {
           token: ""
         })
 
-    // delete another devices of tokens =>
-    if (user.sessionId) {
-      req.sessionStore.destroy(user.sessionId, (err) => {
-        if (err) console.log(err);
+    const sessionStore = req.sessionStore;
+    const userSessions = await mongoose.connection.collection('sessions').find({ "session.user._id": user._id }).toArray();
+    if (!userSessions.length) {
+      userSessions.forEach(session => {
+        sessionStore.destroy(session._id.toString(), (err) => {
+          if (err) {
+            console.error('Failed to destroy session:', err);
+          }
+        });
       });
     }
-    // add on new session =>
-    user.sessionId = req.sessionID;
-    await user.save();
-    req.session.userId = user._id;
-
+    req.session.user = { _id: user._id };
     res.json(
       {
         status: 200,

@@ -2,10 +2,15 @@ import axios from "axios"
 
 let CHAT_URL = "http://localhost:8080/";
 
+export const api = axios.create({
+    baseURL: CHAT_URL,
+    // withCredentials: true,    // Allow cookies to be sent
+});
+
 // Get , User Profile Data =>
 export const getProfileUser = async (setUserProfile, _id) => {
     try {
-        let { data: { results } } = await axios.post(CHAT_URL + "profile", { _id });
+        let { data: { results } } = await api.post(CHAT_URL + "profile", { _id });
         return setUserProfile(results);
     } catch (error) {
         console.log(error, " <---- User profile data not retrieved");
@@ -15,7 +20,7 @@ export const getProfileUser = async (setUserProfile, _id) => {
 // Update user profile =>
 export const userProfileUpdate = async (userData, route) => {
     try {
-        let responseUser = await axios.put(CHAT_URL + route, userData);
+        let responseUser = await api.put(CHAT_URL + route, userData);
         return responseUser.data;
     } catch (error) {
         console.log(error, " <---- User profile not updated");
@@ -25,7 +30,8 @@ export const userProfileUpdate = async (userData, route) => {
 // User Authorizations ( Register/Login ) =>
 export const userAuthorization = async (userData, route) => {
     try {
-        let responseUser = await axios.post(CHAT_URL + route, userData);
+        let responseUser = await api.post(CHAT_URL + route, userData);
+        console.log(responseUser?.data, "<---- User loggined data!")
         return responseUser?.data;
     } catch (error) {
         console.log(error, " <---- User not authorised");
@@ -35,7 +41,7 @@ export const userAuthorization = async (userData, route) => {
 // Registered Users Lists =>
 export const registerUserLists = async (setChatUsersLists) => {
     try {
-        let response = await axios.get(CHAT_URL + "register");
+        let response = await api.get(CHAT_URL + "register");
         setChatUsersLists(response.data.results);
     } catch (error) {
         console.log(error, " <---- Registered user lists");

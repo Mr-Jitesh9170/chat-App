@@ -13,7 +13,7 @@ const DashBoard = ({ setUser, notification, setNotification }) => {
     const [users, setUsers] = useState([]);
     const [search, setSearch] = useState("");
     const [lastMsgCount, setLastMsgCount] = useState();
-
+ 
     // notification lists =>
     useEffect(() => {
         if (notification.notificationIds) {
@@ -63,8 +63,6 @@ const DashBoard = ({ setUser, notification, setNotification }) => {
         user = localStorage.removeItem("token");
         navigate("/");
     }
-
-
     return (
         <>
             {
@@ -124,9 +122,7 @@ const DashBoard = ({ setUser, notification, setNotification }) => {
                                     </div>
                                 </div>
                                 <div className="right-container">
-                                    <div className="pages" >
-                                        <Outlet />
-                                    </div>
+                                <Outlet />
                                 </div>
                             </div>
                         </div >

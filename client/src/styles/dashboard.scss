@@ -25,9 +25,7 @@
   width: 100vw;
   height: 100vh;
 
-  .dashboard-left-container.mobile {
-    display: none;
-  }
+
 
   .dashboard-left-container {
     width: 6%;
@@ -84,9 +82,7 @@
         padding: 0 20px;
       }
 
-      .mobile-chit-chat {
-        display: none;
-      }
+
 
       .input-search {
         width: 100%;
@@ -168,12 +164,8 @@
     .right-container {
       width: 72%;
       height: 100%;
-
-      .pages {
-        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-        width: 100%;
-        height: 100%;
-      }
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+      border-radius: 5px;
     }
   }
 }

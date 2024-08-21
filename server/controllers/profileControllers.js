@@ -17,6 +17,6 @@ exports.getProfileControllers = async (req, res) => {
                 status: 500,
                 massage: "Internal server error",
             }
-        )
+        ) 
     }
 }

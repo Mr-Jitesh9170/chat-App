@@ -10,7 +10,7 @@ exports.unseenMsgCounts = async (req, res) => {
     try {
         let { recieverId: senderId } = req.body;
         let roomId = req.params.roomId;
-        if (!roomId) {
+        if (!roomId) { 
             throw 'Invalid userId!'
         }
         let isUserRoom = await roomModel.findOne({ roomId }).select('_id');

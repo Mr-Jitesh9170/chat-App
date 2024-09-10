@@ -67,7 +67,11 @@ const Chat = ({ user }) => {
   };
 
   // send massage =>
-  const handleSend = () => {
+  const handleSend = (e) => {
+    if (e.key != "Enter") {
+      return
+    }
+
     if (!input.trim()) return;
     let createMassage = {
       roomChatId: room.roomChatId,
@@ -106,37 +110,31 @@ const Chat = ({ user }) => {
           </div>
           <div className="chat-mid" ref={scrollRef}>
             {
-              !massage.length ?
-                (
-                  <Loader />
-                ) :
-                (
-                  massage.map((newMsg, index) => {
-                    if (newMsg.senderId === localStorage.getItem('token')) {
-                      return (
-                        <div className="me" key={index}>
-                          <span>{newMsg.massage}</span>
-                          <span className="time">{getTime(newMsg.timestamp)}</span>
-                          <b style={newMsg?.seen ? { color: "blue" } : { color: "black" }}>{newMsg?.seen ? '✓✓' : (user.isOnline ? '✓✓' : '✓')}</b>
-                        </div>
-                      );
-                    } else {
-                      return (
-                        <div className="you" key={index}>
-                          <span>{newMsg.massage}</span>
-                          <span className="time">
-                            {getTime(newMsg.timestamp)}
-                          </span>
-                        </div>
-                      );
-                    }
-                  })
-                )
+              massage.map((newMsg, index) => {
+                if (newMsg.senderId === localStorage.getItem('token')) {
+                  return (
+                    <div className="me" key={index}>
+                      <span>{newMsg.massage}</span>
+                      <span className="time">{getTime(newMsg.timestamp)}</span>
+                      <b style={newMsg?.seen ? { color: "blue" } : { color: "black" }}>{newMsg?.seen ? '✓✓' : (user.isOnline ? '✓✓' : '✓')}</b>
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div className="you" key={index}>
+                      <span>{newMsg.massage}</span>
+                      <span className="time">
+                        {getTime(newMsg.timestamp)}
+                      </span>
+                    </div>
+                  );
+                }
+              })
             }
           </div>
           <div className="chat-bottom">
             <input type="text" value={input} placeholder={`Say hello to ${user.userName.toLowerCase()}!`} onChange={handleInput} />
-            <button className="send-button" onClick={handleSend}>
+            <button className="send-button" onKeyDown={(e) => handleSend(e)}>
               <img src={Send} alt="" />
             </button>
           </div>

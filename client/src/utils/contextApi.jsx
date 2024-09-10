@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 
-// user =>
+// User context =>
 export const UserContext = createContext({})
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(
@@ -11,7 +11,7 @@ export const UserProvider = ({ children }) => {
             isActive: "",
             userPhoto: "",
             participant: [], 
-            isOnline: '',
+            isOnline: '', 
             lastSeen: '',
             timestamp: ""
         }
@@ -23,6 +23,7 @@ export const UserProvider = ({ children }) => {
     )
 }
 
+// Notification context =>
 export const NotificationContext = createContext({})
 export const NotificationProvider = ({ children }) => {
     const [notification, setNotification] = useState(

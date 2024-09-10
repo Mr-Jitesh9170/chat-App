@@ -30,6 +30,7 @@ const Notifications = ({ notification: { notiLists }, setNotification }) => {
             })
         }
     }
+
     // handle cancel =>
     const handleCancel = () => {
         setDelete({ ...isDelete, isSelect: false })
@@ -72,7 +73,7 @@ const Notifications = ({ notification: { notiLists }, setNotification }) => {
                     </div>
                 )
             }
-            <div className="notification-bottom" style={notiLists.length == 0 && { display: "flex", justifyContent: "center", alignItems: "center" }}>
+            <div className="notification-bottom" style={notiLists.length === 0 ? { display: "flex", justifyContent: "center", alignItems: "center" } : {}}>
                 {
                     notiLists.length > 0 ? (
                         notiLists.map((notify, index) => {

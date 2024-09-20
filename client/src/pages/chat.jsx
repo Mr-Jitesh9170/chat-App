@@ -5,13 +5,12 @@ import io from "socket.io-client";
 import { fetchMassages } from "../APIs/chatApi";
 import { getTime } from "../utils/date";
 import { useNavigate } from "react-router-dom";
-import { Loader } from "../components/loader";
-
+ 
 export const socket = io("http://localhost:8080");
 
 const Chat = ({ user }) => {
   const profile = useNavigate();
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState(""); 
   const [massage, setMassage] = useState([]);
   const [room, setRoom] = useState(
     {
@@ -67,11 +66,7 @@ const Chat = ({ user }) => {
   };
 
   // send massage =>
-  const handleSend = (e) => {
-    if (e.key != "Enter") {
-      return
-    }
-
+  const handleSend = () => {
     if (!input.trim()) return;
     let createMassage = {
       roomChatId: room.roomChatId,
@@ -134,7 +129,7 @@ const Chat = ({ user }) => {
           </div>
           <div className="chat-bottom">
             <input type="text" value={input} placeholder={`Say hello to ${user.userName.toLowerCase()}!`} onChange={handleInput} />
-            <button className="send-button" onKeyDown={(e) => handleSend(e)}>
+            <button className="send-button" onClick={handleSend}>
               <img src={Send} alt="" />
             </button>
           </div>

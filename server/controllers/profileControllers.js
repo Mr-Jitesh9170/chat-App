@@ -1,4 +1,5 @@
-const UserProfiles = require("../models/register.js")
+const UserProfiles = require("../models/register.js");
+
 exports.getProfileControllers = async (req, res) => {
     try {
         let { _id } = req.body;

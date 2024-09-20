@@ -1,7 +1,7 @@
 import { useState } from "react"
 import "../styles/auth.scss"
 import { userAuthorization } from "../APIs/api"
-import { ToastNotifications } from "./Toastnotification"
+import { ToastNotifications } from "../components/Toastnotification"
 import { Navigate, useNavigate } from "react-router-dom"
 
 
@@ -100,9 +100,9 @@ const Authentication = () => {
                   (
                     < div className="container" action="/register" method="post">
                       <h1 className="auth-head">Register</h1>
-                      <input type="text" name="name" placeholder="Name" value={inputData.name} onChange={handleChange} />
-                      <input type="email" name="email" placeholder="Email" value={inputData.email} onChange={handleChange} />
-                      <input type="password" name="password" placeholder="Password" value={inputData.password} onChange={handleChange} />
+                      <input type="text" name="name" placeholder="Name..." value={inputData.name} onChange={handleChange} />
+                      <input type="email" name="email" placeholder="Email..." value={inputData.email} onChange={handleChange} />
+                      <input type="password" name="password" placeholder="Password..." value={inputData.password} onChange={handleChange} />
                       <button className="auth-btn" name="register" onClick={handleSubmit} >Submit</button>
                       <a href="">have an account? Login</a>
                     </div>

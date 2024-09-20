@@ -32,16 +32,6 @@ exports.userRegister = async (req, res) => {
   }
 }
 
-// Logout =>
-exports.userLogout = (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      return res.status(500).send('Failed to log out');
-    }
-    res.send('Logged out successfully');
-  });
-}
-
 // User will login =>
 exports.userLogin = async (req, res) => {
   try {
@@ -64,19 +54,6 @@ exports.userLogin = async (req, res) => {
           massage: "wrong password",
           token: ""
         })
-
-    const sessionStore = req.sessionStore;
-    const userSessions = await mongoose.connection.collection('sessions').find({ "session.user._id": user._id }).toArray();
-    if (!userSessions.length) {
-      userSessions.forEach(session => {
-        sessionStore.destroy(session._id.toString(), (err) => {
-          if (err) {
-            console.error('Failed to destroy session:', err);
-          }
-        });
-      });
-    }
-    req.session.user = { _id: user._id };
     res.json(
       {
         status: 200,

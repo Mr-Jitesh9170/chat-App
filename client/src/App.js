@@ -1,17 +1,16 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Authentication from "./components/auth"
-import DashBoard from "./components/dashboard";
+import Authentication from "./pages/auth"
+import DashBoard from "./pages/dashboard";
 import { ErrorPage } from "./error/error";
 import Notifications from "./pages/notification";
 import Profile from "./pages/profile";
 import Chat from "./pages/chat";
 import { useContext } from "react";
-import { UserContext, NotificationContext } from "./utils/contextApi";
+import { UserContext, NotificationContext } from "./context/contextApi.jsx";
 
 function App() {
   const { user, setUser } = useContext(UserContext);
   const { notification, setNotification } = useContext(NotificationContext); 
-
   return (
     <BrowserRouter>
       <Routes>
@@ -46,9 +45,3 @@ function App() {
 }
 
 export default App;
-
-// http://localhost:3000                                      <----- Login page
-// http://localhost:3000/chit-chat/dashboard                  <----- Dashboard page
-// http://localhost:3000/chit-chat/dashboard/profile          <----- Profile page
-// http://localhost:3000/chit-chat/dashboard/chat             <----- Chat page
-// http://localhost:3000/chit-chat/dashboard/notification     <----- Notification page

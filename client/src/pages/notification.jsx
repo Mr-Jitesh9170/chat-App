@@ -51,7 +51,7 @@ const Notifications = ({ notification: { notiLists }, setNotification }) => {
     return (
         <div className="notification-container">
             <div className="header">
-                {isDelete.isSelect && <b className="cancle-btn" onClick={handleCancel}>Cancle</b>}
+                {isDelete.isSelect && <b className="cancle-btn" onClick={handleCancel}>Cancel</b>}
                 <div style={{ fontWeight: "bold" }}> Notifications 🔔</div>
                 {deleteIds.length == 0 ? (
                     <div className="notify-threedot" onClick={handleThreeDot}>
@@ -64,7 +64,7 @@ const Notifications = ({ notification: { notiLists }, setNotification }) => {
                 )}
             </div >
             {
-                isDelete.isThreeDot && (
+                isDelete.isThreeDot && ( 
                     <div className="delete-notifications" onClick={handleDelete}>
                         <span>Delete</span>
                         <div className="delete">

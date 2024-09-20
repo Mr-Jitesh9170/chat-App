@@ -1,6 +1,4 @@
-//--- Image property =>
-
-@mixin img {
+ @mixin img {
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -12,20 +10,16 @@
   background-color: #adefd1;
 }
 
-//--- Flex property =>
 @mixin flex-property {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-// ---------------------------- >>>
 .dashboard-container {
   display: flex;
   width: 100vw;
   height: 100vh;
-
-
 
   .dashboard-left-container {
     width: 6%;
@@ -70,12 +64,10 @@
       background-color: rgb(110, 67, 67);
       width: 28%;
       height: 100%;
-      border-radius: 5px;
-      padding: 18px 0 0 0;
+       padding: 18px 0 0 0;
       display: flex;
       flex-direction: column;
       gap: 10px;
-      box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 
       .chit-chat {
         color: #ffffff;
@@ -164,7 +156,6 @@
     .right-container {
       width: 72%;
       height: 100%;
-      box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
       border-radius: 5px;
     }
   }

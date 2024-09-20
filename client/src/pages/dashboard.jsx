@@ -4,7 +4,7 @@ import { ICONS } from "../data/AllData";
 import { Link, Outlet, useNavigate, Navigate } from "react-router-dom";
 import { registerUserLists } from "../APIs/api";
 import { fetchCountUnreadMsg } from "../APIs/chatApi";
-import { socket } from "../pages/chat";
+import { socket } from "./chat";
 import { notificationLists, notificationRead } from "../APIs/notification";
 
 const DashBoard = ({ setUser, notification, setNotification }) => {
@@ -13,7 +13,7 @@ const DashBoard = ({ setUser, notification, setNotification }) => {
     const [users, setUsers] = useState([]);
     const [search, setSearch] = useState("");
     const [lastMsgCount, setLastMsgCount] = useState();
- 
+  
     // notification lists =>
     useEffect(() => {
         if (notification.notificationIds) {

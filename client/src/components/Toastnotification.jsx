@@ -5,8 +5,7 @@ export const ToastNotifications = ({ toastMassages }) => {
     setTimeout(() => {
         setshowToast(false)
     }, 2000);
-    // toast notifications styles =>
-    const toastStyles = {
+     const toastStyles = {
         backgroundColor: "#ADEFD1FF",
         color: "#00203FFF",
         fontWeight: "600",

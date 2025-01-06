@@ -13,7 +13,7 @@ exports.deleteNotifications = async (req, res) => {
     }
 }
 
-// notification lists and count =>
+// notification lists and count => 
 exports.notificationListAndCount = async (req, res) => {
     let { userId } = req.body;
     try {

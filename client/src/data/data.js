@@ -48,11 +48,6 @@ export const ICONS = [
         icons: ProfileIcon
     },
     {
-        name: "Notification 🔔",
-        route: "/chit-chat/dashboard/notification",
-        icons: NotificationIcon
-    },
-    {
         icons: LogoutIcon
     }
 ];

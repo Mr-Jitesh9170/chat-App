@@ -29,7 +29,7 @@ exports.userRegister = async (req, res) => {
         massage: "Internal server error"
       }
     )
-  }
+  } 
 }
 
 // User will login =>

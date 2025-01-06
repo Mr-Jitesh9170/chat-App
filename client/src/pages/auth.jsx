@@ -1,6 +1,6 @@
 import { useState } from "react"
 import "../styles/auth.scss"
-import { userAuthorization } from "../APIs/api"
+import { userAuthorization } from "../apis/auth"
 import { ToastNotifications } from "../components/Toastnotification"
 import { Navigate, useNavigate } from "react-router-dom"
 

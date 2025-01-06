@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import "../styles/chat.scss";
 import Send from "../Assests/send.svg";
 import io from "socket.io-client";
-import { fetchMassages } from "../APIs/chatApi";
+import { fetchMassages } from "../apis/chatApi";
 import { getTime } from "../utils/date";
 import { useNavigate } from "react-router-dom";
  

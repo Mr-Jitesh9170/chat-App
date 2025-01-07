@@ -27,16 +27,6 @@ export const userProfileUpdate = async (userData, route) => {
     }
 }
 
-// User Authorizations ( Register/Login ) =>
-export const userAuthorization = async (userData, route) => {
-    try {
-        let responseUser = await api.post(CHAT_URL + route, userData);
-        console.log(responseUser?.data, "<---- User loggined data!")
-        return responseUser?.data;
-    } catch (error) {
-        console.log(error, " <---- User not authorised");
-    }
-}
 
 // Registered Users Lists =>
 export const registerUserLists = async (setChatUsersLists) => {
@@ -45,5 +35,15 @@ export const registerUserLists = async (setChatUsersLists) => {
         setChatUsersLists(response.data.results);
     } catch (error) {
         console.log(error, " <---- Registered user lists");
+    }
+}
+
+// User Authorizations ( Register/Login ) =>
+export const userAuthorization = async (userData, route) => {
+    try {
+        let responseUser = await api.post(CHAT_URL + route, userData);
+        return responseUser?.data;
+    } catch (error) {
+        console.log(error, " <---- User not authorised");
     }
 }

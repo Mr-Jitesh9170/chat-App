@@ -2,6 +2,9 @@ import GalleryIcon from "../Assests/gallery.svg"
 import DocumentsIcon from "../Assests/document.svg"
 import LocationIcon from "../Assests/location.svg"
 import CameraIcon from "../Assests/camera.svg"
+import { CgProfile } from "react-icons/cg";
+import { IoMdLogOut } from "react-icons/io";
+
 
 // Dashboard Icons =>
 import ChatIcon from "../Assests/chatIcons.svg";
@@ -45,14 +48,12 @@ export const ICONS = [
     {
         name: "Profile 👥",
         route: "/chit-chat/dashboard/profile",
-        icons: ProfileIcon
+        icons: <CgProfile size={40} color="#fff" />
     },
     {
-        icons: LogoutIcon
+        icons: <IoMdLogOut size={40} color="#fff" />
     }
 ];
-
-
 
 // Notifications data =>
 export const dummyNotifications = [

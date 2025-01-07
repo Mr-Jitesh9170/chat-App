@@ -4,49 +4,29 @@
   justify-content: center;
   align-items: center;
   background-color: #66347f;
-  .toast-notification-container {
-    position: absolute;
-    right: 20px;
-    top: 100px;
-  }
-
   .container {
     background-color: #37306b;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 350px;
+    width: 25%;
+    min-height: 50%;
     padding: 25px 35px;
-    border-radius: 7px;
+    border-radius: 3px;
     gap: 25px;
 
     input {
       width: 100%;
       padding: 10px 15px;
-      border-radius: 4px;
+      border-radius: 3px;
       border: none;
       background-color: #66347f;
-      color: #d27685
-    }
-
-    h1 {
       color: #d27685;
     }
 
+    h1,
     a {
       color: #d27685;
     }
   }
-}
-
-.auth-btn {
-  width: 100%;
-  padding: 10px 15px;
-  font-size: 18px;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
-  background-color: #66347f;
-  color: #d27685;
 }

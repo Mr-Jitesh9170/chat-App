@@ -1,89 +1,97 @@
 .ChatListsContainer {
-  background-color: rgb(110, 67, 67);
+  background-color: #66347f;
   width: 28%;
   height: 100%;
-  padding: 18px 0 0 0;
+  padding: 15px 0 0 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-
+  gap: 15px;
   .chit-chat {
     color: #ffffff;
-    padding: 0 20px;
+    padding: 0 15px;
   }
-
-  .input-search {
-    width: 100%;
-    padding: 0 20px;
-
-    input {
-      width: 100%;
-      padding: 10px 15px;
-      border-radius: 20px;
-      border: none;
-      outline: none;
-      box-shadow: 0px 0px 3px rgb(34, 20, 20);
-    }
-  }
-
-  .chat-lists {
-    overflow-y: auto;
+  .bottom {
     display: flex;
     flex-direction: column;
-    gap: 3px;
-    padding: 6px 0;
+    gap: 15px;
+    padding: 0px 10px;
+    .input-search {
+      width: 100%;
+      input {
+        width: 100%;
+        padding: 13px 15px;
+        border-radius: 3px;
+        border: none;
+        outline: none;
+        box-shadow: 0px 0px 3px rgb(34, 20, 20);
+        &::-webkit-input-placeholder {
+          color: #66347f;
+         }
+      }
+    }
 
-    .users {
-      padding: 6px 20px;
+    .chatLists {
+      overflow-y: auto;
       display: flex;
-      gap: 20px;
-      align-items: center;
+      flex-direction: column;
+      gap: 3px;
 
-      .users-profile {
-        width: 40px;
-        height: 40px;
-        border-radius: 100%;
-        overflow: hidden;
-        padding: 3px;
+      .users {
+        padding: 16px 12px;
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        text-decoration: none;
+        border: 1px dotted #9e4784;
+        border-radius: 3px;
 
-        img {
-          object-fit: cover;
-          width: 100%;
-          height: 100%;
-          border-radius: 100%;
-        }
-      }
+        .user-name {
+          width: 80%;
 
-      .user-name {
-        width: 80%;
+          .name {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: yellowgreen;
 
-        .name {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          color: yellowgreen;
+            .user {
+              color: rgb(225, 237, 242);
+            }
 
-          .user {
-            color: rgb(225, 237, 242);
+            b {
+              color: rgb(59, 46, 1);
+            }
+
+            .chat-time {
+              font-size: 12px;
+            }
           }
 
-          b {
-            color: rgb(59, 46, 1);
-          }
-
-          .chat-time {
-            font-size: 12px;
+          .last-chat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .lastMsg {
+              font-size: 13px;
+              display: -webkit-box;
+              -webkit-line-clamp: 1;
+              -webkit-box-orient: vertical;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: normal;
+              color: #d27685;
+            }
+            .lastMsgTime {
+              font-size: 10px;
+              color: #d27685;
+            }
           }
         }
 
-        .last-chat {
-          font-size: 12px;
+        &:hover {
+          background-color: #9e4784;
+          cursor: pointer;
         }
-      }
-
-      &:hover {
-        background-color: #adefd143;
-        cursor: pointer;
       }
     }
   }

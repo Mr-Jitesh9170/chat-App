@@ -1,15 +1,11 @@
 import { ICONS } from "../../data/data";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import "./navigation.scss"
 
 const NavigationTabs = () => {
-    let navigate = useNavigate();
 
-    // Logout =>
     const handleLogout = () => {
         localStorage.removeItem("token");
-        navigate("/");
     }
     return (
         <div className="navigationContainer" >
@@ -23,7 +19,7 @@ const NavigationTabs = () => {
                     ICONS.map((_, index) => {
                         return (
                             <Link to={_?.route} onClick={index === 1 ? handleLogout : null} key={index} style={{ textDecoration: "none", position: 'relative' }} >
-                                <img className="nav-img" src={_?.icons} alt="chat-icons" width={27} />
+                                {_.icons}
                             </Link>
                         )
                     })

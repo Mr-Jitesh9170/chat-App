@@ -15,18 +15,24 @@
     flex-direction: column;
     gap: 15px;
     padding: 0px 10px;
+    justify-content: center;
+
     .input-search {
-      width: 100%;
+      display: flex;
+      align-items: center;
+      background-color: #ffffff;
+      padding: 4px 15px;
+      border-radius: 3px;
+      gap: 4px;
       input {
-        width: 100%;
-        padding: 13px 15px;
         border-radius: 3px;
         border: none;
+        padding: 10px 0px;
         outline: none;
-        box-shadow: 0px 0px 3px rgb(34, 20, 20);
+        color: #66347f;
         &::-webkit-input-placeholder {
           color: #66347f;
-         }
+        }
       }
     }
 
@@ -45,31 +51,45 @@
         border: 1px dotted #9e4784;
         border-radius: 3px;
 
-        .user-name {
-          width: 80%;
+        .userProfile {
+          position: relative;
+          .isOnline {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 100%;
+            background-color: #fab12f;
+            z-index: 1;
+            right: -5px;
+            bottom: 20%;
+          }
+        }
 
+        .userDetails {
+          width: 80%;
           .name {
+            color: rgb(225, 237, 242);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: yellowgreen;
-
-            .user {
-              color: rgb(225, 237, 242);
-            }
-
-            b {
-              color: rgb(59, 46, 1);
-            }
-
             .chat-time {
               font-size: 12px;
+              background-color: #37306b;
+              border-radius: 100%;
+              text-align: center;
+              width: 20px;
+              color: #d27685;
+              font-weight: 500;
+              height: 20px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
             }
           }
-
-          .last-chat {
+          .lastChat {
             display: flex;
             justify-content: space-between;
+            gap: 20px;
             align-items: center;
             .lastMsg {
               font-size: 13px;
@@ -83,6 +103,7 @@
             }
             .lastMsgTime {
               font-size: 10px;
+              white-space: nowrap;
               color: #d27685;
             }
           }

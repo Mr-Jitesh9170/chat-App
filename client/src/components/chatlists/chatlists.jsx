@@ -5,12 +5,15 @@ import { registerUserLists } from "../../apis/auth";
 import { fetchCountUnreadMsg } from "../../apis/chatApi";
 import { socket } from "./../../pages/chat";
 import { ProfileIcon } from "./../../components/profileIcon/profileIcon"
-
+import { FaSearch } from "react-icons/fa";
+import { dateToString } from "../../utils/timeAgo";
+import useLoader from "../../hooks/loader";
 
 export const ChatLists = ({ setUser }) => {
     const [users, setUsers] = useState([]);
     const [search, setSearch] = useState("");
     const [lastMsgCount, setLastMsgCount] = useState();
+    const { setLoading, Loader, loading } = useLoader();
 
     let user = localStorage.getItem("token");
 
@@ -22,7 +25,17 @@ export const ChatLists = ({ setUser }) => {
     const handleChangeRoom = (_) => {
         let roomId = [user, _._id].sort().join("");
         setUser((prevState) => {
-            return { oldRoomId: prevState.roomId, roomId: roomId, userName: _.name, isActive: false, userPhoto: _.profilePhoto, participant: [user, _._id], isOnline: _.isOnline, timestamp: new Date(), lastSeen: _.lastSeen }
+            return {
+                oldRoomId: prevState.roomId,
+                roomId: roomId,
+                userName: _.name,
+                isActive: false,
+                userPhoto: _.profilePhoto,
+                participant: [user, _._id],
+                isOnline: _.isOnline,
+                timestamp: new Date(),
+                lastSeen: _.lastSeen
+            }
         })
     }
 
@@ -35,53 +48,72 @@ export const ChatLists = ({ setUser }) => {
     })).then((res) => {
         setLastMsgCount(res)
     }).catch((err) => {
-        console.log(err, "<---- Error massage and massage count!");
+        console.log(err);
     });
 
 
+
+    const handleRegisterUsers = async () => {
+        try {
+            let response = await registerUserLists();
+            setUsers(response?.results)
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setLoading(false)
+        }
+    }
+
     useEffect(() => {
-        registerUserLists(setUsers);
+        handleRegisterUsers();
         socket.emit("isOnline", { isOnline: true, user })
         return () => {
             socket.emit('isOnline', { isOnline: false, user });
         }
     }, []);
 
-
     return (
         <div className="ChatListsContainer">
             <h2 className="chit-chat">Chit-Chat</h2>
             <div className="bottom">
                 <div className="input-search">
-                    <img src="" alt="" />
+                    <FaSearch size={22} color="#66347F" />
                     <input type="text" placeholder="Search user for chat!" value={search} onChange={inputSearch} />
                 </div>
                 <div className="chatLists">
                     {
-                        users.map((_, index) => {
-                            if (_._id !== localStorage.getItem("token") && (_.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()))) {
-                                let msgCounts = lastMsgCount[index]?.unReadCount !== 0 && lastMsgCount[index]?.unReadCount
-                                return (
-                                    <Link className="users" to={`/chit-chat/dashboard/chat/${_._id}`} key={index} onClick={() => handleChangeRoom(_)}>
-                                        <div className="users-profile" style={_.isOnline ? { border: "2px solid yellow" } : null}>
-                                            <ProfileIcon img={_.profilePhoto} />
-                                        </div>
-                                        <div className="user-name">
-                                            <div className="name">
-                                                <b className="user" >{_.name}</b>
-                                                <span className="chat-time">{msgCounts}</span>
+                        loading ? <Loader /> :
+                            users.map((userDetails, index) => {
+                                if (userDetails._id !== localStorage.getItem("token") && (userDetails.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()))) {
+                                    let msgCounts = lastMsgCount[index]?.unReadCount !== 0 && lastMsgCount[index]?.unReadCount
+                                    return (
+                                        <Link className="users" to={`/chit-chat/dashboard/chat/${userDetails._id}`} key={index} onClick={() => handleChangeRoom(userDetails)}>
+                                            <div className="userProfile" >
+                                                <ProfileIcon img={userDetails.profilePhoto} />
+                                                {
+                                                    userDetails.isOnline && (
+                                                        <div className="isOnline"></div>
+                                                    )
+                                                }
                                             </div>
-                                            <div className="last-chat">
-                                                <div className="lastMsg">
-                                                    {lastMsgCount[index]?.lastMassage}
+                                            <div className="userDetails">
+                                                <div className="name">
+                                                    <b className="user" >{userDetails.name}</b>
+                                                    {
+                                                        msgCounts && <span className="chat-time">{msgCounts > 9 ? "9+" : msgCounts}</span>
+                                                    }
                                                 </div>
-                                                <div className="lastMsgTime">12:10 pm</div>
+                                                <div className="lastChat">
+                                                    <div className="lastMsg">
+                                                        {lastMsgCount[index]?.lastMassage}
+                                                    </div>
+                                                    <div className="lastMsgTime">{dateToString(userDetails.lastSeen)}</div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </Link>
-                                )
-                            }
-                        })
+                                        </Link>
+                                    )
+                                }
+                            })
                     }
                 </div>
             </div>

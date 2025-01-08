@@ -29,13 +29,10 @@ export const userProfileUpdate = async (userData, route) => {
 
 
 // Registered Users Lists =>
-export const registerUserLists = async (setChatUsersLists) => {
-    try {
-        let response = await api.get(CHAT_URL + "register");
-        setChatUsersLists(response.data.results);
-    } catch (error) {
-        console.log(error, " <---- Registered user lists");
-    }
+export const registerUserLists = async () => {
+    let response = await api.get(CHAT_URL + "register");
+    console.log(response)
+    return response.data
 }
 
 // User Authorizations ( Register/Login ) =>

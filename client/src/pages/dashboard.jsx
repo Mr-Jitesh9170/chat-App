@@ -4,7 +4,7 @@ import NavigationTabs from "../components/navigation/navigation";
 import { ChatLists } from "../components/chatlists/chatlists";
 
 
-const DashBoard = ({ setUser }) => {
+const DashBoard = () => {
     let user = localStorage.getItem("token");
 
     return (
@@ -15,7 +15,7 @@ const DashBoard = ({ setUser }) => {
                         <div className="dashboard-container">
                             <NavigationTabs />
                             <div className="dashboard-right-container">
-                                <ChatLists setUser={setUser} />
+                                <ChatLists />
                                 <div className="right-container">
                                     <Outlet />
                                 </div>

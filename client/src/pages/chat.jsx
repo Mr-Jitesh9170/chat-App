@@ -1,16 +1,18 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import "../styles/chat.scss";
 import Send from "../Assests/send.svg";
 import io from "socket.io-client";
 import { fetchMassages } from "../apis/chatApi";
 import { getTime } from "../utils/date";
-import { useNavigate } from "react-router-dom";
- 
+import { useNavigate, useParams } from "react-router-dom";
+import { UserContext } from "../context/contextApi";
+
 export const socket = io("http://localhost:8080");
 
-const Chat = ({ user }) => {
+const Chat = () => {
+  const { user } = useContext(UserContext)
   const profile = useNavigate();
-  const [input, setInput] = useState(""); 
+  const [input, setInput] = useState("");
   const [massage, setMassage] = useState([]);
   const [room, setRoom] = useState(
     {
@@ -19,6 +21,9 @@ const Chat = ({ user }) => {
     }
   );
   const [isTyping, setTyping] = useState({ typing: false, _id: '' });
+  const { userId } = useParams()
+
+  console.log(userId ,",-")
 
   useEffect(() => {
     if (!user.roomId) {

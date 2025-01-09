@@ -22,20 +22,4 @@ export const UserProvider = ({ children }) => {
         </UserContext.Provider>
     )
 }
-
-// Notification context =>
-export const NotificationContext = createContext({})
-export const NotificationProvider = ({ children }) => {
-    const [notification, setNotification] = useState(
-        {
-            notiCount: 0,
-            notiLists: [],
-            notificationIds: ''
-        }
-    )
-    return (
-        <NotificationContext.Provider value={{ notification, setNotification }}>
-            {children}
-        </NotificationContext.Provider>
-    )
-}
+ 

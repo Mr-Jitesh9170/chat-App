@@ -3,7 +3,6 @@ const bcrypt = require("bcrypt");
 const mongoose = require("mongoose")
 
 
-// Post , User will register =>
 exports.userRegister = async (req, res) => {
   try {
     let { password, email, name } = req.body;
@@ -29,10 +28,9 @@ exports.userRegister = async (req, res) => {
         massage: "Internal server error"
       }
     )
-  } 
+  }
 }
 
-// User will login =>
 exports.userLogin = async (req, res) => {
   try {
     let { email, password } = req.body;

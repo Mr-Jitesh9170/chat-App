@@ -1,5 +1,5 @@
 import "./chatlists.scss"
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { registerUserLists } from "../../apis/auth";
 import { fetchCountUnreadMsg } from "../../apis/chatApi";
@@ -8,12 +8,14 @@ import { ProfileIcon } from "./../../components/profileIcon/profileIcon"
 import { FaSearch } from "react-icons/fa";
 import { dateToString } from "../../utils/timeAgo";
 import useLoader from "../../hooks/loader";
+import { UserContext } from "../../context/contextApi";
 
-export const ChatLists = ({ setUser }) => {
+export const ChatLists = () => {
     const [users, setUsers] = useState([]);
     const [search, setSearch] = useState("");
     const [lastMsgCount, setLastMsgCount] = useState();
     const { setLoading, Loader, loading } = useLoader();
+    const { setUser } = useContext(UserContext)
 
     let user = localStorage.getItem("token");
 
@@ -51,8 +53,6 @@ export const ChatLists = ({ setUser }) => {
         console.log(err);
     });
 
-
-
     const handleRegisterUsers = async () => {
         try {
             let response = await registerUserLists();
@@ -83,8 +83,8 @@ export const ChatLists = ({ setUser }) => {
                 <div className="chatLists">
                     {
                         loading ? <Loader /> :
-                            users.map((userDetails, index) => {
-                                if (userDetails._id !== localStorage.getItem("token") && (userDetails.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()))) {
+                            users.filter((userDetails) =>  ).map((userDetails, index) => {
+                                if ((userDetails.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()))) {
                                     let msgCounts = lastMsgCount[index]?.unReadCount !== 0 && lastMsgCount[index]?.unReadCount
                                     return (
                                         <Link className="users" to={`/chit-chat/dashboard/chat/${userDetails._id}`} key={index} onClick={() => handleChangeRoom(userDetails)}>

@@ -14,7 +14,7 @@ export const UserProvider = ({ children }) => {
             isOnline: '', 
             lastSeen: '',
             timestamp: ""
-        }
+        } 
     )
     return (
         <UserContext.Provider value={{ user, setUser }}>

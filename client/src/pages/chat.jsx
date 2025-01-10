@@ -5,7 +5,8 @@ import io from "socket.io-client";
 import { fetchMassages } from "../apis/chatApi";
 import { getTime } from "../utils/date";
 import { useNavigate, useParams } from "react-router-dom";
-import { UserContext } from "../context/contextApi";
+import { UserContext } from "../context/userContext";
+import useLoader from "../hooks/loader";
 
 export const socket = io("http://localhost:8080");
 
@@ -21,9 +22,11 @@ const Chat = () => {
     }
   );
   const [isTyping, setTyping] = useState({ typing: false, _id: '' });
+  const { loading, setLoading, Loader } = useLoader();
+
   const { userId } = useParams()
 
-  console.log(userId ,",-")
+  console.log(userId, ",-")
 
   useEffect(() => {
     if (!user.roomId) {
@@ -95,21 +98,21 @@ const Chat = () => {
 
   return (
     <>
-      {user.userName !== '' ? (
-        <div className="chat-container">
-          <div className="chat-top">
-            <div className="chat-profile">
-              <img src={user?.userPhoto} alt="" />
-            </div>
-            <div className="chat-head">
-              <h4>{user?.userName}</h4>
-              <p className="active">
-                {(isTyping.typing && isTyping._id !== socket.id) ? 'Typing...' : (user.isOnline ? 'online' : `Last Seen - ${getTime(user.lastSeen)}`)}
-              </p>
-            </div>
+      <div className="chat-container">
+        <div className="chat-top">
+          <div className="chat-profile">
+            <img src={user?.userPhoto} alt="" />
           </div>
-          <div className="chat-mid" ref={scrollRef}>
-            {
+          <div className="chat-head">
+            <h4>{user?.userName}</h4>
+            <p className="active">
+              {(isTyping.typing && isTyping._id !== socket.id) ? 'Typing...' : (user.isOnline ? 'online' : `Last Seen - ${getTime(user.lastSeen)}`)}
+            </p>
+          </div>
+        </div>
+        <div className="chat-mid" ref={scrollRef}>
+          {
+            loading ? <Loader size={20}  /> :
               massage.map((newMsg, index) => {
                 if (newMsg.senderId === localStorage.getItem('token')) {
                   return (
@@ -130,17 +133,17 @@ const Chat = () => {
                   );
                 }
               })
-            }
-          </div>
-          <div className="chat-bottom">
-            <input type="text" value={input} placeholder={`Say hello to ${user.userName.toLowerCase()}!`} onChange={handleInput} />
-            <button className="send-button" onClick={handleSend}>
-              <img src={Send} alt="" />
-            </button>
-          </div>
+          }
         </div>
-      ) : profile('/chit-chat/dashboard/profile')}
+        <div className="chat-bottom">
+          <input type="text" value={input} placeholder={`Say hello to ${user.userName.toLowerCase()}!`} onChange={handleInput} />
+          <button className="send-button" onClick={handleSend}>
+            <img src={Send} alt="" />
+          </button>
+        </div>
+      </div>
     </>
   );
 };
+
 export default Chat;

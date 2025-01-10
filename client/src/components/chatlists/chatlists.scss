@@ -66,13 +66,29 @@
         }
 
         .userDetails {
+          display: flex;
+          justify-content: space-between;
+          gap: 20px;
           width: 80%;
           .name {
-            color: rgb(225, 237, 242);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            .chat-time {
+            color: #fff;
+            .user {
+              font-weight: 600;
+              font-size: 1rem;
+            }
+            .lastMsg {
+              font-size: 13px;
+              display: -webkit-box;
+              -webkit-line-clamp: 1;
+              -webkit-box-orient: vertical;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: normal;
+              color: #d27685;
+            }
+          }
+          .lastChat {
+            .unreadMsgCount {
               font-size: 12px;
               background-color: #37306b;
               border-radius: 100%;
@@ -85,24 +101,8 @@
               justify-content: center;
               align-items: center;
             }
-          }
-          .lastChat {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-            align-items: center;
-            .lastMsg {
-              font-size: 13px;
-              display: -webkit-box;
-              -webkit-line-clamp: 1;
-              -webkit-box-orient: vertical;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              white-space: normal;
-              color: #d27685;
-            }
             .lastMsgTime {
-              font-size: 10px;
+              font-size: 13px;
               white-space: nowrap;
               color: #d27685;
             }

@@ -2,18 +2,18 @@ import "./chatlists.scss"
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { registerUserLists } from "../../apis/auth";
-import { fetchCountUnreadMsg } from "../../apis/chatApi";
-import { socket } from "./../../pages/chat";
 import { ProfileIcon } from "./../../components/profileIcon/profileIcon"
 import { FaSearch } from "react-icons/fa";
 import { dateToString } from "../../utils/timeAgo";
 import useLoader from "../../hooks/loader";
-import { UserContext } from "../../context/contextApi";
+import { UserContext } from "../../context/userContext";
+
+import { socket } from "./../../pages/chat";
+
 
 export const ChatLists = () => {
-    const [users, setUsers] = useState([]);
+    const [users, setUsers] = useState([]); 
     const [search, setSearch] = useState("");
-    const [lastMsgCount, setLastMsgCount] = useState();
     const { setLoading, Loader, loading } = useLoader();
     const { setUser } = useContext(UserContext)
 
@@ -41,17 +41,6 @@ export const ChatLists = () => {
         })
     }
 
-    Promise.all(users.map(({ _id }) => {
-        if (user !== _id) {
-            let roomId = [user, _id].sort().join("");
-            return (fetchCountUnreadMsg(`/user/unseen/massage/${roomId}`, _id));
-        }
-        return null;
-    })).then((res) => {
-        setLastMsgCount(res)
-    }).catch((err) => {
-        console.log(err);
-    });
 
     const handleRegisterUsers = async () => {
         try {
@@ -82,37 +71,34 @@ export const ChatLists = () => {
                 </div>
                 <div className="chatLists">
                     {
-                        loading ? <Loader /> :
-                            users.filter((userDetails) =>  ).map((userDetails, index) => {
-                                if ((userDetails.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()))) {
-                                    let msgCounts = lastMsgCount[index]?.unReadCount !== 0 && lastMsgCount[index]?.unReadCount
-                                    return (
-                                        <Link className="users" to={`/chit-chat/dashboard/chat/${userDetails._id}`} key={index} onClick={() => handleChangeRoom(userDetails)}>
-                                            <div className="userProfile" >
-                                                <ProfileIcon img={userDetails.profilePhoto} />
-                                                {
-                                                    userDetails.isOnline && (
-                                                        <div className="isOnline"></div>
-                                                    )
-                                                }
+                        loading ? <Loader size={10} /> :
+                            users.filter(
+                                (userDetails) =>
+                                    userDetails.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+                            ).map((userDetails, index) => {
+
+                                return (
+                                    <Link className="users" to={`/chit-chat/dashboard/chat/${userDetails._id}`} key={index} onClick={() => handleChangeRoom(userDetails)}>
+                                        <div className="userProfile" >
+                                            <ProfileIcon img={userDetails.profilePhoto} />
+                                            {
+                                                userDetails.isOnline && (
+                                                    <div className="isOnline"></div>
+                                                )
+                                            }
+                                        </div>
+                                        <div className="userDetails">
+                                            <div className="name">
+                                                <div className="user" >{userDetails.name}</div>
+                                                <div className="lastMsg">hey jitesh pandey what are you doing bro , would you like to come here to me</div>
                                             </div>
-                                            <div className="userDetails">
-                                                <div className="name">
-                                                    <b className="user" >{userDetails.name}</b>
-                                                    {
-                                                        msgCounts && <span className="chat-time">{msgCounts > 9 ? "9+" : msgCounts}</span>
-                                                    }
-                                                </div>
-                                                <div className="lastChat">
-                                                    <div className="lastMsg">
-                                                        {lastMsgCount[index]?.lastMassage}
-                                                    </div>
-                                                    <div className="lastMsgTime">{dateToString(userDetails.lastSeen)}</div>
-                                                </div>
+                                            <div className="lastChat">
+                                                <span className="unreadMsgCount">9+</span>
+                                                <div className="lastMsgTime">{dateToString(userDetails.lastSeen)}</div>
                                             </div>
-                                        </Link>
-                                    )
-                                }
+                                        </div>
+                                    </Link>
+                                )
                             })
                     }
                 </div>

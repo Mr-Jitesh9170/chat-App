@@ -1,18 +1,18 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import "../styles/chat.scss";
-import Send from "../Assests/send.svg";
 import io from "socket.io-client";
 import { fetchMassages } from "../apis/chatApi";
 import { getTime } from "../utils/date";
-import { useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "../context/userContext";
 import useLoader from "../hooks/loader";
+import { VscSend } from "react-icons/vsc";
+import { Message } from "../components/message/message";
+
 
 export const socket = io("http://localhost:8080");
 
 const Chat = () => {
   const { user } = useContext(UserContext)
-  const profile = useNavigate();
   const [input, setInput] = useState("");
   const [massage, setMassage] = useState([]);
   const [room, setRoom] = useState(
@@ -24,16 +24,17 @@ const Chat = () => {
   const [isTyping, setTyping] = useState({ typing: false, _id: '' });
   const { loading, setLoading, Loader } = useLoader();
 
-  const { userId } = useParams()
 
-  console.log(userId, ",-")
 
   useEffect(() => {
     if (!user.roomId) {
       return
     }
     // fetch massages =>
-    fetchMassages(setMassage, `/user/massage/${user.roomId}`);
+    fetchMassages(setMassage, `/user/massage/${user.roomId}`).finally(() => {
+      setLoading(false)
+    });
+    
     // emit roomId =>
     socket.emit("roomJoin", {
       user: localStorage.getItem('token'),
@@ -41,6 +42,7 @@ const Chat = () => {
       participant: user?.participant,
       timestamp: user?.timestamp,
     });
+
     // old room leave => 
     if (user.oldRoomId) {
       socket.emit('roomLeave', user.oldRoomId);
@@ -112,33 +114,21 @@ const Chat = () => {
         </div>
         <div className="chat-mid" ref={scrollRef}>
           {
-            loading ? <Loader size={20}  /> :
-              massage.map((newMsg, index) => {
-                if (newMsg.senderId === localStorage.getItem('token')) {
-                  return (
-                    <div className="me" key={index}>
-                      <span>{newMsg.massage}</span>
-                      <span className="time">{getTime(newMsg.timestamp)}</span>
-                      <b style={newMsg?.seen ? { color: "blue" } : { color: "black" }}>{newMsg?.seen ? '✓✓' : (user.isOnline ? '✓✓' : '✓')}</b>
-                    </div>
-                  );
-                } else {
-                  return (
-                    <div className="you" key={index}>
-                      <span>{newMsg.massage}</span>
-                      <span className="time">
-                        {getTime(newMsg.timestamp)}
-                      </span>
-                    </div>
-                  );
-                }
-              })
+            loading ?
+              (
+                <Loader size={25} />
+              ) :
+              (
+                massage.map((newMsg, index) => {
+                  return <Message key={index} newMsg={newMsg} user={user} />
+                })
+              )
           }
         </div>
         <div className="chat-bottom">
-          <input type="text" value={input} placeholder={`Say hello to ${user.userName.toLowerCase()}!`} onChange={handleInput} />
+          <input type="text" value={input} placeholder={`Say hello to ${user.userName}...`} onChange={handleInput} />
           <button className="send-button" onClick={handleSend}>
-            <img src={Send} alt="" />
+            <VscSend color="#fff" size={30} />
           </button>
         </div>
       </div>

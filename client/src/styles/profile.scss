@@ -1,63 +1,64 @@
 .profile-container {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  background-color: #66347F;
+  .profile-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    overflow: hidden;
+    border: 1px solid black;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  .profiles {
+    width: 35%;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+      rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    border-radius: 5px;
     display: flex;
-    flex-direction: column;
-    align-items: center; 
-    justify-content: center;
-    gap: 30px;
+    gap: 10px;
 
-    .profile-photo {
-        width: 100px;
-        height: 100px;
-        border-radius: 100%;
-        overflow: hidden;
-        border: 1px solid black;
-
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
+    .name-icons,
+    .name {
+      padding: 7px 10px;
     }
 
-    .profiles {
-        width: 35%;
-        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-        border-radius: 5px;
-        display: flex;
-        gap: 10px;
-
-        .name-icons,
-        .name {
-            padding: 7px 10px;
-        }
-
-        :nth-child(1) {
-            width: 14%;
-            border-right: 1px solid black;
-        }
-
-        :nth-child(2) {
-            width: 80%;
-            font-size: 15px;
-        }
+    :nth-child(1) {
+      width: 14%;
+      border-right: 1px solid black;
     }
 
-    .social-meida {
-        display: flex;
-        gap: 10px;
-
-        .icons {
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-
-            img {
-                width: 100%;
-                height: 100%;
-                object-fit: contain;
-            }
-        }
+    :nth-child(2) {
+      width: 80%;
+      font-size: 15px;
     }
+  }
+
+  .social-meida {
+    display: flex;
+    gap: 10px;
+
+    .icons {
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+  }
 }

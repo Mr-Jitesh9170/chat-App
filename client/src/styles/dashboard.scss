@@ -25,10 +25,13 @@
     display: flex;
     width: 94%;
     height: 100%;
-     .right-container {
+    box-shadow: 0px 0px 2px #d2768577;
+
+    .right-container {
       width: 72%;
       height: 100%;
       border-radius: 5px;
+      box-shadow: 0px 0px 2px #d2768577;
     }
   }
 }

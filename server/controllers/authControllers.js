@@ -70,28 +70,3 @@ exports.userLogin = async (req, res) => {
     )
   }
 }
-
-
-// Get , retrieve all the registered user =>
-exports.getUserRegister = async (req, res) => {
-  try {
-
-    let retrieveUsers = await RegisterModel.find().select("-password");
-    res.json(
-      {
-        status: 200,
-        massage: "all the registered user data retrieved",
-        results: retrieveUsers
-      }
-    )
-
-  } catch (error) {
-    console.log(error, " <---- all registered user not retrieved")
-    res.json(
-      {
-        status: 500,
-        massage: "Internal server error"
-      }
-    )
-  }
-}

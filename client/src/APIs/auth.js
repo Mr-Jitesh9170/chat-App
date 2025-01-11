@@ -27,7 +27,6 @@ export const userProfileUpdate = async (userData, route) => {
     }
 }
 
-
 // Registered Users Lists =>
 export const registerUserLists = async () => {
     let response = await api.get(CHAT_URL + "register");

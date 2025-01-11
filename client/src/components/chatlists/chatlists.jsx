@@ -12,7 +12,7 @@ import { socket } from "./../../pages/chat";
 
 
 export const ChatLists = () => {
-    const [users, setUsers] = useState([]); 
+    const [users, setUsers] = useState([]);
     const [search, setSearch] = useState("");
     const { setLoading, Loader, loading } = useLoader();
     const { setUser } = useContext(UserContext)
@@ -71,12 +71,11 @@ export const ChatLists = () => {
                 </div>
                 <div className="chatLists">
                     {
-                        loading ? <Loader size={10} /> :
+                        loading ? <Loader size={25} /> :
                             users.filter(
                                 (userDetails) =>
-                                    userDetails.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+                                    userDetails._id !== localStorage.getItem("token") && userDetails.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
                             ).map((userDetails, index) => {
-
                                 return (
                                     <Link className="users" to={`/chit-chat/dashboard/chat/${userDetails._id}`} key={index} onClick={() => handleChangeRoom(userDetails)}>
                                         <div className="userProfile" >

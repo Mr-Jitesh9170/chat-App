@@ -1,23 +1,23 @@
 .chat-container {
   width: 100%;
   height: 100%;
-
   .chat-top {
     padding: 10px 20px;
     height: 15%;
     display: flex;
     gap: 20px;
-    background-color: rgb(110, 67, 67);
+    background-color: #66347f;
     align-items: center;
 
     .chat-head {
       h4 {
         color: white;
+        font-size: 1rem;
       }
 
       p {
-        color: yellowgreen;
-      } 
+        color: #d27685;
+      }
     }
 
     .chat-profile {
@@ -35,6 +35,8 @@
   }
 
   .chat-mid {
+    background-image: url("../Assests/chatbackground.jpeg");
+    object-fit: contain;
     width: 100%;
     height: 77%;
     overflow-y: auto;
@@ -42,91 +44,47 @@
     display: flex;
     gap: 7px;
     flex-direction: column;
-    .me,
-    .you {
-      padding: 10px 12px;
-      display: flex;
-      gap: 4px;
-
-      &:nth-child(1) {
-        border-radius: 3px;
-        text-align: justify;
-        max-width: 40%;
-        box-shadow: -1px 2px 0px #D4D4D4;
-      }
-
-      .time {
-        font-size: 9px;
-        align-self: flex-end;
-      }
-    }
-
-    .me {
-      align-self: flex-end;
-      background-color: #d1e7ff;
-      border-top-right-radius: 15px;
-      border-bottom-left-radius: 7px;
-      border-top-left-radius: 7px;
-
-      b {
-        font-size: 9px;
-        align-self: flex-end;
-      }
-    }
-
-    .you {
-      border-top-right-radius: 7px;
-      border-bottom-left-radius: 15px;
-      border-bottom-right-radius: 7px;
-      align-self: flex-start;
-      background-color: #f1f1f1;
-    }
-
   }
 
   .chat-bottom {
-    width: 100%;
     height: 8%;
+    background-color: #66347f;
+    padding: 7px 9px;
     display: flex;
-    box-shadow: 0px 0px 1px black;
-    border: 1px solid rgb(110, 67, 67);
-
+    gap: 10px;
     input {
-      width: 95%;
-      padding: 10px 15px;
+      font-size: 1rem;
+      border-radius: 3px;
+      flex: 1;
       border: none;
+      padding: 6px 10px;
+      border: 1px dotted #d27685;
+      &::-webkit-input-placeholder {
+        color: #66347f;
+      }
     }
-
     .send-button {
-      background-color: #adefd1;
-      padding: 10px 15px;
+      border-radius: 3px;
+      background-color: #9e4784;
+      padding: 6px 10px;
       cursor: pointer;
-      border: none;
-      border-left: 1px solid rgb(110, 67, 67);
-
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+      border: 2px dotted #d27685;
+      &:active,
+      &:hover {
+        background-color: #9e47849b;
       }
     }
   }
 }
 
-
 .chat-mid::-webkit-scrollbar-thumb {
-  background-color: yellow;
+  background-color: #9e4784;
   border-radius: 30px;
 }
 
 ::-webkit-scrollbar {
-  width: 7px;
+  width: 10px;
 }
-
 ::-webkit-scrollbar-track {
-  background-color: darkgrey;
-}
-
-::-webkit-scrollbar-thumb {
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #37306b;
 }

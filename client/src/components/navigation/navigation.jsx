@@ -1,12 +1,14 @@
 import { navLiks } from "../../data/data";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./navigation.scss"
 import { ProfileIcon } from "../profileIcon/profileIcon";
 
 const NavigationTabs = () => {
+    const navigation = useNavigate();
 
     const handleLogout = () => {
         localStorage.removeItem("token");
+        navigation("/login")
     }
     return (
         <div className="navigationContainer" >

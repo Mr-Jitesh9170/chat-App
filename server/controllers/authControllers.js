@@ -2,7 +2,6 @@ const RegisterModel = require("../models/register.js")
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose")
 
-
 exports.userRegister = async (req, res) => {
   try {
     let { password, email, name } = req.body;

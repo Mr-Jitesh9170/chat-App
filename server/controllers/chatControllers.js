@@ -6,9 +6,10 @@ const userModel = require('../models/register.js');
 
 // Get , retrieve all the registered user =>
 exports.getUserRegister = async (req, res) => {
+    let { userId } = req.body;
     try {
 
-        let retrieveUsers = await RegisterModel.find().select("-password");
+        let retrieveUsers = await userModel.find().select("-password");
         res.json(
             {
                 status: 200,

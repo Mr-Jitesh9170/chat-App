@@ -1,0 +1,38 @@
+.googleLoginContainer {
+  width: 100%;
+  .or {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+  }
+  .or::before,
+  .or::after {
+    width: 40%;
+    height: 1px;
+    background-color: #ffffff7e;
+    content: "";
+  }
+  .loginWithGoogle {
+    margin-top: 3px;
+    width: 100%;
+    padding: 5px 0;
+    border-radius: 3px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    background-color: #9e4784;
+    cursor: pointer;
+    span {
+      font-weight: 500;
+      color: #37306b;
+    }
+    &:hover {
+      background-color: #9e4784b2;
+    }
+  }
+}

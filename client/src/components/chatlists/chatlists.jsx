@@ -7,7 +7,6 @@ import { FaSearch } from "react-icons/fa";
 import { dateToString } from "../../utils/timeAgo";
 import useLoader from "../../hooks/loader";
 import { UserContext } from "../../context/userContext";
-
 import { socket } from "./../../pages/chat";
 
 
@@ -16,14 +15,12 @@ export const ChatLists = () => {
     const [search, setSearch] = useState("");
     const { setLoading, Loader, loading } = useLoader();
     const { setUser } = useContext(UserContext)
-
     let user = localStorage.getItem("token");
 
     const inputSearch = (e) => {
         let { value } = e.target;
         setSearch(value)
     }
-
     const handleChangeRoom = (_) => {
         let roomId = [user, _._id].sort().join("");
         setUser((prevState) => {
@@ -40,8 +37,6 @@ export const ChatLists = () => {
             }
         })
     }
-
-
     const handleRegisterUsers = async () => {
         try {
             let response = await registerUserLists();
@@ -74,7 +69,7 @@ export const ChatLists = () => {
                         loading ? <Loader size={25} /> :
                             users.filter(
                                 (userDetails) =>
-                                    userDetails._id !== localStorage.getItem("token") && userDetails.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+                                    userDetails.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
                             ).map((userDetails, index) => {
                                 return (
                                     <Link className="users" to={`/chit-chat/dashboard/chat/${userDetails._id}`} key={index} onClick={() => handleChangeRoom(userDetails)}>
@@ -89,10 +84,10 @@ export const ChatLists = () => {
                                         <div className="userDetails">
                                             <div className="name">
                                                 <div className="user" >{userDetails.name}</div>
-                                                <div className="lastMsg">hey jitesh pandey what are you doing bro , would you like to come here to me</div>
+                                                <div className="lastMsg">{userDetails.lastMessage}</div>
                                             </div>
                                             <div className="lastChat">
-                                                <span className="unreadMsgCount">9+</span>
+                                                {userDetails.unreadMsg ? <span className="unreadMsgCount">{userDetails.unreadMsg}</span> : ""}
                                                 <div className="lastMsgTime">{dateToString(userDetails.lastSeen)}</div>
                                             </div>
                                         </div>

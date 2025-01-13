@@ -26,7 +26,7 @@ export const Register = () => {
     }
     let data = { name, email, password }
     await userAuthorization(data, "register");
-    navigate("/login")
+    navigate("/")
   }
   
   return (
@@ -37,7 +37,7 @@ export const Register = () => {
         <input type="email" name="email" placeholder="Email" value={input.email} onChange={handleChange} />
         <input type="password" name="password" placeholder="Password" value={input.password} onChange={handleChange} />
         <Button handleBtn={handleRegister} name={"Submit"} />
-        <Link to={"/login"}  >have an account? Login</Link>
+        <Link to={"/"}  >have an account? Login</Link>
       </div>
       < ToastContainer />
     </div>

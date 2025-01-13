@@ -2,72 +2,33 @@ const massageModel = require("../models/message.js");
 const roomModel = require("../models/chatRoom.js");
 const userModel = require('../models/register.js');
 
-
-
-// Get , retrieve all the registered user =>
 exports.getUserRegister = async (req, res) => {
-    let { userId } = req.body;
+    let { userId } = req.params;
+    if (!userId) {
+        return res.status(400).json({ message: "Missing data!" })
+    }
     try {
-
-        let retrieveUsers = await userModel.find().select("-password");
-        res.json(
-            {
-                status: 200,
-                massage: "all the registered user data retrieved",
-                results: retrieveUsers
-            }
-        )
-
+        let users = await userModel.find({ _id: { $ne: userId } }).select("-password").lean();
+        if (!users.length) {
+            return res.status(404).json({ message: "No users Found!" })
+        }
+        await Promise.all(users.map(async (userData) => {
+            let roomData = await roomModel.findOne({
+                participant: { $all: [userId, userData._id] }
+            })
+            let totalMessge = await massageModel.find({ roomChatId: roomData._id, senderId: { $ne: userId }, seen: false }).sort({ timestamp: -1 });
+            let lastMessage = await massageModel.find({ roomChatId: roomData._id }).sort({ timestamp: -1 });
+            userData.unreadMsg = totalMessge.length;
+            userData.lastMessage = lastMessage[0]?.massage;
+        }))
+        res.json({ status: 200, massage: "Registered users lists!", results: users })
     } catch (error) {
-        console.log(error, " <---- all registered user not retrieved")
-        res.json(
-            {
-                status: 500,
-                massage: "Internal server error"
-            }
-        )
+        console.log(error, " <----Error in getUserRegister")
+        res.json({ status: 500, massage: "Internal server error" })
     }
 }
 
 
-// method => GET
-// work => unseen massages =>
-// routes => /user/unseen/massage/:userId?
-exports.unseenMsgCounts = async (req, res) => {
-    try {
-        let { recieverId: senderId } = req.body;
-        let roomId = req.params.roomId;
-        if (!roomId) {
-            throw 'Invalid userId!'
-        }
-        let isUserRoom = await roomModel.findOne({ roomId }).select('_id');
-        if (!isUserRoom) {
-            throw 'No room Exists!'
-        }
-        let unReadMsgCount = await massageModel.find({
-            roomChatId: isUserRoom._id,
-            senderId,
-            seen: false
-        });
-        let lastMassage = await massageModel.find({ roomChatId: isUserRoom._id });
-        res.json(
-            {
-                status: 200,
-                massage: `userId => Rooms of unRead massages counts!`,
-                results: { unReadMsgCount: !unReadMsgCount.length ? 0 : unReadMsgCount.length, lastMassage: !lastMassage.length ? '' : lastMassage[lastMassage.length - 1] }
-            }
-        )
-    } catch (error) {
-        console.log(error, "<----error unseen massage!")
-        res.json(
-            {
-                status: 500,
-                massage: error,
-                results: []
-            }
-        )
-    }
-}
 
 // method => GET
 // work => user massages =>

@@ -14,7 +14,7 @@ exports.userRegister = async (req, res) => {
     delete responseObject.password;
     res.json(
       {
-        status: 200,
+        status: 200, 
         massage: "User registered",
         results: responseObject
       }

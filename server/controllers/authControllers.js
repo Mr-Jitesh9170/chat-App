@@ -2,70 +2,49 @@ const RegisterModel = require("../models/register.js")
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose")
 
-exports.userRegister = async (req, res) => {
+
+exports.userRegister = async (req, res, next) => {
+  let { password, email, name } = req.body;
+  if (!password || !email || !name) {
+    return res.status(400).json({ message: "Missing data!" })
+  }
   try {
-    let { password, email, name } = req.body;
     let user = await RegisterModel.findOne({ email });
-    if (user) { return res.send("user already exists") }
+    if (user) {
+      return res.status(400).json({ message: "User already exists!" })
+    }
     let saltRounds = 10;
     password = await bcrypt.hash(password, saltRounds);
-    let userRegistered = await RegisterModel.create({ password, email, name })
-    let responseObject = userRegistered.toObject();
-    delete responseObject.password;
-    res.json(
-      {
-        status: 200, 
-        massage: "User registered",
-        results: responseObject
-      }
-    )
+    await RegisterModel.create({ password, email, name })
+    res.status(201).json({ message: "Users registered successfully!" })
   } catch (error) {
-    console.log(error, " <--- user not registered");
-    res.json(
-      {
-        status: 500,
-        massage: "Internal server error"
-      }
-    )
+    next(error);
   }
 }
 
-exports.userLogin = async (req, res) => {
+exports.userLogin = async (req, res, next) => {
+  let { email, password } = req.body;
+  if (!password || !email) {
+    return res.status(400).json({ message: "Missing data!" })
+  }
   try {
-    let { email, password } = req.body;
-
     let user = await RegisterModel.findOne({ email });
-    if (!user)
-      return res.json(
-        {
-          status: 200,
-          massage: 'user not registered'
-        }
-      )
-
+    if (!user) {
+      return res.status(404).json({ message: "User is not registered!" })
+    }
     let matched = await bcrypt.compare(password, user.password)
-    if (!matched)
-      return res.json(
-        {
-          status: 200,
-          massage: "wrong password",
-          token: ""
-        })
-    res.json(
+    if (!matched) {
+      return res.status(400).json({ message: "Password is wrong!" })
+    }
+
+    res.status(200).json(
       {
         status: 200,
         massage: "user loggined",
         results: { _id: user._id, profilePhoto: user.profilePhoto }
       }
     )
-
   } catch (error) {
-    console.log(error, "<--- user not loggined");
-    res.json(
-      {
-        status: 500,
-        massage: "Internal server"
-      }
-    )
+    next(error)
   }
 }

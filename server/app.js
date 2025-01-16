@@ -5,6 +5,7 @@ const { Server } = require("socket.io");
 const cors = require("cors");
 let { socketConnection } = require("./controllers/chatControllers.js");
 const { connectMongo } = require("./config/db.js");
+const { errorHanlder } = require("./middlewares/error.js")
 
 const app = express();
 let server = createServer(app);
@@ -24,11 +25,14 @@ let io = new Server(server, {
     methods: ["GET", "POST"],
   },
 });
+
 socketConnection(io);
 
 app.use(require("./routes/authRoutes.js"));
 app.use(require("./routes/chatRoutes.js"));
 app.use(require("./routes/profileRoutes.js"));
+
+app.use(errorHanlder);
 
 const PORT = process.env.PORT || 8080;
 server.listen(PORT, () => {

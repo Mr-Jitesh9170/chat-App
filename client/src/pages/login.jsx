@@ -15,20 +15,26 @@ export const Login = () => {
             password: ""
         }
     );
-    const navigate = useNavigate();
-
+    const navigate = useNavigate(); 
     const handleLogin = async (e) => {
         e.preventDefault();
-        let { email, password } = input
+        let { email, password } = input;
         if (!email || !password) {
-            return toast.error("Missing field!", alert);
+            return toast.warning("Missing field!", alert);
         }
-        let data = { email, password }
-        let { results: { _id: token, profilePhoto } } = await userAuthorization(data, "login")
-        if (token) {
-            localStorage.setItem("token", token);
-            localStorage.setItem("profilePhoto", profilePhoto);
-            navigate("/chit-chat/dashboard/profile");
+        try {
+            let data = { email, password }
+            let { results: { _id: token, token: jwtToken } } = await userAuthorization(data, "login");
+            if (token) {
+                localStorage.setItem("token", token);
+                localStorage.setItem("jwtToken", jwtToken);
+                navigate("/chit-chat/dashboard/profile");
+                return toast.success(`login successfully!`, alert)
+            }
+            toast.error(`Something went wrong!`, alert)
+        } catch (error) {
+            console.log(error) 
+            toast.error(error.response.data.message, alert)
         }
     }
 

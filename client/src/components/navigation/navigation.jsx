@@ -8,6 +8,7 @@ const NavigationTabs = () => {
 
     const handleLogout = () => {
         localStorage.removeItem("token");
+        localStorage.removeItem("jwtToken");
         navigation("/login")
     }
     return (

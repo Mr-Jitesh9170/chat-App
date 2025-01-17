@@ -13,27 +13,32 @@ export const Register = () => {
     {
       name: "",
       email: "",
-      password: ""
+      password: "",
+      mobileNumber: '',
     }
   );
   const navigate = useNavigate();
-
   const handleRegister = async (e) => {
     e.preventDefault();
-    let { name, email, password } = input
-    if (!name || !email || !password) {
+    let { name, email, password, mobileNumber } = input
+    if (!name || !email || !password || !mobileNumber) {
       return toast.error("Missing field!", alert);
     }
-    let data = { name, email, password }
-    await userAuthorization(data, "register");
-    navigate("/")
+    try {
+      await userAuthorization(input, "register");
+      navigate("/")
+      return toast.success(`Registered successfully!`, alert)
+    } catch (error) {
+      toast.error(error.response.data.message, alert)
+    }
   }
-  
+
   return (
     <div className="authentication-container">
       < div className="container" action="/register" method="post">
         <h1 className="auth-head">Register</h1>
         <input type="text" name="name" placeholder="Name" value={input.name} onChange={handleChange} />
+        <input type="number" name="mobileNumber" placeholder="Number" value={input.mobileNumber} onChange={handleChange} />
         <input type="email" name="email" placeholder="Email" value={input.email} onChange={handleChange} />
         <input type="password" name="password" placeholder="Password" value={input.password} onChange={handleChange} />
         <Button handleBtn={handleRegister} name={"Submit"} />

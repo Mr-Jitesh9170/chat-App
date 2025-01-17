@@ -5,7 +5,8 @@ const { Server } = require("socket.io");
 const cors = require("cors");
 let { socketConnection } = require("./controllers/chatControllers.js");
 const { connectMongo } = require("./config/db.js");
-const { errorHanlder } = require("./middlewares/error.js")
+const { errorHanlder } = require("./middlewares/error.js");
+const { verifyJwtToken } = require("./middlewares/jwt.js")
 
 const app = express();
 let server = createServer(app);
@@ -29,6 +30,7 @@ let io = new Server(server, {
 socketConnection(io);
 
 app.use(require("./routes/authRoutes.js"));
+app.use(verifyJwtToken);
 app.use(require("./routes/chatRoutes.js"));
 app.use(require("./routes/profileRoutes.js"));
 

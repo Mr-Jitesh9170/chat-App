@@ -16,6 +16,9 @@ exports.getUserRegister = async (req, res) => {
             let roomData = await roomModel.findOne({
                 participant: { $all: [userId, userData._id] }
             })
+            if (!roomData) {
+                return;
+            }
             let totalMessge = await massageModel.find({ roomChatId: roomData._id, senderId: { $ne: userId }, seen: false }).sort({ timestamp: -1 });
             let lastMessage = await massageModel.find({ roomChatId: roomData._id }).sort({ timestamp: -1 });
             userData.unreadMsg = totalMessge.length;
@@ -28,43 +31,31 @@ exports.getUserRegister = async (req, res) => {
     }
 }
 
-
-
 // method => GET
 // work => user massages =>
 // routes => /user/massage/:roomId?
 exports.massageControllers = async (req, res) => {
+    let roomId = req.params.roomId;
+    if (!roomId) {
+        return res.status(400).json({ message: "Missing roomId!" })
+    }
     try {
-        let roomId = req.params.roomId;
-        if (!roomId) {
-            throw "Missing roomId!"
-        }
         let room = await roomModel.findOne({ roomId })
         if (!room) {
-            throw "No room exists!"
+            return res.status(400).json({ message: "Invalid roomId!" })
         }
         let massages = await massageModel.find({ roomChatId: room._id }).select('massage seen senderId timestamp');
         if (!massages.length) {
-            throw "No conversation found!"
+            return res.status(400).json({ message: "No convertations!" })
         }
-        res.json(
-            {
-                status: 200,
-                massage: `RoomId => ${roomId} of massages!`,
-                results: massages
-            }
-        )
+        res.json({ status: 200, massage: `RoomId => ${roomId} of massages!`, results: massages })
     } catch (error) {
         console.log(error, "<--- error feching massages!")
-        res.json(
-            {
-                status: 500,
-                massage: error,
-                results: []
-            }
-        )
+        res.json({ status: 500, massage: error, results: [] })
     }
 }
+
+
 
 // socket connection =>
 exports.socketConnection = (io) => {

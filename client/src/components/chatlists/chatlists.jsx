@@ -67,7 +67,7 @@ export const ChatLists = () => {
                 <div className="chatLists">
                     {
                         loading ? <Loader size={25} /> :
-                            users.filter(
+                            users?.filter(
                                 (userDetails) =>
                                     userDetails.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
                             ).map((userDetails, index) => {

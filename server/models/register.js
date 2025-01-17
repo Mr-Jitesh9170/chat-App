@@ -11,6 +11,11 @@ const registerSchema = new Schema(
       unique: true,
       required: true
     },
+    mobileNumber: {
+      type: Number,
+      unique: true,
+      required: true
+    },
     profilePhoto: {
       type: String,
       default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9LJ-AHFG7OTn0OFl7v2m8elkhlz2iIodFuXpBTVROwQ&s"

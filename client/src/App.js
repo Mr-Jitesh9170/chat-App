@@ -13,7 +13,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/chit-chat/dashboard" element={<DashBoard />} >
           <Route path="/chit-chat/dashboard/profile" element={<Profile />} />
-          <Route path="/chit-chat/dashboard/chat/:userId" element={<Chat />} />
+          <Route path="/chit-chat/dashboard/chat/:roomId" element={<Chat />} />
         </Route>
       </Routes>
     </BrowserRouter>

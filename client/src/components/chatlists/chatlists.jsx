@@ -72,7 +72,7 @@ export const ChatLists = () => {
                                     userDetails.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
                             ).map((userDetails, index) => {
                                 return (
-                                    <Link className="users" to={`/chit-chat/dashboard/chat/${userDetails._id}`} key={index} onClick={() => handleChangeRoom(userDetails)}>
+                                    <Link className="users" to={`/chit-chat/dashboard/chat/${userDetails.roomId}`} key={index} onClick={() => handleChangeRoom(userDetails)}>
                                         <div className="userProfile" >
                                             <ProfileIcon img={userDetails.profilePhoto} />
                                             {

@@ -2,7 +2,7 @@ const massageModel = require("../models/message.js");
 const roomModel = require("../models/chatRoom.js");
 const userModel = require('../models/register.js');
 
-exports.getUserRegister = async (req, res) => {
+exports.registeredUserLists = async (req, res) => {
     let { userId } = req.params;
     if (!userId) {
         return res.status(400).json({ message: "Missing data!" })
@@ -23,6 +23,7 @@ exports.getUserRegister = async (req, res) => {
             let lastMessage = await massageModel.find({ roomChatId: roomData._id }).sort({ timestamp: -1 });
             userData.unreadMsg = totalMessge.length;
             userData.lastMessage = lastMessage[0]?.massage;
+            userData.roomId = roomData.roomId;
         }))
         res.json({ status: 200, massage: "Registered users lists!", results: users })
     } catch (error) {

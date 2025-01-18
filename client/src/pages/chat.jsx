@@ -7,11 +7,13 @@ import { UserContext } from "../context/userContext";
 import useLoader from "../hooks/loader";
 import { VscSend } from "react-icons/vsc";
 import { Message } from "../components/message/message";
+import { useParams } from "react-router-dom";
 
 
 export const socket = io("http://localhost:8080");
 
 const Chat = () => {
+  const { roomId: userRoomId } = useParams()
   const { user } = useContext(UserContext)
   const [input, setInput] = useState("");
   const [massage, setMassage] = useState([]);
@@ -27,14 +29,12 @@ const Chat = () => {
 
 
   useEffect(() => {
-    if (!user.roomId) {
-      return
-    }
+
     // fetch massages =>
-    fetchMassages(setMassage, `/user/massage/${user.roomId}`).finally(() => {
+    fetchMassages(setMassage, `/user/massage/${userRoomId}`).finally(() => {
       setLoading(false)
     });
-    
+
     // emit roomId =>
     socket.emit("roomJoin", {
       user: localStorage.getItem('token'),

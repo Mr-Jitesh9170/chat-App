@@ -13,7 +13,12 @@ import { useParams } from "react-router-dom";
 export const socket = io("http://localhost:8080");
 
 const Chat = () => {
-  const { roomId: userRoomId } = useParams()
+  const { userId } = useParams()
+
+  let logginUser = localStorage.getItem("token");
+  let userRoomId = [logginUser, userId].sort().join("");
+
+
   const { user } = useContext(UserContext)
   const [input, setInput] = useState("");
   const [massage, setMassage] = useState([]);
@@ -37,18 +42,19 @@ const Chat = () => {
 
     // emit roomId =>
     socket.emit("roomJoin", {
-      user: localStorage.getItem('token'),
-      roomId: user?.roomId,
-      participant: user?.participant,
-      timestamp: user?.timestamp,
+      user: logginUser,
+      roomId: userRoomId,
+      participant: [logginUser, userId],
+      timestamp: new Date(),
     });
 
     // old room leave => 
     if (user.oldRoomId) {
-      socket.emit('roomLeave', user.oldRoomId);
+      socket.emit('roomLeave', userRoomId);
     }
-  }, [user]);
+  }, [userId]);
 
+  
   useEffect(() => {
     // room joining =>
     socket.on('roomJoin', (roomNumber) => {
@@ -64,7 +70,7 @@ const Chat = () => {
       setTyping({ typing: isTyping, _id })
     })
     return () => {
-      socket.emit('roomLeave', user.roomId)
+      socket.emit('roomLeave', userRoomId)
       socket.off();
     }
   }, []);
@@ -85,7 +91,7 @@ const Chat = () => {
       seen: false,
       senderId: localStorage.getItem("token"),
     }
-    socket.emit("chat", user?.roomId, createMassage);
+    socket.emit("chat", userRoomId, createMassage);
     setInput("");
     socket.emit('typing', { isTyping: false, roomId: room.roomId, _id: socket.id })
   };
@@ -126,7 +132,7 @@ const Chat = () => {
           }
         </div>
         <div className="chat-bottom">
-          <input type="text" value={input} placeholder={`Say hello to ${user.userName}...`} onChange={handleInput} />
+          <input type="text" value={input} placeholder={`Say hello to...`} onChange={handleInput} />
           <button className="send-button" onClick={handleSend}>
             <VscSend color="#fff" size={30} />
           </button>

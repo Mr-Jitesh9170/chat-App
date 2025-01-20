@@ -28,7 +28,7 @@ let io = new Server(server, {
 });
 
 socketConnection(io);
-
+ 
 app.use(require("./routes/authRoutes.js"));
 app.use(verifyJwtToken);
 app.use(require("./routes/chatRoutes.js"));

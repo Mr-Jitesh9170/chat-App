@@ -8,4 +8,4 @@ const chatSchema = new Schema(
     }
 )
 
-module.exports = model("chatRoom", chatSchema, "chatRoom");  
+module.exports = model("chatRoom", chatSchema, "chatRoom");   

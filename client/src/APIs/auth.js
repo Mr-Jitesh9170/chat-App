@@ -7,13 +7,14 @@ export const api = axios.create({
     headers: { Authorization: `Bearer ${localStorage.getItem('jwtToken')}` }
 });
 
+
 // Get , User Profile Data =>
 export const getProfileUser = async (setUserProfile, _id) => {
     try {
         let { data: { results } } = await api.post("profile", { _id });
         return setUserProfile(results);
     } catch (error) {
-        console.log(error, " <---- User profile data not retrieved");
+        console.log(error, " <---- User profile data not retrieved"); 
     }
 }
 

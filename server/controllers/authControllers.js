@@ -19,7 +19,7 @@ exports.userRegister = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-}
+} 
 
 exports.userLogin = async (req, res, next) => {
   let { email, password } = req.body;

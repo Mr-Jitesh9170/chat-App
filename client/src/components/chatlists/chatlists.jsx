@@ -1,12 +1,11 @@
 import "./chatlists.scss"
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { registerUserLists } from "../../apis/auth";
 import { ProfileIcon } from "./../../components/profileIcon/profileIcon"
 import { FaSearch } from "react-icons/fa";
 import { dateToString } from "../../utils/timeAgo";
 import useLoader from "../../hooks/loader";
-import { UserContext } from "../../context/userContext";
 import { socket } from "./../../pages/chat";
 
 
@@ -14,29 +13,15 @@ export const ChatLists = () => {
     const [users, setUsers] = useState([]);
     const [search, setSearch] = useState("");
     const { setLoading, Loader, loading } = useLoader();
-    const { setUser } = useContext(UserContext)
+
     let user = localStorage.getItem("token");
 
     const inputSearch = (e) => {
         let { value } = e.target;
         setSearch(value)
     }
-    const handleChangeRoom = (_) => {
-        let roomId = [user, _._id].sort().join("");
-        setUser((prevState) => {
-            return {
-                oldRoomId: prevState.roomId,
-                roomId: roomId,
-                userName: _.name,
-                isActive: false,
-                userPhoto: _.profilePhoto,
-                participant: [user, _._id],
-                isOnline: _.isOnline,
-                timestamp: new Date(),
-                lastSeen: _.lastSeen
-            }
-        })
-    }
+
+ 
     const handleRegisterUsers = async () => {
         try {
             let response = await registerUserLists();
@@ -72,7 +57,7 @@ export const ChatLists = () => {
                                     userDetails.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
                             ).map((userDetails, index) => {
                                 return (
-                                    <Link className="users" to={`/chit-chat/dashboard/chat/${userDetails.roomId}`} key={index} onClick={() => handleChangeRoom(userDetails)}>
+                                    <Link className="users" to={`/chit-chat/dashboard/chat/${userDetails._id}`} key={index}  >
                                         <div className="userProfile" >
                                             <ProfileIcon img={userDetails.profilePhoto} />
                                             {

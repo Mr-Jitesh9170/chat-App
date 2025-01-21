@@ -24,7 +24,7 @@ exports.registeredUserLists = async (req, res) => {
             userData.unreadMsg = totalMessge.length;
             userData.lastMessage = lastMessage[0]?.massage;
             userData.roomId = roomData.roomId;
-        })) 
+        }))
         res.json({ status: 200, massage: "Registered users lists!", results: users })
     } catch (error) {
         console.log(error, " <----Error in getUserRegister")
@@ -32,10 +32,9 @@ exports.registeredUserLists = async (req, res) => {
     }
 }
 
-// method => GET
-// work => user massages =>
-// routes => /user/massage/:roomId?
 exports.massageControllers = async (req, res) => {
+    let { userId, roomId } = req.body;
+
     let roomId = req.params.roomId;
     if (!roomId) {
         return res.status(400).json({ message: "Missing roomId!" })

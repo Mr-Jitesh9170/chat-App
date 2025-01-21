@@ -20,7 +20,6 @@ export const ChatLists = () => {
         let { value } = e.target;
         setSearch(value)
     }
-
  
     const handleRegisterUsers = async () => {
         try {

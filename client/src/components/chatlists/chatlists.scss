@@ -37,11 +37,10 @@
     }
 
     .chatLists {
-      overflow-y: auto;
       display: flex;
       flex-direction: column;
       gap: 3px;
-
+      overflow-y: scroll;
       .users {
         padding: 16px 12px;
         display: flex;
@@ -114,6 +113,10 @@
           cursor: pointer;
         }
       }
+    }
+
+    .chatLists::-webkit-scrollbar {
+      display: none;
     }
   }
 }

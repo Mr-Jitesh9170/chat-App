@@ -8,7 +8,7 @@ const Profile = () => {
     useEffect(() => {
         getProfileUser(setProfile, localStorage.getItem("token"))
     }, [])
-    const socialMedias = [ 
+    const socialMedias = [
         {
             name: "Linkdin",
             link: "https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png",
@@ -29,9 +29,9 @@ const Profile = () => {
                 <img src={profile.profilePhoto} alt="" />
             </div>
             {
-                updatedProfile.map((_) => {
+                updatedProfile.map((_, i) => {
                     return (
-                        <div className="profiles">
+                        <div className="profiles" key={i}>
                             <div className="name-icons">{_.icon}</div>
                             <div className="name">{_.name}</div>
                         </div>
@@ -40,9 +40,9 @@ const Profile = () => {
             }
             <div className="social-meida">
                 {
-                    socialMedias.map((_) => {
+                    socialMedias.map((_, i) => {
                         return (
-                            <div className="icons">
+                            <div className="icons" key={i}>
                                 <img src={_.link} alt="" />
                             </div>
                         )

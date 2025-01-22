@@ -33,20 +33,23 @@ exports.registeredUserLists = async (req, res, next) => {
 
 exports.massageControllers = async (req, res, next) => {
     let { userId, roomId } = req.body;
-    if (!userId || !roomId) {
+     if (!userId || !roomId) {
         return res.status(400).json({ message: "Missing field!" })
     }
     try {
         let userDetails = await userModel.findOne({ _id: userId }).select("name profilePhoto isOnline lastSeen");
-        let roomDetails = await roomModel.findOne({ roomId })
-        if (!roomDetails || !userDetails) {
+        if (!userDetails) {
             return res.status(404).json({ message: "Invalid data!" })
+        }
+        let roomDetails = await roomModel.findOne({ roomId });
+        if (!roomDetails) {
+            return res.status(200).json({ message: "No convertation found!", userDetails, converstationLists: [] })
         }
         let converstationLists = await massageModel.find({ roomChatId: roomDetails._id });
         if (!converstationLists.length) {
-            return res.status(200).json({ massage: "No conversation found!", userDetails, converstationLists: [] })
+            return res.status(200).json({ massage: "User details but No conversation found!", userDetails, converstationLists: [] })
         }
-        res.status(200).json({ massage: "User details and messages!", userDetails, converstationLists })
+        res.status(200).json({ massage: "User details and converstations!", userDetails, converstationLists })
     } catch (error) {
         next(error)
     }

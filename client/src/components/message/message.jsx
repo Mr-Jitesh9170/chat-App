@@ -9,4 +9,4 @@ export const Message = ({ newMsg, user }) => {
             {newMsg.senderId === localStorage.getItem('token') && < b style={newMsg?.seen ? { color: "blue" } : { color: "black" }}>{newMsg?.seen ? '✓✓' : (user.isOnline ? '✓✓' : '✓')}</b>}
         </div >
     )
-}
+} 

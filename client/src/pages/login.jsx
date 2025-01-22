@@ -28,13 +28,13 @@ export const Login = () => {
             if (token) {
                 localStorage.setItem("token", token);
                 localStorage.setItem("jwtToken", jwtToken);
-                navigate("/chit-chat/dashboard/profile");
+                navigate("/chit-chat/dashboard");
                 return toast.success(`login successfully!`, alert)
             }
             toast.error(`Something went wrong!`, alert)
         } catch (error) {
             console.log(error) 
-            toast.error(error.response.data.message, alert)
+            toast.error(error.response.data.message, alert) 
         }
     }
 

@@ -23,12 +23,12 @@ connectMongo();
 let io = new Server(server, {
   cors: {
     origin: "http://localhost:3000",
-    methods: ["GET", "POST"],
-  },
+  }
 });
 
+
 socketConnection(io);
- 
+
 app.use(require("./routes/authRoutes.js"));
 app.use(verifyJwtToken);
 app.use(require("./routes/chatRoutes.js"));

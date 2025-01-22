@@ -2,25 +2,22 @@ import { useEffect, useRef, useState } from "react";
 import "../styles/chat.scss";
 import io from "socket.io-client";
 import { OneToOneConvertationLists } from "../apis/chatApi";
-import { getTime } from "../utils/date";
+import { dateToString } from "./../utils/timeAgo";
 import useLoader from "../hooks/loader";
 import { VscSend } from "react-icons/vsc";
 import { Message } from "../components/message/message";
 import { useParams } from "react-router-dom";
-
+import { useInputChange } from "../hooks/inputChange";
 
 export const socket = io("http://localhost:8080");
 
 const Chat = () => {
   const { userId } = useParams()
-
   let logginUser = localStorage.getItem("token");
   let userRoomId = [logginUser, userId].sort().join("");
-
-  const [input, setInput] = useState("");
+  const { input, setInput } = useInputChange("")
   const [userDetails, setUserDetails] = useState({});
   const [massage, setMassage] = useState([]);
-
   const [room, setRoom] = useState(
     {
       roomId: "",
@@ -64,14 +61,12 @@ const Chat = () => {
 
   useEffect(() => {
     retriveOneToOneMsg();
-
     socket.emit("roomJoin", {
       user: logginUser,
       roomId: userRoomId,
       participant: [logginUser, userId],
       timestamp: new Date(),
     });
-
     setRoom((prev) => {
       if (prev.roomId) {
         socket.emit('roomLeave', prev.roomId);
@@ -84,7 +79,6 @@ const Chat = () => {
     socket.on('roomJoin', (roomNumber) => {
       setRoom({ roomId: roomNumber.roomId, roomChatId: roomNumber.roomChatId });
     })
-
     socket.on("chat", (newMessage) => {
       setMassage((prevMessages) => [...prevMessages, newMessage]);
     });
@@ -98,7 +92,6 @@ const Chat = () => {
   }, []);
 
 
-  // scroll top to bottom =>
   const scrollRef = useRef(null);
   useEffect(() => {
     if (scrollRef.current) {
@@ -116,7 +109,7 @@ const Chat = () => {
           <div className="chat-head">
             <h4>{userDetails?.name}</h4>
             <p className="active">
-              {(isTyping.typing && isTyping._id !== socket.id) ? 'Typing...' : (userDetails.isOnline ? 'online' : `Last Seen - ${getTime(userDetails.lastSeen)}`)}
+              {(isTyping.typing && isTyping._id !== socket.id) ? 'Typing...' : (userDetails.isOnline ? 'online' : `Last Seen • ${dateToString(userDetails.lastSeen)}`)}
             </p>
           </div>
         </div>

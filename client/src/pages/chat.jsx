@@ -1,9 +1,8 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../styles/chat.scss";
 import io from "socket.io-client";
-import { fetchMassages } from "../apis/chatApi";
+import { OneToOneConvertationLists } from "../apis/chatApi";
 import { getTime } from "../utils/date";
-import { UserContext } from "../context/userContext";
 import useLoader from "../hooks/loader";
 import { VscSend } from "react-icons/vsc";
 import { Message } from "../components/message/message";
@@ -18,29 +17,54 @@ const Chat = () => {
   let logginUser = localStorage.getItem("token");
   let userRoomId = [logginUser, userId].sort().join("");
 
-
-  const { user } = useContext(UserContext)
   const [input, setInput] = useState("");
+  const [userDetails, setUserDetails] = useState({});
   const [massage, setMassage] = useState([]);
+
   const [room, setRoom] = useState(
     {
       roomId: "",
       roomChatId: ""
     }
   );
+
   const [isTyping, setTyping] = useState({ typing: false, _id: '' });
   const { loading, setLoading, Loader } = useLoader();
 
+  const handleInput = (e) => {
+    setInput(e.target.value);
+    socket.emit('typing', { isTyping: true, roomId: userRoomId, _id: socket.id })
+  };
 
+  const handleSend = () => {
+    let inputMessage = input.trim();
+    if (!inputMessage) return;
+    let createMassage = {
+      roomChatId: room.roomChatId,
+      massage: inputMessage,
+      timestamp: new Date(),
+      seen: false,
+      senderId: logginUser,
+    }
+    socket.emit("chat", userRoomId, createMassage);
+    setInput("");
+  };
+
+  const retriveOneToOneMsg = async () => {
+    try {
+      let results = await OneToOneConvertationLists({ userId, roomId: userRoomId })
+      setUserDetails(results?.userDetails);
+      setMassage(results?.converstationLists);
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   useEffect(() => {
+    retriveOneToOneMsg();
 
-    // fetch massages =>
-    fetchMassages(setMassage, `/user/massage/${userRoomId}`).finally(() => {
-      setLoading(false)
-    });
-
-    // emit roomId =>
     socket.emit("roomJoin", {
       user: logginUser,
       roomId: userRoomId,
@@ -48,53 +72,31 @@ const Chat = () => {
       timestamp: new Date(),
     });
 
-    // old room leave => 
-    if (user.oldRoomId) {
-      socket.emit('roomLeave', userRoomId);
-    }
-  }, [userId]);
+    setRoom((prev) => {
+      if (prev.roomId) {
+        socket.emit('roomLeave', prev.roomId);
+      }
+    })
+  }, [userRoomId]);
 
-  
+
   useEffect(() => {
-    // room joining =>
     socket.on('roomJoin', (roomNumber) => {
       setRoom({ roomId: roomNumber.roomId, roomChatId: roomNumber.roomChatId });
     })
-    // new message =>
+
     socket.on("chat", (newMessage) => {
       setMassage((prevMessages) => [...prevMessages, newMessage]);
     });
-
-    // typing =>
     socket.on('typing', ({ isTyping, _id }) => {
       setTyping({ typing: isTyping, _id })
     })
     return () => {
-      socket.emit('roomLeave', userRoomId)
+      socket.emit('roomLeave', room.roomId)
       socket.off();
     }
   }, []);
 
-  // input massage =>
-  const handleInput = (e) => {
-    setInput(e.target.value);
-    socket.emit('typing', { isTyping: true, roomId: room.roomId, _id: socket.id })
-  };
-
-  // send massage =>
-  const handleSend = () => {
-    if (!input.trim()) return;
-    let createMassage = {
-      roomChatId: room.roomChatId,
-      massage: input.trim(),
-      timestamp: new Date(),
-      seen: false,
-      senderId: localStorage.getItem("token"),
-    }
-    socket.emit("chat", userRoomId, createMassage);
-    setInput("");
-    socket.emit('typing', { isTyping: false, roomId: room.roomId, _id: socket.id })
-  };
 
   // scroll top to bottom =>
   const scrollRef = useRef(null);
@@ -109,12 +111,12 @@ const Chat = () => {
       <div className="chat-container">
         <div className="chat-top">
           <div className="chat-profile">
-            <img src={user?.userPhoto} alt="" />
+            <img src={userDetails?.profilePhoto} alt="" />
           </div>
           <div className="chat-head">
-            <h4>{user?.userName}</h4>
+            <h4>{userDetails?.name}</h4>
             <p className="active">
-              {(isTyping.typing && isTyping._id !== socket.id) ? 'Typing...' : (user.isOnline ? 'online' : `Last Seen - ${getTime(user.lastSeen)}`)}
+              {(isTyping.typing && isTyping._id !== socket.id) ? 'Typing...' : (userDetails.isOnline ? 'online' : `Last Seen - ${getTime(userDetails.lastSeen)}`)}
             </p>
           </div>
         </div>
@@ -125,15 +127,19 @@ const Chat = () => {
                 <Loader size={25} />
               ) :
               (
-                massage.map((newMsg, index) => {
-                  return <Message key={index} newMsg={newMsg} user={user} />
+                massage?.map((newMsg, index) => {
+                  return <Message key={index} newMsg={newMsg} user={userDetails} />
                 })
               )
           }
         </div>
         <div className="chat-bottom">
-          <input type="text" value={input} placeholder={`Say hello to...`} onChange={handleInput} />
-          <button className="send-button" onClick={handleSend}>
+          <input type="text" value={input} placeholder={`Say hello to...`} onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleSend()
+            }
+          }} onChange={handleInput} />
+          <button className="send-button" onClick={handleSend} >
             <VscSend color="#fff" size={30} />
           </button>
         </div>

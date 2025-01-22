@@ -38,7 +38,7 @@ const registerSchema = new Schema(
     },
     lastSeen: {
       type: Date,
-      default: Date.now()
+      default: Date.now
     },
   },
   {
@@ -46,4 +46,4 @@ const registerSchema = new Schema(
   }
 )
 
-module.exports = model("User", registerSchema);
+module.exports = model("User", registerSchema); 

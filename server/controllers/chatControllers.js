@@ -2,7 +2,7 @@ const massageModel = require("../models/message.js");
 const roomModel = require("../models/chatRoom.js");
 const userModel = require('../models/register.js');
 
-exports.registeredUserLists = async (req, res) => {
+exports.registeredUserLists = async (req, res, next) => {
     let { userId } = req.params;
     if (!userId) {
         return res.status(400).json({ message: "Missing data!" })
@@ -27,51 +27,40 @@ exports.registeredUserLists = async (req, res) => {
         }))
         res.json({ status: 200, massage: "Registered users lists!", results: users })
     } catch (error) {
-        console.log(error, " <----Error in getUserRegister")
-        res.json({ status: 500, massage: "Internal server error" })
+        next(error)
     }
 }
 
-exports.massageControllers = async (req, res) => {
+exports.massageControllers = async (req, res, next) => {
     let { userId, roomId } = req.body;
-
-    let roomId = req.params.roomId;
-    if (!roomId) {
-        return res.status(400).json({ message: "Missing roomId!" })
+    if (!userId || !roomId) {
+        return res.status(400).json({ message: "Missing field!" })
     }
     try {
-        let room = await roomModel.findOne({ roomId })
-        if (!room) {
-            return res.status(400).json({ message: "Invalid roomId!" })
+        let userDetails = await userModel.findOne({ _id: userId }).select("name profilePhoto isOnline lastSeen");
+        let roomDetails = await roomModel.findOne({ roomId })
+        if (!roomDetails || !userDetails) {
+            return res.status(404).json({ message: "Invalid data!" })
         }
-        let massages = await massageModel.find({ roomChatId: room._id }).select('massage seen senderId timestamp');
-        if (!massages.length) {
-            return res.status(400).json({ message: "No convertations!" })
+        let converstationLists = await massageModel.find({ roomChatId: roomDetails._id });
+        if (!converstationLists.length) {
+            return res.status(200).json({ massage: "No conversation found!", userDetails, converstationLists: [] })
         }
-        res.json({ status: 200, massage: `RoomId => ${roomId} of massages!`, results: massages })
+        res.status(200).json({ massage: "User details and messages!", userDetails, converstationLists })
     } catch (error) {
-        console.log(error, "<--- error feching massages!")
-        res.json({ status: 500, massage: error, results: [] })
+        next(error)
     }
 }
-
-
 
 // socket connection =>
 exports.socketConnection = (io) => {
 
-    // socket connection =>
     io.on("connection", (socket) => {
-
-        console.log(`This User => ${socket.id} connected!!`);
-
-        // isOnline =>
         socket.on('isOnline', async ({ isOnline, user }) => {
             socket.username = user;
             await userModel.findOneAndUpdate({ _id: user }, { isOnline });
         })
 
-        // room joined =>
         socket.on("roomJoin", async (roomNumber) => {
             if (roomNumber.roomId === "" || roomNumber.roomId === undefined) {
                 return
@@ -81,17 +70,18 @@ exports.socketConnection = (io) => {
             if (!isRoom) {
                 isRoom = await roomModel.create(roomNumber);
             }
-            await massageModel.updateMany({ roomChatId: isRoom._id, senderId: { $ne: roomNumber.user }, seen: false }, { seen: true });
+            let isChats = await massageModel.find({ roomChatId: isRoom._id });
+            if (isChats.length) {
+                await massageModel.updateMany({ roomChatId: isRoom._id, senderId: { $ne: roomNumber.user }, seen: false }, { seen: true });
+            }
             socket.emit('roomJoin', { roomId: roomNumber.roomId, roomChatId: isRoom._id });
             socket.join(roomNumber.roomId);
         })
 
-        // typing =>
         socket.on('typing', ({ isTyping, roomId, _id }) => {
             io.to(roomId).emit('typing', { isTyping, _id })
         })
 
-        // chat massages =>
         socket.on("chat", async (roomId, newMassages) => {
             let roomSize = io.sockets.adapter.rooms.get(roomId)?.size;
             if (roomSize > 1) {
@@ -104,15 +94,12 @@ exports.socketConnection = (io) => {
             }
         })
 
-        // room leaved =>
         socket.on("roomLeave", (roomNumber) => {
             socket.leave(roomNumber);
         })
 
-        // user disconnected =>
         socket.on("disconnect", async () => {
             await userModel.findOneAndUpdate({ _id: socket.username }, { isOnline: false, lastSeen: new Date() });
-            console.log(`This User => ${socket.id} disconnected!!`)
         });
 
     });

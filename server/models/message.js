@@ -10,4 +10,4 @@ const massageSchema = new Schema(
     } 
 )
 
-module.exports = model("Massages", massageSchema, "Massages"); 
+module.exports = model("Massages", massageSchema, "Massages");  

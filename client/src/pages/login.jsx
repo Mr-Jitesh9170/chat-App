@@ -6,16 +6,19 @@ import { alert } from "../utils/alert"
 import { Link, useNavigate } from "react-router-dom"
 import "../styles/auth.scss"
 import { GoogleAuth } from "../components/googleAuth/googleAuth";
+import { useContext } from "react";
+import { UserContext } from "../context/userContext";
 
 
 export const Login = () => {
+    const { setUser } = useContext(UserContext)
     const { input, handleChange } = useInputChange(
         {
             email: "",
             password: ""
         }
     );
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
     const handleLogin = async (e) => {
         e.preventDefault();
         let { email, password } = input;
@@ -24,17 +27,19 @@ export const Login = () => {
         }
         try {
             let data = { email, password }
-            let { results: { _id: token, token: jwtToken } } = await userAuthorization(data, "login");
-            if (token) {
-                localStorage.setItem("token", token);
+            let { results } = await userAuthorization(data, "/login");
+            if (results) {
+                let jwtToken = results?.token;
+                let token = results?._id
                 localStorage.setItem("jwtToken", jwtToken);
-                navigate("/chit-chat/dashboard");
-                return toast.success(`login successfully!`, alert)
+                localStorage.setItem("token", token);
+                setUser(results._id)
+                return navigate("/");
             }
             toast.error(`Something went wrong!`, alert)
         } catch (error) {
-            console.log(error) 
-            toast.error(error.response.data.message, alert) 
+            console.log(error)
+            toast.error(error.response.data.message, alert)
         }
     }
 

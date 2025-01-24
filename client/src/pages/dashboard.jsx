@@ -1,31 +1,31 @@
 import "../styles/dashboard.scss"
-import { Outlet, Navigate } from "react-router-dom";
 import NavigationTabs from "../components/navigation/navigation";
+import { Navigate, Outlet } from "react-router-dom";
 import { ChatLists } from "../components/chatlists/chatlists";
+import { useContext } from "react";
+import { UserContext } from "../context/userContext";
 
 
 const DashBoard = () => {
-    let user = localStorage.getItem("token");
+    const { user } = useContext(UserContext)
 
     return (
         <>
             {
                 user ?
-                    (
-                        <div className="dashboard-container">
+                    <div className="dashboard-container" >
+                        <div className="leftContainer">
                             <NavigationTabs />
-                            <div className="dashboard-right-container">
-                                <ChatLists />
-                                <div className="right-container">
-                                    <Outlet />
-                                </div>
-                            </div>
-                        </div >
-                    )
+                        </div>
+                        <div className="midContainer">
+                            <ChatLists />
+                        </div>
+                        <div className="rightContainer">
+                            <Outlet />
+                        </div>
+                    </div >
                     :
-                    ( 
-                        <Navigate to="/" />
-                    )
+                    <Navigate to={"/login"} />
             }
         </>
     )

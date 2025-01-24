@@ -1,12 +1,27 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import "../styles/profile.scss"
 import { getProfileUser } from "../apis/auth";
-
+import { UserContext } from "./../context/userContext"
+import { ProfileIcon } from "../components/profileIcon/profileIcon";
 const Profile = () => {
+    const { user } = useContext(UserContext)
     const [profile, setProfile] = useState({});
-    let updatedProfile = [{ name: profile.name, icon: "👥", }, { name: profile.number, icon: "📱", }, { name: profile.email, icon: "📧", }]
+
+    let updatedProfile = [{ name: profile.name, icon: "👥", }, { name: profile.mobileNumber, icon: "📱", }, { name: profile.email, icon: "📧", }]
+
+    const userProfileHandler = async () => {
+        try {
+            let results = await getProfileUser(user);
+            if (results) {
+                setProfile(results.userProfile)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     useEffect(() => {
-        getProfileUser(setProfile, localStorage.getItem("token"))
+        userProfileHandler();
     }, [])
     const socialMedias = [
         {
@@ -25,8 +40,9 @@ const Profile = () => {
 
     return (
         <div className="profile-container">
-            <div className="profile-photo">
-                <img src={profile.profilePhoto} alt="" />
+
+            <div className="profileIcon">
+                <ProfileIcon width={"150px"} height={"150px"} img={profile.profilePhoto} />
             </div>
             {
                 updatedProfile.map((_, i) => {

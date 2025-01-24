@@ -20,10 +20,6 @@ const registerSchema = new Schema(
       type: String,
       default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9LJ-AHFG7OTn0OFl7v2m8elkhlz2iIodFuXpBTVROwQ&s"
     },
-    number: {
-      type: String,
-      default: null,
-    },
     password: {
       type: String,
       required: true,

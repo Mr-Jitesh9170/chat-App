@@ -9,15 +9,15 @@ function App() {
   return (
     <BrowserRouter>
       <Routes >
-        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/chit-chat/dashboard" element={<DashBoard />} >
-          <Route path="/chit-chat/dashboard/profile" element={<Profile />} />
-          <Route path="/chit-chat/dashboard/chat/:userId" element={<Chat />} />
+        <Route path="/" element={<DashBoard />} >
+          <Route index element={<Profile />} />
+          <Route path="/chat/:userId" element={<Chat />} />
         </Route>
       </Routes>
     </BrowserRouter>
   );
-} 
+}
 
 export default App; 

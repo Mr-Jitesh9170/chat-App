@@ -25,8 +25,8 @@ export const Register = () => {
       return toast.error("Missing field!", alert);
     }
     try {
-      await userAuthorization(input, "register");
-      navigate("/")
+      await userAuthorization(input, "/register");
+      navigate("/login")
       return toast.success(`Registered successfully!`, alert)
     } catch (error) {
       toast.error(error.response.data.message, alert)
@@ -42,7 +42,7 @@ export const Register = () => {
         <input type="email" name="email" placeholder="Email" value={input.email} onChange={handleChange} />
         <input type="password" name="password" placeholder="Password" value={input.password} onChange={handleChange} />
         <Button handleBtn={handleRegister} name={"Submit"} />
-        <Link to={"/"}  >have an account? Login</Link>
+        <Link to={"/login"}  >have an account? Login</Link>
       </div>
       < ToastContainer />
     </div>

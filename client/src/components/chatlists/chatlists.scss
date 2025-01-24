@@ -1,22 +1,21 @@
 .ChatListsContainer {
   background-color: #66347f;
-  width: 28%;
+  width: 100%;
   height: 100%;
-  padding: 15px 0 0 0;
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  .chit-chat {
-    color: #ffffff;
-    padding: 0 15px;
-  }
-  .bottom {
+  gap: 10px;
+  padding: 10px;
+  .top {
+    flex: 1;
+    width: 100%;
     display: flex;
+    gap: 5px;
     flex-direction: column;
-    gap: 15px;
-    padding: 0px 10px;
     justify-content: center;
-
+    .chit-chat {
+      color: #ffffff;
+    }
     .input-search {
       display: flex;
       align-items: center;
@@ -35,88 +34,88 @@
         }
       }
     }
+  }
 
-    .chatLists {
+  .chatLists {
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    overflow-y: scroll;
+    .users {
+      padding: 16px 12px;
       display: flex;
-      flex-direction: column;
-      gap: 3px;
-      overflow-y: scroll;
-      .users {
-        padding: 16px 12px;
-        display: flex;
-        gap: 20px;
-        align-items: center;
-        text-decoration: none;
-        border: 1px dotted #9e4784;
-        border-radius: 3px;
+      gap: 20px;
+      align-items: center;
+      text-decoration: none;
+      border: 1px dotted #9e4784;
+      border-radius: 3px;
 
-        .userProfile {
-          position: relative;
-          .isOnline {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            border-radius: 100%;
-            background-color: #fab12f;
-            z-index: 1;
-            right: -5px;
-            bottom: 20%;
-          }
-        }
-
-        .userDetails {
-          display: flex;
-          justify-content: space-between;
-          gap: 20px;
-          width: 80%;
-          .name {
-            color: #fff;
-            .user {
-              font-weight: 600;
-              font-size: 1rem;
-            }
-            .lastMsg {
-              font-size: 13px;
-              display: -webkit-box;
-              -webkit-line-clamp: 1;
-              -webkit-box-orient: vertical;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              white-space: normal;
-              color: #d27685;
-            }
-          }
-          .lastChat {
-            .unreadMsgCount {
-              font-size: 12px;
-              background-color: #37306b;
-              border-radius: 100%;
-              text-align: center;
-              width: 20px;
-              color: #d27685;
-              font-weight: 500;
-              height: 20px;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-            }
-            .lastMsgTime {
-              font-size: 13px;
-              white-space: nowrap;
-              color: #d27685;
-            }
-          }
-        }
-
-        &:hover {
-          background-color: #9e4784;
-          cursor: pointer;
+      .userProfile {
+        position: relative;
+        .isOnline {
+          position: absolute;
+          width: 10px;
+          height: 10px;
+          border-radius: 100%;
+          background-color: #fab12f;
+          z-index: 1;
+          right: -5px;
+          bottom: 20%;
         }
       }
-    }
 
-    .chatLists::-webkit-scrollbar {
-      display: none;
+      .userDetails {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        width: 80%;
+        .name {
+          color: #fff;
+          .user {
+            font-weight: 600;
+            font-size: 1rem;
+          }
+          .lastMsg {
+            font-size: 13px;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: normal;
+            color: #d27685;
+          }
+        }
+        .lastChat {
+          .unreadMsgCount {
+            font-size: 12px;
+            background-color: #37306b;
+            border-radius: 100%;
+            text-align: center;
+            width: 20px;
+            color: #d27685;
+            font-weight: 500;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+          .lastMsgTime {
+            font-size: 13px;
+            white-space: nowrap;
+            color: #d27685;
+          }
+        }
+      }
+
+      &:hover {
+        background-color: #9e4784;
+        cursor: pointer;
+      }
     }
+  }
+  .chatLists::-webkit-scrollbar {
+    display: none;
   }
 }

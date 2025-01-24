@@ -1,10 +1,4 @@
  
-import { CgProfile } from "react-icons/cg";
-import { IoMdLogOut } from "react-icons/io";
-
- 
-
-// Edit Profile => 
 export const editProfile = [
     {
         name: "profilePhoto",
@@ -33,10 +27,4 @@ export const editProfile = [
     },
 ]
 
-// Dashboard Icons =>
-export const navLiks = [
-    {
-        icons: <IoMdLogOut size={40} color="#fff" />
-    }
-];
-  
+ 

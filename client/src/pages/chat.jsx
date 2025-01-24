@@ -8,6 +8,7 @@ import { VscSend } from "react-icons/vsc";
 import { Message } from "../components/message/message";
 import { useParams } from "react-router-dom";
 import { useInputChange } from "../hooks/inputChange";
+import { IoCallOutline } from "react-icons/io5";
 
 export const socket = io("http://localhost:8080");
 
@@ -103,14 +104,19 @@ const Chat = () => {
     <>
       <div className="chat-container">
         <div className="chat-top">
-          <div className="chat-profile">
-            <img src={userDetails?.profilePhoto} alt="" />
+          <div className="leftChatTop">
+            <div className="chat-profile">
+              <img src={userDetails?.profilePhoto} alt="" />
+            </div>
+            <div className="chat-head">
+              <h4>{userDetails?.name}</h4>
+              <p className="active">
+                {(isTyping.typing && isTyping._id !== socket.id) ? 'Typing...' : (userDetails.isOnline ? 'online' : `Last Seen • ${dateToString(userDetails.lastSeen)}`)}
+              </p>
+            </div>
           </div>
-          <div className="chat-head">
-            <h4>{userDetails?.name}</h4>
-            <p className="active">
-              {(isTyping.typing && isTyping._id !== socket.id) ? 'Typing...' : (userDetails.isOnline ? 'online' : `Last Seen • ${dateToString(userDetails.lastSeen)}`)}
-            </p>
+          <div className="callBtn">
+            <IoCallOutline color="#37306B" size={30} />
           </div>
         </div>
         <div className="chat-mid" ref={scrollRef}>

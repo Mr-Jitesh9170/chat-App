@@ -23,7 +23,7 @@ const DashBoard = () => {
                         </div >
                     )
                     :
-                    (
+                    ( 
                         <Navigate to="/" />
                     )
             }

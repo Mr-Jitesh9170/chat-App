@@ -6,7 +6,7 @@ import { dateToString } from "./../utils/timeAgo";
 import useLoader from "../hooks/loader";
 import { VscSend } from "react-icons/vsc";
 import { Message } from "../components/message/message";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useInputChange } from "../hooks/inputChange";
 import { IoCallOutline } from "react-icons/io5";
 
@@ -115,9 +115,9 @@ const Chat = () => {
               </p>
             </div>
           </div>
-          <div className="callBtn">
+          <Link to={`/call/${12122}`} className="callBtn">
             <IoCallOutline color="#37306B" size={30} />
-          </div>
+          </Link>
         </div>
         <div className="chat-mid" ref={scrollRef}>
           {

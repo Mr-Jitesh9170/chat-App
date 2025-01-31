@@ -4,6 +4,7 @@ import Profile from "./pages/profile";
 import Chat from "./pages/chat";
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
+import CallingProfile from "./pages/outgoingCall";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<DashBoard />} >
           <Route index element={<Profile />} />
+          <Route path="/call/:callerId" element={<CallingProfile />} />
           <Route path="/chat/:userId" element={<Chat />} />
         </Route>
       </Routes>
